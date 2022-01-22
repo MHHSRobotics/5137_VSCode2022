@@ -6,7 +6,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.OffIntake_Command;
+import frc.robot.commands.OnIntake_Command;
+import frc.robot.commands.ReversedOnIntake_Command;
+import frc.robot.subsystems.Intake_Subsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /**
@@ -17,10 +20,14 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  
+  public static Intake_Subsystem intake_Subsystem;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     // Configure the button bindings
+
+    intake_Subsystem = new Intake_Subsystem(); 
     configureButtonBindings();
   }
 
@@ -38,11 +45,11 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
 
-   //Autonomouse code 
-  /*public Command getAutonomousCommand() {
+  //Autonomous Code 
+  /*
+  public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
   }
   */
-  
 }
