@@ -4,14 +4,16 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+
+import com.revrobotics.SparkMaxAlternateEncoder;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+
 //import io.github.pseudoresonance.pixy2api.Pixy2; 
 //what does this do
 
@@ -22,10 +24,14 @@ public class Intake_Subsystem extends SubsystemBase {
     boolean toggleIntakeDirection = false;
 
 
+    public Spark intakeMotor = new Spark(Constants.intakePort);
+
+
     public Intake_Subsystem() {
         //constructor 
         //gives motor varuable values 
     }
+
     
     @Override
     public void periodic() {
@@ -36,30 +42,32 @@ public class Intake_Subsystem extends SubsystemBase {
     //checks whether intake needs to end (?)
     public void toggleIntake(boolean wantsOn, boolean reversed) {
         if (wantsOn) {
-
+            if (reversed){
+                intakeBallsOut();
+            }
+            else{
+                intakeBallsIn();
+            }
         }
         else {
             endIntake();
         }
     }
     
-    //checks which direction wheels are running 
-    public void intakeBalls(boolean reversed) {
-        if (reversed) {
-            //reverse the motor 
-            //used when trying push balls out of the robot (outTake)
-        }
-        else {
-            //intakeVictor.set(-Constants.intakeVictorOutput);
-            //run motor forward
-            //used when trying to intake balls
-           
-        }
+    //picks up balls from feild into robot
+    public void intakeBallsIn() {
+        intakeMotor.set(Constants.intakeSpeed);
     } 
 
-    //switvhes motor off
+    //reverses intake to push balls out
+    public void intakeBallsOut() {
+        intakeMotor.set(Constants.intakeSpeed * -1);
+    }
+
+    //switches motor off
     public void endIntake() {
         //switches motor off by setting it's value to zero
+        intakeMotor.stopMotor();
     }
 
     //autonomous maybe possibly hopefully 
