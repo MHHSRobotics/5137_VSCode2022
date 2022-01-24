@@ -13,6 +13,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+
     public final static double driveSensitivity = 1.0; //bigger # means less sensitivity, from 0.5 to 2.0
     //10.0: baby speed, 9.0: tdddler mode, 7.0: fast toddler mode, 5.0: optimal turn speed, 4.5:
     public final static double turnSensitivity = 3.0; //4.5 seems nice
@@ -22,9 +23,14 @@ public final class Constants {
     public static final int leftFrontCAN = 2;
     public static final int rightBackCAN = 3;
     public static final int rightFrontCAN = 4;
-
-    // Controller Constants
+    
+    //controller constants
+    public static final int conveyorPort = 0;
+    public static final double conveyorSpeed = 0;
+    public static final int RTAxisPort = 0;
+    public static final int LTAxisPort = 0;
     public static final int LYStickAxisPort = 0;
     public static final int RXStickAxisPort = 0;
     public static final int portForDrive = 0;
-}
+    
+    }

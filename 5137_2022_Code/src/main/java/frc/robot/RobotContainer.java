@@ -4,13 +4,20 @@
 
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.RunConveyorTowardsIntake;
+import frc.robot.commands.RunConveyorTowardsShooter;
+import frc.robot.commands.StopConveyor;
+import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.DriveBaseSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -19,20 +26,29 @@ import edu.wpi.first.wpilibj2.command.Command;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+ // public static final Joystick driveController = null;
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  public static DriveBaseSubsystem driveBase_Subsystem; 
+  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  public final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  public static DriveBaseSubsystem driveBase_Subsystem;
+  public static Conveyor conveyor_subsystem;
 
-  // Joysticks
-  public static Joystick driveController;
-  
+  // Triggers
+  public static Trigger ArTrigger;
+  public static Trigger AlTrigger;
+
+  //XBox Controllers
+  public static XboxController driverController = new XboxController(1);
+  public static XboxController assistantController = new XboxController(0);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    conveyor_subsystem = new Conveyor();
     driveBase_Subsystem = new DriveBaseSubsystem();
-    driveController = new Joystick(Constants.portForDrive);
+    Joystick driveController = new Joystick(Constants.portForDrive);
+
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -42,8 +58,17 @@ public class RobotContainer {
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * @param AssistantController 
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() { 
+
+    ArTrigger.whileActiveContinuous(new RunConveyorTowardsIntake());
+    ArTrigger.whenInactive(new StopConveyor());
+
+    AlTrigger.whileActiveContinuous(new RunConveyorTowardsShooter());
+    AlTrigger.whenInactive(new StopConveyor());
+
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
