@@ -29,7 +29,7 @@ public class Intake_Subsystem extends SubsystemBase {
 
     public Intake_Subsystem() {
         //constructor 
-        //gives motor varuable values 
+        //gives motor variable values 
     }
 
     
@@ -54,7 +54,7 @@ public class Intake_Subsystem extends SubsystemBase {
         }
     }
     
-    //picks up balls from feild into robot
+    //picks up balls from field into robot
     public void intakeBallsIn() {
         intakeMotor.set(Constants.intakeSpeed);
     } 
