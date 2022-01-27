@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.HangSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -21,10 +22,12 @@ public class RobotContainer {
   private Command autoCommand;
 
   public static Joystick assXBoxController;
+  public static HangSubsystem hang_Subsystem;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     assXBoxController = new Joystick(Constants.assControllerPort);
+    hang_Subsystem = new HangSubsystem();
     // Configure the button bindings
     configureButtonBindings();
   }

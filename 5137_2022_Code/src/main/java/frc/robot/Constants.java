@@ -17,4 +17,6 @@ public final class Constants {
     public static final int hangExtensionMotorPort = 0;
     public static final int hangExtensionMotor = 0;
     public static final double hangExtensionSpeed = 0;
-    public static final int assControllerPort = 0;}
+    public static final int assControllerPort = 0;
+    public static final int assLYStickAxisPort = 0;
+    public static final int assRXStickAxisPort = 0;}
