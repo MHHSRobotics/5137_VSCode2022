@@ -5,8 +5,6 @@
 package frc.robot.subsystems;
 
 
-import com.revrobotics.SparkMaxAlternateEncoder;
-
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
