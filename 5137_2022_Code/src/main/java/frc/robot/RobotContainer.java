@@ -4,9 +4,11 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.Hang;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.HangSubsystem;
 
@@ -18,6 +20,13 @@ import frc.robot.subsystems.HangSubsystem;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  public static Hang hang_Subsystem = new Hang();
+
+  public static DigitalInput LimitSwitchExtend;
+  public static DigitalInput LimitSwitchRotate;
+  
+  /*private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();*/
+  /*private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);*/
 
   private Command autoCommand;
 
