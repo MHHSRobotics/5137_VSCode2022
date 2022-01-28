@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.commands.ArcadeDrive;
 
 public class DriveBaseSubsystem extends SubsystemBase {
@@ -45,6 +46,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
 	newDriveSpeed = 0;
 	actualDriveSpeed = 0;
 	previousDriveSpeed = 0;
+
+	XBoxController = RobotContainer.driveController;
   }
 
   @Override

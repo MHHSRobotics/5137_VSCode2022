@@ -28,8 +28,8 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    driveBase_Subsystem = new DriveBaseSubsystem();
     driveController = new Joystick(Constants.portForDrive);
+    driveBase_Subsystem = new DriveBaseSubsystem();
     // Configure the button bindings
     configureButtonBindings();
   }
