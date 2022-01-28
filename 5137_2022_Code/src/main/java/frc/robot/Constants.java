@@ -24,7 +24,7 @@ public final class Constants {
     public static final int rightFrontCAN = 4;
 
     // Controller Constants
-    public static final int LYStickAxisPort = 0;
-    public static final int RXStickAxisPort = 0;
+    public static final int LYStickAxisPort = 1;
+    public static final int RXStickAxisPort = 4;
     public static final int portForDrive = 0;
 }
