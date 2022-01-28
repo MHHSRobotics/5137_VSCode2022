@@ -18,10 +18,10 @@ public final class Constants {
     public final static double turnSensitivity = 3.0; //4.5 seems nice
     public final static boolean isQuickTurn = true; //makes turning the drive base able to override constant-curvature turning for turn-in-place maneuvers.
 
-    public static final int leftBackCAN = 1; // All dummy values
+    public static final int leftBackCAN = 1; 
     public static final int leftFrontCAN = 2;
-    public static final int rightBackCAN = 3;
-    public static final int rightFrontCAN = 4;
+    public static final int rightBackCAN = 5;
+    public static final int rightFrontCAN = 6;
 
     // Controller Constants
     public static final int LYStickAxisPort = 1;
