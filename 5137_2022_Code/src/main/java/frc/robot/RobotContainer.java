@@ -75,6 +75,9 @@ public class RobotContainer {
     intake_Subsystem = new Intake_Subsystem(); 
     configureButtonBindings();
 
+    DriverController = new Joystick(Constants.driverControllerPort);
+    AssistantController = new Joystick(Constants.assisControllerPort);
+
   }
 
   /**

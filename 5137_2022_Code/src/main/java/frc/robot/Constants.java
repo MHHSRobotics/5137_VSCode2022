@@ -15,10 +15,12 @@ package frc.robot;
 public final class Constants {
 
     //Motors have not been set to proper values 
-    public static final int intakePort = 0;
-    public static final double intakeSpeed = 0;
-    public static final int RTAxisPort = 0;
-    public static final int LTAxisPort = 0;
-    public static final int RButtonPort = 0;
-    public static final int LBButtonPort = 0;
+    public static final int intakePort = 7;
+    public static final double intakeSpeed = 0.3;
+    public static final int RTAxisPort = 3;
+    public static final int LTAxisPort = 2;
+    public static final int RButtonPort = 10;
+    public static final int LBButtonPort = 11;
+    public static final int driverControllerPort = 0;
+    public static final int assisControllerPort = 1;
 }
