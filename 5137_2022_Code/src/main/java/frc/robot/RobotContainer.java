@@ -9,14 +9,13 @@ import java.util.function.BooleanSupplier;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.OffIntake_Command;
-import frc.robot.commands.OnIntake_Command;
-import frc.robot.commands.ReversedOnIntake_Command;
-import frc.robot.subsystems.Intake_Subsystem;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.OffIntake_Command;
+import frc.robot.commands.OnIntake_Command;
+import frc.robot.subsystems.Intake_Subsystem;
+import frc.robot.commands.ReversedOnIntake_Command;
 
 
 
@@ -29,6 +28,8 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+
+  public OffIntake_Command offIntakeCommand = new OffIntake_Command();
 
   // Joystick buttons
   public static JoystickButton AButton; // A
