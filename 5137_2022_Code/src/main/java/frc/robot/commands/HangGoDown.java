@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import javax.swing.plaf.synth.SynthSpinnerUI;
+//import javax.swing.plaf.synth.SynthSpinnerUI;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
@@ -26,7 +26,7 @@ public class HangGoDown extends CommandBase {
   @Override
   public void execute() {
     RobotContainer.hang_Subsystem.allowed = false;
-    RobotContainer.hang_Subsystem.HangGoDown();
+    RobotContainer.hang_Subsystem.hangGoDown();
   }
 
   // Called once the command ends or is interrupted.

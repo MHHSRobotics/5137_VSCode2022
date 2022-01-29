@@ -8,7 +8,8 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.RobotContainer;j2.command.SubsystemBase;
+import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
 public class Hang extends SubsystemBase 
@@ -18,8 +19,6 @@ public class Hang extends SubsystemBase
   { 
     public boolean allowed; 
 
-    DigitalInput limitSwitchExtend;
-    DigitalInput limitSwitchRotate;
 
     limitSwitchExtend = RobotContainer.LimitSwitchExtend;
     limitSwitchRotate = RobotContainer.LimitSwitchRotate;
