@@ -25,12 +25,13 @@ public final class Constants {
     public static final int rightFrontCAN = 4;
     
     //controller constants
-    public static final int conveyorPort = 0;
-    public static final double conveyorSpeed = 0;
-    public static final int RTAxisPort = 0;
-    public static final int LTAxisPort = 0;
-    public static final int LYStickAxisPort = 0;
-    public static final int RXStickAxisPort = 0;
+    public static final int conveyorPort = 7;
+    public static final double conveyorSpeed = 0.3;
+    public static final int RTAxisPort = 3;
+    public static final int LTAxisPort = 2;
+    public static final int LYStickAxisPort = 10;
+    public static final int RXStickAxisPort = 9;
     public static final int portForDrive = 0;
+    public static final int portForAssis = 1;
     
     }

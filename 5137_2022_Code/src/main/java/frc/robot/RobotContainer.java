@@ -39,14 +39,15 @@ public class RobotContainer {
   public static Trigger AlTrigger;
 
   //XBox Controllers
-  public static XboxController driverController = new XboxController(1);
-  public static XboxController assistantController = new XboxController(0);
+  public static Joystick driverController;
+  public static Joystick assistantController;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     conveyor_subsystem = new Conveyor();
     driveBase_Subsystem = new DriveBaseSubsystem();
-    Joystick driveController = new Joystick(Constants.portForDrive);
+    driverController = new Joystick(Constants.portForDrive);
+    assistantController = new Joystick(Constants.portForAssis);
 
 
     // Configure the button bindings
@@ -60,11 +61,28 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    * @param AssistantController 
    */
-  private void configureButtonBindings() { 
-
+  private void configureButtonBindings() {
+    BooleanSupplier booleanSupplyAssistantRT = () -> {
+      if (assistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && driverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
+          return true;
+      } else {
+          return false;
+      }
+    };
+    
+    BooleanSupplier booleanSupplyAssistantLT = () -> {
+      if (assistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && driverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
+          return true;
+      } else {
+          return false;
+      }
+  }; 
+    
+    ArTrigger = new Trigger(booleanSupplyAssistantRT);
     ArTrigger.whileActiveContinuous(new RunConveyorTowardsIntake());
     ArTrigger.whenInactive(new StopConveyor());
 
+    AlTrigger = new Trigger(booleanSupplyAssistantLT);
     AlTrigger.whileActiveContinuous(new RunConveyorTowardsShooter());
     AlTrigger.whenInactive(new StopConveyor());
 
