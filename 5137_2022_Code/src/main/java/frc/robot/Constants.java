@@ -26,7 +26,7 @@ public final class Constants {
     
     //controller constants
     public static final int conveyorPort = 7;
-    public static final double conveyorSpeed = 0.3;
+    public static final double conveyorSpeed = 1;
     public static final int RTAxisPort = 3;
     public static final int LTAxisPort = 2;
     public static final int LYStickAxisPort = 10;
