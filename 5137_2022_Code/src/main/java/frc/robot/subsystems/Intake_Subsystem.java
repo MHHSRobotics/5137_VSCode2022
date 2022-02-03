@@ -5,6 +5,9 @@
 package frc.robot.subsystems;
 
 
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -22,7 +25,7 @@ public class Intake_Subsystem extends SubsystemBase {
     boolean toggleIntakeDirection = false;
 
 
-    public Spark intakeMotor = new Spark(Constants.intakePort);
+    public CANSparkMax intakeMotor = new CANSparkMax(Constants.intakePort, MotorType.kBrushless);
 
 
     public Intake_Subsystem() {

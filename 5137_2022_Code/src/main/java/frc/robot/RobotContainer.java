@@ -9,8 +9,7 @@ import java.util.function.BooleanSupplier;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.OffIntake_Command;
 import frc.robot.commands.OnIntake_Command;
@@ -30,36 +29,12 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public OffIntake_Command offIntakeCommand = new OffIntake_Command();
-
-  // Joystick buttons
-  public static JoystickButton AButton; // A
-  public static JoystickButton BButton; // B
-  public static JoystickButton XButton; // ...
-  public static JoystickButton YButton;
-  public static JoystickButton SelectButton;
-  public static JoystickButton StartButton;
-
-  public static JoystickButton AsLBButton; // Left bumper button
-  public static JoystickButton AsRBButton; // ...
-  public static JoystickButton XbLBButton;
-  public static JoystickButton XbRBButton;
+  public Command autoCommand;
 
   // Triggers
-  public static Trigger XrTrigger;
-  public static Trigger XlTrigger;
   public static Trigger ArTrigger;
   public static Trigger AlTrigger;
 
-  // DPad Buttons (names)
-  public static POVButton uDPadButton; // Up DPad
-  public static POVButton dDPadButton; // Down DPad
-  public static POVButton lDPadButton; // Left DPad
-  public static POVButton rDPadButton; // Right DPad
-  public static POVButton ulDPadButton; // Up-Left DPad
-  public static POVButton urDPadButton; // Up-Right DPad
-  public static POVButton dlDPadButton; // Down-Left DPad
-  public static POVButton drDPadButton; // Down-Right DPad
-  public static POVButton nDPadButton; // no press on DPad
 
   //Controllers
   public static Joystick DriverController; // Static means that the method/class the variable or method belongs too doesn't need to be created
@@ -73,10 +48,11 @@ public class RobotContainer {
     // Configure the button bindings
 
     intake_Subsystem = new Intake_Subsystem(); 
-    configureButtonBindings();
-
     DriverController = new Joystick(Constants.driverControllerPort);
     AssistantController = new Joystick(Constants.assisControllerPort);
+    configureButtonBindings();
+
+
 
   }
 
@@ -116,12 +92,12 @@ public class RobotContainer {
   ArTrigger.whenInactive(new OffIntake_Command()); 
 
   //Intake Only 
-  AsRBButton = new JoystickButton(AssistantController, Constants.RButtonPort);
-  AsRBButton.whileActiveContinuous(new ReversedOnIntake_Command());
-  AsRBButton.whenInactive(new OffIntake_Command());
+  //AsRBButton = new JoystickButton(AssistantController, Constants.RButtonPort);
+  //AsRBButton.whileActiveContinuous(new ReversedOnIntake_Command());
+  //AsRBButton.whenInactive(new OffIntake_Command());
 
-  AsLBButton = new JoystickButton(AssistantController, Constants.LBButtonPort);
-  AsLBButton.whenInactive(new OffIntake_Command());
+  //AsLBButton = new JoystickButton(AssistantController, Constants.LBButtonPort);
+  //AsLBButton.whenInactive(new OffIntake_Command());
   }
 
 
@@ -132,10 +108,10 @@ public class RobotContainer {
    */
 
   //Autonomous Code 
-  /*
+  
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return autoCommand;
   }
-  */
+  
 }
