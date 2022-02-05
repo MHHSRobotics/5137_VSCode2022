@@ -4,11 +4,15 @@
 
 package frc.robot;
 
+import java.util.function.BooleanSupplier;
+
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.subsystems.Shooter_Subsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.ManShoot_Command;
+import frc.robot.subsystems.Shooter_Subsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -18,12 +22,16 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  private final Shooter_Subsystem m_exampleSubsystem = new Shooter_Subsystem();
+  public static Command m_autoCommand;
+  public static Shooter_Subsystem shooter_Subsystem;
 
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
+  public static Joystick driveController;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    driveController = new Joystick(Constants.driverControllerPort);
+    shooter_Subsystem = new Shooter_Subsystem();
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -34,7 +42,21 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    BooleanSupplier booleanSupplyXBoxLT = () -> {
+      if (driveController.getRawAxis(Constants.LTAxisPort) > 0.1 && driveController.getRawAxis(Constants.RTAxisPort) < 0.1)
+      {
+          return true;
+      } else {
+          return false;
+      }
+  };
+  
+    Trigger XlTrigger = new Trigger(booleanSupplyXBoxLT);
+    XlTrigger.whileActiveContinuous(new ManShoot_Command());
+
+    
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
