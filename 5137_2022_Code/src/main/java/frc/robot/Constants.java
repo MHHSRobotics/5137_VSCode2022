@@ -24,4 +24,8 @@ public final class Constants {
     public static final int LimitSwitchExtendDIOPort = 0;
     public static final int hangExtensionMotor = 0;
     public static final int extensionHangCAN = 0;
-    public static int pivotHangCAN;}
+    public static final float pivotReverseLimit = (float) 0.25;
+    public static final float pivotForwardLimit = 0;
+    public static final float extensionForwardLimit = 0; //Change value to however many rotations is concidered the limit 
+    public static int pivotHangCAN;
+}
