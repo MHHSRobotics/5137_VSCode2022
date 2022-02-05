@@ -4,6 +4,8 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
@@ -20,16 +22,16 @@ public class HangSubsystem extends SubsystemBase {
   public boolean allowedPivot;
 
   Joystick assController;
-  Spark extensionMotor;
-  Spark pivotMotor;
+  WPI_TalonFX extensionMotor;
+  WPI_TalonFX pivotMotor;
   DigitalInput lowerExtendLimit;
   DigitalInput upperExtendLimit;
   DigitalInput lowerPivotLimit;
   DigitalInput upperPivotLimit;
   /** Creates a new HangSubsystem. */
   public HangSubsystem() {
-    extensionMotor = new Spark(Constants.hangExtensionMotorPort);
-    pivotMotor = new Spark(Constants.hangExtensionMotor);
+    extensionMotor = new WPI_TalonFX(Constants.hangExtensionMotorPort);
+    pivotMotor = new WPI_TalonFX(Constants.hangExtensionMotor);
     assController = RobotContainer.assXBoxController;
     limitSwitchExtend = RobotContainer.LimitSwitchExtend;
     limitSwitchPivot = RobotContainer.LimitSwitchPivot;

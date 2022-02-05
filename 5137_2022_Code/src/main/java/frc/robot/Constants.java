@@ -21,4 +21,7 @@ public final class Constants {
     public static final int assLYStickAxisPort = 0;
     public static final int assRXStickAxisPort = 0;
     public static final int LimitSwitchPivotDIOPort = 0;
-    public static final int LimitSwitchExtendDIOPort = 0;}
+    public static final int LimitSwitchExtendDIOPort = 0;
+    public static final int hangExtensionMotor = 0;
+    public static final int extensionHangCAN = 0;
+    public static int pivotHangCAN;}

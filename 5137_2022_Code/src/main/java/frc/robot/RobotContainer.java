@@ -8,11 +8,8 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-<<<<<<< HEAD
-import frc.robot.subsystems.Hang;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.subsystems.HangSubsystem;
-=======
->>>>>>> 21738cc2200d4a532db09f69daad9ee3eedb701b
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.HangSubsystem;
 
@@ -26,7 +23,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // The robot's subsystems and commands are defined here...
+  public static WPI_TalonFX extensionMotor = null;
+public static WPI_TalonFX pivotMotor = null;
+// The robot's subsystems and commands are defined here...
   public static DigitalInput LimitSwitchExtend;
   public static DigitalInput LimitSwitchPivot;
   
