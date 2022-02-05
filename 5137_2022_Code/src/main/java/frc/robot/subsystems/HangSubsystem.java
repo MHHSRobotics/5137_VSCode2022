@@ -17,34 +17,53 @@ public class HangSubsystem extends SubsystemBase {
   public DigitalInput limitSwitchExtend;
   public DigitalInput limitSwitchPivot;
 
+  public boolean allowedExtend;
+  public boolean allowedPivot;
+
   Joystick assController;
-  WPI_TalonFX extensionMotor;
-  WPI_TalonFX pivotMotor;
+
+  TalonFX extensionMotor;
+  TalonFX pivotMotor;
+
   /** Creates a new HangSubsystem. */
   public HangSubsystem() {
-    extensionMotor = new WPI_TalonFX(Constants.hangExtensionMotorPort);
-    pivotMotor = new WPI_TalonFX(Constants.hangExtensionMotorPort);
+    //extensionMotor = new WPI_TalonFX(Constants.hangExtensionMotorPort);
+    //pivotMotor = new WPI_TalonFX(Constants.hangPivotMotorPort);
     assController = RobotContainer.assXBoxController;
-    limitSwitchExtend = new DigitalInput(Constants.LimitSwitchLowerDIOPort);
-    limitSwitchPivot = new DigitalInput(Constants.LimitSwitchLowerDIOPort);
+    limitSwitchExtend = RobotContainer.LimitSwitchExtend;
+    limitSwitchPivot = RobotContainer.LimitSwitchPivot;
+    extensionMotor = RobotContainer.extensionMotor;
+    pivotMotor = RobotContainer.pivotMotor;
   }
 
   public void configMotors(){
 
   }
 
-  public void extendHang(){
-    double extendValue = assController.getRawAxis(Constants.leftXYassJoystickPort);
+  public void extendHang(Joystick xBoxController){
+    double extendValue = xBoxController.getRawAxis(Constants.assLYStickAxisPort);
     extensionMotor.set(extendValue);
   }
 
-  public void pivotHang(){
-    double pivotValue = assController.getRawAxis(Constants.rightLRassJoystickPort);
+  public void pivotHang(Joystick xBoxController){
+    double pivotValue = xBoxController.getRawAxis(Constants.assRXStickAxisPort);
     extensionMotor.set(pivotValue);
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    if (limitSwitchExtend.get() && allowedExtend) { //if the extend limit switch isn't pressed (naitive)
+      extensionMotor.set(0.1);
+      }
+    else {
+      extensionMotor.set(0);
+      }
+
+    if (limitSwitchPivot.get() && allowedPivot) { //if the pivot limit switch isn't pressed (naitive)
+      pivotMotor.set(0.1);
+    }
+    else {
+      pivotMotor.set(0);
+    }
   }
 }

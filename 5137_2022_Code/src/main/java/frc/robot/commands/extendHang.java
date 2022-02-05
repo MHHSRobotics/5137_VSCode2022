@@ -7,34 +7,30 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class HangStop extends CommandBase {
-  /** Creates a new HangStop. */
-  public HangStop() {
+public class extendHang extends CommandBase {
+  /** Creates a new extendHang. */
+  public extendHang() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.hang_Subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    System.out.println("Hang is stopped...");
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.hang_Subsystem.hangStop();
+    RobotContainer.hang_Subsystem.extendHang(RobotContainer.assXBoxController);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }

@@ -8,9 +8,16 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+<<<<<<< HEAD
 import frc.robot.subsystems.Hang;
 import frc.robot.subsystems.HangSubsystem;
+=======
+>>>>>>> 21738cc2200d4a532db09f69daad9ee3eedb701b
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.HangSubsystem;
+
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -20,10 +27,8 @@ import edu.wpi.first.wpilibj2.command.Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-  public static HangSubsystem hang_Subsystem;
-
   public static DigitalInput LimitSwitchExtend;
-  public static DigitalInput LimitSwitchRotate;
+  public static DigitalInput LimitSwitchPivot;
   
   /*private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();*/
   /*private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);*/
@@ -31,11 +36,22 @@ public class RobotContainer {
   private Command autoCommand;
 
   public static Joystick assXBoxController;
+  public static HangSubsystem hang_Subsystem;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     assXBoxController = new Joystick(Constants.assControllerPort);
     hang_Subsystem = new HangSubsystem();
+
+    // Init Hang Motors (needs to change?)
+    extensionMotor = new WPI_TalonFX(Constants.extensionHangCAN);
+      /* extensionMotor.set(ControlMode.Current, 0); //use if needs to change
+      extensionMotor.setInverted(true); */
+
+    pivotMotor = new WPI_TalonFX(Constants.pivotHangCAN);
+      /* extensionMotor.set(ControlMode.Current, 0); //use if needs to change
+      extensionMotor.setInverted(true); */
+
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -46,7 +62,11 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {}
+  private void configureButtonBindings() {
+    LimitSwitchExtend = new DigitalInput(Constants.LimitSwitchExtendDIOPort);
+    LimitSwitchPivot = new DigitalInput(Constants.LimitSwitchPivotDIOPort);
+    
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

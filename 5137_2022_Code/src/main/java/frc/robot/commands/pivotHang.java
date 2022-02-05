@@ -4,40 +4,34 @@
 
 package frc.robot.commands;
 
-//import javax.swing.plaf.synth.SynthSpinnerUI;
-
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class HangGoDown extends CommandBase {
-  /** Creates a new HangGoDown. */
-  public HangGoDown() {
+public class pivotHang extends CommandBase {
+  /** Creates a new pivotHang. */
+  public pivotHang() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.hang_Subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    System.out.println("Hang going down...");
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.hang_Subsystem.allowed = false;
-    RobotContainer.hang_Subsystem.hangGoDown();
+    RobotContainer.hang_Subsystem.pivotHang(RobotContainer.assXBoxController);
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    RobotContainer.hang_Subsystem.allowed = true;
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
