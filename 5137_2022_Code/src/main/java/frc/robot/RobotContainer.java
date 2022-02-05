@@ -27,8 +27,6 @@ import frc.robot.commands.ReversedOnIntake_Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
-
-  public OffIntake_Command offIntakeCommand = new OffIntake_Command();
   public Command autoCommand;
 
   // Triggers
