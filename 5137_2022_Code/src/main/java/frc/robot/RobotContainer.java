@@ -9,6 +9,7 @@ import java.util.function.BooleanSupplier;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.DriveBaseSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.OffIntake_Command;
@@ -27,6 +28,13 @@ import frc.robot.commands.ReversedOnIntake_Command;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  public static DriveBaseSubsystem driveBase_Subsystem; 
+
+  public static Command placeHolderCommand;
+
+  // Joysticks
+  public static Joystick driveController;
+  
   public Command autoCommand;
 
   // Triggers
@@ -43,6 +51,8 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    driveController = new Joystick(Constants.portForDrive);
+    driveBase_Subsystem = new DriveBaseSubsystem();
     // Configure the button bindings
 
     intake_Subsystem = new Intake_Subsystem(); 
@@ -109,6 +119,7 @@ public class RobotContainer {
   
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
+    return placeHolderCommand;
     return autoCommand;
   }
   
