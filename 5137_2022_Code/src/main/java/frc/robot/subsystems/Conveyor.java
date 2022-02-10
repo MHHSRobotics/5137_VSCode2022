@@ -11,9 +11,10 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.simulation.SparkMaxWrapper;
 
 public class Conveyor extends SubsystemBase {
-  CANSparkMax SparkMAX = new CANSparkMax(Constants.conveyorPort, MotorType.kBrushless);
+  SparkMaxWrapper SparkMAX = new SparkMaxWrapper(Constants.conveyorPort, MotorType.kBrushless);
     //MotorController SparkMAX = new Spark(Constants.conveyorPort);
   /** Creates a new Conveyor. */
   public Conveyor() {}
