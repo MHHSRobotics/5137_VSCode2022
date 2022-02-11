@@ -9,6 +9,7 @@ import java.util.function.BooleanSupplier;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.Conveyor;
 import frc.robot.subsystems.DriveBaseSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -20,6 +21,7 @@ import frc.robot.commands.ReversedOnIntake_Command;
 
 
 
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -27,6 +29,7 @@ import frc.robot.commands.ReversedOnIntake_Command;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
+ // public static final Joystick driveController = null;
   // The robot's subsystems and commands are defined here...
   public static DriveBaseSubsystem driveBase_Subsystem; 
 
@@ -48,11 +51,13 @@ public class RobotContainer {
 
 
   public static Intake_Subsystem intake_Subsystem;
+  public static Conveyor conveyor_Subsystem;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     driveController = new Joystick(Constants.portForDrive);
     driveBase_Subsystem = new DriveBaseSubsystem();
+    conveyor_Subsystem = new Conveyor();
     // Configure the button bindings
 
     intake_Subsystem = new Intake_Subsystem(); 
@@ -69,6 +74,7 @@ public class RobotContainer {
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+   * @param AssistantController 
    */
 
 
@@ -99,13 +105,7 @@ public class RobotContainer {
   ArTrigger.whileActiveContinuous(new ReversedOnIntake_Command());
   ArTrigger.whenInactive(new OffIntake_Command()); 
 
-  //Intake Only 
-  //AsRBButton = new JoystickButton(AssistantController, Constants.RButtonPort);
-  //AsRBButton.whileActiveContinuous(new ReversedOnIntake_Command());
-  //AsRBButton.whenInactive(new OffIntake_Command());
-
-  //AsLBButton = new JoystickButton(AssistantController, Constants.LBButtonPort);
-  //AsLBButton.whenInactive(new OffIntake_Command());
+  
   }
 
 
@@ -120,7 +120,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return placeHolderCommand;
-    return autoCommand;
+    //return autoCommand;
   }
   
 }
