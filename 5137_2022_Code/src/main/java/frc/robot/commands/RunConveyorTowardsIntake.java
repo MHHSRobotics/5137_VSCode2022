@@ -11,7 +11,7 @@ public class RunConveyorTowardsIntake extends CommandBase {
   /** Creates a new RunConveyorTowardsIntake. */
   public RunConveyorTowardsIntake() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.conveyor_subsystem);
+    addRequirements(RobotContainer.conveyor_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -21,7 +21,7 @@ public class RunConveyorTowardsIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.conveyor_subsystem.intakeConveyorOn();
+    RobotContainer.conveyor_Subsystem.intakeConveyorOn();
   }
 
   // Called once the command ends or is interrupted.

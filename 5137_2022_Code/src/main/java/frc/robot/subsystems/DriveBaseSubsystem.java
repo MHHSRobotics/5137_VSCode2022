@@ -3,10 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
@@ -15,6 +12,7 @@ import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import frc.robot.RobotContainer;
 import frc.robot.commands.ArcadeDrive;
 
 public class DriveBaseSubsystem extends SubsystemBase {
@@ -45,6 +43,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
 	newDriveSpeed = 0;
 	actualDriveSpeed = 0;
 	previousDriveSpeed = 0;
+
+	XBoxController = RobotContainer.driveController;
   }
 
   @Override

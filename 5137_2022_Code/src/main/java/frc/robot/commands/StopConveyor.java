@@ -11,7 +11,7 @@ public class StopConveyor extends CommandBase {
   /** Creates a new StopConveyor. */
   public StopConveyor() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.conveyor_subsystem);
+    addRequirements(RobotContainer.conveyor_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -21,7 +21,7 @@ public class StopConveyor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.conveyor_subsystem.turnConveyorOff();
+    RobotContainer.conveyor_Subsystem.turnConveyorOff();
   }
 
   // Called once the command ends or is interrupted.
