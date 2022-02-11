@@ -9,8 +9,8 @@ import java.util.function.BooleanSupplier;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.subsystems.Conveyor;
-import frc.robot.subsystems.DriveBaseSubsystem;
+import frc.robot.subsystems.Conveyor_Subsystem;
+import frc.robot.subsystems.DriveBase_Subsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.OffIntake_Command;
@@ -31,7 +31,7 @@ import frc.robot.commands.ReversedOnIntake_Command;
 public class RobotContainer {
  // public static final Joystick driveController = null;
   // The robot's subsystems and commands are defined here...
-  public static DriveBaseSubsystem driveBase_Subsystem; 
+  public static DriveBase_Subsystem driveBase_Subsystem; 
 
   public static Command placeHolderCommand;
 
@@ -51,13 +51,13 @@ public class RobotContainer {
 
 
   public static Intake_Subsystem intake_Subsystem;
-  public static Conveyor conveyor_Subsystem;
+  public static Conveyor_Subsystem conveyor_Subsystem;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     driveController = new Joystick(Constants.portForDrive);
-    driveBase_Subsystem = new DriveBaseSubsystem();
-    conveyor_Subsystem = new Conveyor();
+    driveBase_Subsystem = new DriveBase_Subsystem();
+    conveyor_Subsystem = new Conveyor_Subsystem();
     // Configure the button bindings
 
     intake_Subsystem = new Intake_Subsystem(); 

@@ -15,7 +15,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.ArcadeDrive;
 
-public class DriveBaseSubsystem extends SubsystemBase {
+public class DriveBase_Subsystem extends SubsystemBase {
 
   	DifferentialDrive CashwinsDifferentialDrive;
 
@@ -36,7 +36,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
 	XboxController driveController;
 
   /** Creates a new DriveBaseSubsystem. */
-  public DriveBaseSubsystem() {
+  public DriveBase_Subsystem() {
 	instantiateMotors();
 	createDifferentialDrive(m_leftDrive, m_rightDrive);
 
