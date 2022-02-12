@@ -57,6 +57,7 @@ public class HangSubsystem extends SubsystemBase {
 
   @Override
   public void periodic() {
+    //limit switches :D
     extensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     pivotMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     pivotMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
