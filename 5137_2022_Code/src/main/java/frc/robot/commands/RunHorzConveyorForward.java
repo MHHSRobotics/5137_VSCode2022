@@ -7,11 +7,11 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class StopConveyor extends CommandBase {
-  /** Creates a new StopConveyor. */
-  public StopConveyor() {
+public class RunHorzConveyorForward extends CommandBase {
+  /** Creates a new RunIntakeTowardsShooter. */
+  public RunHorzConveyorForward() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.conveyor_Subsystem);
+    addRequirements(RobotContainer.horzConveyor_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -21,7 +21,7 @@ public class StopConveyor extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.conveyor_Subsystem.turnConveyorOff();
+    RobotContainer.horzConveyor_Subsystem.forwardHorzConveyorOn();
   }
 
   // Called once the command ends or is interrupted.
