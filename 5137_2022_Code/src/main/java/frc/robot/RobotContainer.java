@@ -42,6 +42,10 @@ public class RobotContainer {
   public static Joystick driverController;
   public static Joystick assistantController;
 
+  // Joystick buttons
+  public static JoystickButton AButton; // A
+  public static JoystickButton YButton; // Y
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     conveyor_subsystem = new Conveyor();
@@ -86,6 +90,13 @@ public class RobotContainer {
     AlTrigger.whileActiveContinuous(new RunConveyorTowardsShooter());
     AlTrigger.whenInactive(new StopConveyor());
 
+    AButton = new JoystickButton(XboxController, Constants.AButtonPort);
+    AButton.whenHeld(new RunConveyorTowardsIntake());
+    AButton.whenReleased(new StopVertConveyor());
+
+    YButton = new JoystickButton(XboxController, Constants.YButtonPort);
+    YButton.whenHeld(new RunConveyorTowardsShooter());
+    YButton.whenReleased(new StopVertConveyor());
   }
 
   /**

@@ -24,6 +24,12 @@ public final class Constants {
     public static final int rightBackCAN = 3;
     public static final int rightFrontCAN = 4;
     
+    //Button Ports
+    public final static int AButtonPort = 1;
+    public final static int BButtonPort = 2;
+    public final static int XButtonPort = 3;
+    public final static int YButtonPort = 4;
+
     //controller constants
     public static final int conveyorPort = 7;
     public static final double conveyorSpeed = 1;

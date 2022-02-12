@@ -13,22 +13,22 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Conveyor extends SubsystemBase {
-  CANSparkMax SparkMAX = new CANSparkMax(Constants.conveyorPort, MotorType.kBrushless);
+  CANSparkMax VertConveyorMotor = new CANSparkMax(Constants.conveyorPort, MotorType.kBrushless);
     //MotorController SparkMAX = new Spark(Constants.conveyorPort);
   /** Creates a new Conveyor. */
   public Conveyor() {}
 
-  public void shooterConveyorOn(){ //shooterConveyor is going in towards the shooter
-    SparkMAX.set(Constants.conveyorSpeed);
+  public void forwardVertConveyorOn(){ //shooterConveyor is going in towards the shooter
+    VertConveyorMotor.set(Constants.conveyorSpeed);
   }
 
-  public void intakeConveyorOn(){ //intakeConveyor is going out towards the intake (AKA shooting out balls if stuck)
+  public void reverseVertConveyorOn(){ //intakeConveyor is going out towards the intake (AKA shooting out balls if stuck)
     SparkMAX.set(-Constants.conveyorSpeed);
   }
 
-  public void turnConveyorOff()
+  public void turnVertConveyorOff()
   {
-    SparkMAX.stopMotor();
+    VertConveyorMotor.stopMotor();
   }
 
   @Override
