@@ -14,6 +14,21 @@ package frc.robot;
  */
 public final class Constants {
 
+
+    public static final int shooterId = 8;
+    public static final double uDPadButtonValue = 0.4;
+    public static final double rDPadButtonValue = 0.6;
+    public static final double dDPadButtonValue = 0.8;
+    public static final double InitiationLineShooterPerc = 0;
+    public static final int maxPercShooter = 1;
+    public static final double BackTrenchShooterPerc = 0;
+    public static final double FrontTrenchShooterPerc = 0;
+    public static final int driverControllerPort = 0;
+    public static final int LTAxisPort = 3;
+    public static final double veloError = 0;
+    public static final double shooterAngle = 0;
+    public static final int RTAxisPort = 0;}
+
     public final static double driveSensitivity = 1.0; //bigger # means less sensitivity, from 0.5 to 2.0
     //10.0: baby speed, 9.0: tdddler mode, 7.0: fast toddler mode, 5.0: optimal turn speed, 4.5:
     public final static double turnSensitivity = 3.0; //4.5 seems nice
@@ -55,3 +70,4 @@ public final class Constants {
     public static final int conveyorPort = 8;
     public static final double conveyorSpeed = 0.3;
 }
+
