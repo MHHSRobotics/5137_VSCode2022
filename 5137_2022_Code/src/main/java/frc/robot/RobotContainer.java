@@ -6,18 +6,21 @@ package frc.robot;
 
 import java.util.function.BooleanSupplier;
 
-//Subsystems
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
+import frc.robot.subsystems.HorzConveyor_Subsystem;
 import frc.robot.subsystems.DriveBase_Subsystem;
-import frc.robot.subsystems.Conveyor_Subsystem;
+import frc.robot.subsystems.HorzConveyor_Subsystem;
 import frc.robot.subsystems.Intake_Subsystem;
 
 //Commands
 import frc.robot.commands.OffIntake_Command;
 import frc.robot.commands.OnIntake_Command;
 import frc.robot.commands.ReversedOnIntake_Command;
-import frc.robot.commands.RunConveyorTowardsShooter;
-import frc.robot.commands.StopConveyor;
-import frc.robot.commands.RunConveyorTowardsIntake;
+import frc.robot.commands.RunHorzConveyorForward;
+import frc.robot.commands.StopHorzConveyor;
+import frc.robot.commands.RunHorzConveyorReverse;
 
 //Controllers
 import edu.wpi.first.wpilibj.PS4Controller;
@@ -69,13 +72,13 @@ public class RobotContainer {
 
 
   public static Intake_Subsystem intake_Subsystem;
-  public static Conveyor_Subsystem conveyor_Subsystem;
+  public static HorzConveyor_Subsystem horzConveyor_Subsystem;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     DriverController = new Joystick(Constants.portForDrive);
     driveBase_Subsystem = new DriveBase_Subsystem();
-    conveyor_Subsystem = new Conveyor_Subsystem();
+    horzConveyor_Subsystem = new HorzConveyor_Subsystem();
     // Configure the button bindings
 
     intake_Subsystem = new Intake_Subsystem(); 
@@ -124,12 +127,12 @@ public class RobotContainer {
   ArTrigger.whenInactive(new OffIntake_Command());
 
   AlButton = new JoystickButton(AssistantController, Constants.LButtonPort);
-  AlButton.whileActiveContinuous(new RunConveyorTowardsShooter());
-  AlButton.whenInactive(new StopConveyor());
+  AlButton.whileActiveContinuous(new RunHorzConveyorForward());
+  AlButton.whenInactive(new StopHorzConveyor());
 
   ArButton = new JoystickButton(AssistantController, Constants.RButtonPort);
-  ArButton.whileActiveContinuous(new RunConveyorTowardsIntake());
-  ArButton.whenInactive(new StopConveyor());
+  ArButton.whileActiveContinuous(new RunHorzConveyorReverse());
+  ArButton.whenInactive(new StopHorzConveyor());
   }
 
 
