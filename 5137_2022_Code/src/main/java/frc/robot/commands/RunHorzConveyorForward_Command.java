@@ -7,9 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class RunHorzConveyorForward extends CommandBase {
+public class RunHorzConveyorForward_Command extends CommandBase {
   /** Creates a new RunIntakeTowardsShooter. */
-  public RunHorzConveyorForward() {
+  public RunHorzConveyorForward_Command() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.horzConveyor_Subsystem);
   }

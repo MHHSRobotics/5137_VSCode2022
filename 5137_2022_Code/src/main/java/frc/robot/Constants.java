@@ -29,6 +29,12 @@ public final class Constants {
     public static final int RXStickAxisPort = 4;
     public static final int portForDrive = 0;
 
+    // Constants for buttons
+    public final static int AButtonPort = 1;
+    public final static int BButtonPort = 2;
+    public final static int XButtonPort = 3;
+    public final static int YButtonPort = 4;
+
     //Motors have not been set to proper values 
     public static final int intakePort = 7;
     public static final double intakeSpeed = 0.3;

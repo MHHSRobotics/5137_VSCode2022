@@ -12,11 +12,16 @@ import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.HorzConveyor_Subsystem;
 import frc.robot.subsystems.DriveBase_Subsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.OffIntake_Command;
 import frc.robot.commands.OnIntake_Command;
 import frc.robot.subsystems.Intake_Subsystem;
 import frc.robot.commands.ReversedOnIntake_Command;
+import frc.robot.commands.RunHorzConveyorForward_Command;
+import frc.robot.commands.RunHorzConveyorReverse_Command;
+import frc.robot.commands.StopHorzConveyor_Command;
 
 
 
@@ -45,14 +50,21 @@ public class RobotContainer {
   public static Trigger AlTrigger;
 
 
-  //Controllers
+  //Xbox Controllers
   public static Joystick DriverController; // Static means that the method/class the variable or method belongs too doesn't need to be created
   public static Joystick AssistantController;
+
+  //Joystick Button 
+  public static JoystickButton XButton;
+  public static JoystickButton BButton;
 
 
   public static Intake_Subsystem intake_Subsystem;
   public static HorzConveyor_Subsystem horzConveyor_Subsystem;
 
+
+
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     driveController = new Joystick(Constants.portForDrive);
@@ -105,7 +117,13 @@ public class RobotContainer {
   ArTrigger.whileActiveContinuous(new ReversedOnIntake_Command());
   ArTrigger.whenInactive(new OffIntake_Command()); 
 
-  
+  XButton = new JoystickButton(AssistantController, Constants.XButtonPort);
+  XButton.whenHeld(new RunHorzConveyorReverse_Command());
+  XButton.whenReleased(new StopHorzConveyor_Command());
+
+  BButton = new JoystickButton(AssistantController, Constants.BButtonPort);
+  BButton.whenHeld(new RunHorzConveyorForward_Command());
+  BButton.whenReleased(new StopHorzConveyor_Command());
   }
 
 

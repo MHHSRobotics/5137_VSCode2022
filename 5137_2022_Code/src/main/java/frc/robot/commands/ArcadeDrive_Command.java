@@ -7,9 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class ArcadeDrive extends CommandBase {
+public class ArcadeDrive_Command extends CommandBase {
   /** Creates a new ArcadeDrive. */
-  public ArcadeDrive() {
+  public ArcadeDrive_Command() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.driveBase_Subsystem);
   }
