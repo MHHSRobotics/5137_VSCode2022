@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.simulation.SparkMaxWrapper;
 
 //import io.github.pseudoresonance.pixy2api.Pixy2; 
 //what does this do
@@ -25,8 +26,8 @@ public class Intake_Subsystem extends SubsystemBase {
     boolean toggleIntakeDirection = false;
 
 
-    public CANSparkMax intakeMotor = new CANSparkMax(Constants.intakePort, MotorType.kBrushless);
-
+    //public CANSparkMax intakeMotor = new CANSparkMax(Constants.intakePort, MotorType.kBrushless);
+    SparkMaxWrapper intakeMotor = new SparkMaxWrapper(Constants.intakePort, MotorType.kBrushless);
 
     public Intake_Subsystem() {
         //constructor 

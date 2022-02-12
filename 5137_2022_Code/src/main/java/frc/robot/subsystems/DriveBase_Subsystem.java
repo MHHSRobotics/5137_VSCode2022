@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
@@ -27,13 +28,13 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	MotorControllerGroup m_leftDrive;
 	MotorControllerGroup m_rightDrive;
 
-	Joystick XBoxController;
+	Joystick PS4Controller;
 
 	double newDriveSpeed;
 	double actualDriveSpeed;
 	double previousDriveSpeed;
 
-	XboxController driveController;
+	PS4Controller driveController;
 
   /** Creates a new DriveBaseSubsystem. */
   public DriveBase_Subsystem() {
@@ -44,7 +45,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	actualDriveSpeed = 0;
 	previousDriveSpeed = 0;
 
-	XBoxController = RobotContainer.driveController;
+	PS4Controller = RobotContainer.DriverController;
   }
 
   @Override
