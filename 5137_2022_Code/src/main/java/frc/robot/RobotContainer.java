@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.subsystems.HangSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.HangSubsystem;
 
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
@@ -42,15 +43,6 @@ public static WPI_TalonFX pivotMotor = null;
     assXBoxController = new Joystick(Constants.assControllerPort);
     hang_Subsystem = new HangSubsystem();
 
-    // Init Hang Motors (needs to change?)
-    extensionMotor = new WPI_TalonFX(Constants.extensionHangCAN);
-      /* extensionMotor.set(ControlMode.Current, 0); //use if needs to change
-      extensionMotor.setInverted(true); */
-
-    pivotMotor = new WPI_TalonFX(Constants.pivotHangCAN);
-      /* extensionMotor.set(ControlMode.Current, 0); //use if needs to change
-      extensionMotor.setInverted(true); */
-
     // Configure the button bindings
     configureButtonBindings();
   }
@@ -62,9 +54,7 @@ public static WPI_TalonFX pivotMotor = null;
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    LimitSwitchExtend = new DigitalInput(Constants.LimitSwitchExtendDIOPort);
-    LimitSwitchPivot = new DigitalInput(Constants.LimitSwitchPivotDIOPort);
-    
+
   }
 
   /**

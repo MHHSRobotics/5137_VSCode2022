@@ -4,14 +4,11 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -53,6 +50,7 @@ public class HangSubsystem extends SubsystemBase {
 
   public void pivotHang(Joystick xBoxController){
     double pivotValue = xBoxController.getRawAxis(Constants.assRXStickAxisPort);
+    pivotMotor.set(pivotValue);
   }
 
   @Override
