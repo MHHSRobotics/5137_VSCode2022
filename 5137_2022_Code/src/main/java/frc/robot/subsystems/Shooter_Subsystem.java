@@ -12,10 +12,11 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.simulation.SparkMaxWrapper;
 
 public class Shooter_Subsystem extends SubsystemBase {
 
-  CANSparkMax shooterMotor;
+  SparkMaxWrapper shooterMotor;
 
   Joystick driveController;
 
@@ -25,7 +26,7 @@ public class Shooter_Subsystem extends SubsystemBase {
   public Shooter_Subsystem() {
     horizontalTurnGood = false;
     velocityRunningGood = false;
-    shooterMotor = new CANSparkMax(Constants.shooterId, MotorType.kBrushless);
+    shooterMotor = new SparkMaxWrapper(Constants.shooterId, MotorType.kBrushless);
 
     driveController = RobotContainer.driveController;
   }

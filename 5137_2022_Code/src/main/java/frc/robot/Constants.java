@@ -21,9 +21,9 @@ public final class Constants {
     public static final double InitiationLineShooterPerc = 0;
     public static final int maxPercShooter = 0;
     public static final double BackTrenchShooterPerc = 0;
-    public static final double FrontTrenchShooterPerc = 0;
+    public static final double FrontTrenchShooterPerc = 0.4;
     public static final int driverControllerPort = 0;
-    public static final int LTAxisPort = 0;
+    public static final int LTAxisPort = 3;
     public static final double veloError = 0;
     public static final double shooterAngle = 0;
     public static final int RTAxisPort = 0;}

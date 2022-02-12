@@ -23,7 +23,7 @@ public class ManShoot_Command extends CommandBase {
   @Override
   public void execute() {
     if (RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false) == true) {//ready to shoot {
-      RobotContainer.storage_Subsystem.store(true, true, false, false, false);
+      RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false);
     }
   }
 
