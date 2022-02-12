@@ -9,15 +9,13 @@ import java.util.function.BooleanSupplier;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.RunConveyorTowardsIntake;
 import frc.robot.commands.RunConveyorTowardsShooter;
-import frc.robot.commands.StopConveyor;
-import frc.robot.subsystems.Conveyor;
-import frc.robot.subsystems.DriveBaseSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.commands.StopVertConveyor;
+import frc.robot.subsystems.VertConveyor_Subsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -28,19 +26,16 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
  // public static final Joystick driveController = null;
   // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
-
-  public static DriveBaseSubsystem driveBase_Subsystem;
-  public static Conveyor conveyor_subsystem;
+  
+  public static VertConveyor_Subsystem vertConveyor_Subsystem;
 
   // Triggers
   public static Trigger ArTrigger;
   public static Trigger AlTrigger;
 
   //XBox Controllers
-  public static Joystick driverController;
-  public static Joystick assistantController;
+  public static Joystick DriverController;
+  public static Joystick AssistantController;
 
   // Joystick buttons
   public static JoystickButton AButton; // A
@@ -48,10 +43,9 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    conveyor_subsystem = new Conveyor();
-    driveBase_Subsystem = new DriveBaseSubsystem();
-    driverController = new Joystick(Constants.portForDrive);
-    assistantController = new Joystick(Constants.portForAssis);
+    vertConveyor_Subsystem = new VertConveyor_Subsystem();
+    DriverController = new Joystick(Constants.driverControllerPort);
+    AssistantController = new Joystick(Constants.assisControllerPort);
 
 
     // Configure the button bindings
@@ -67,7 +61,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     BooleanSupplier booleanSupplyAssistantRT = () -> {
-      if (assistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && driverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
+      if (AssistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
           return true;
       } else {
           return false;
@@ -75,7 +69,7 @@ public class RobotContainer {
     };
     
     BooleanSupplier booleanSupplyAssistantLT = () -> {
-      if (assistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && driverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
+      if (AssistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
           return true;
       } else {
           return false;
@@ -84,17 +78,17 @@ public class RobotContainer {
     
     ArTrigger = new Trigger(booleanSupplyAssistantRT);
     ArTrigger.whileActiveContinuous(new RunConveyorTowardsIntake());
-    ArTrigger.whenInactive(new StopConveyor());
+    ArTrigger.whenInactive(new StopVertConveyor());
 
     AlTrigger = new Trigger(booleanSupplyAssistantLT);
     AlTrigger.whileActiveContinuous(new RunConveyorTowardsShooter());
-    AlTrigger.whenInactive(new StopConveyor());
+    AlTrigger.whenInactive(new StopVertConveyor());
 
-    AButton = new JoystickButton(XboxController, Constants.AButtonPort);
+    AButton = new JoystickButton(AssistantController, Constants.AButtonPort);
     AButton.whenHeld(new RunConveyorTowardsIntake());
     AButton.whenReleased(new StopVertConveyor());
 
-    YButton = new JoystickButton(XboxController, Constants.YButtonPort);
+    YButton = new JoystickButton(AssistantController, Constants.YButtonPort);
     YButton.whenHeld(new RunConveyorTowardsShooter());
     YButton.whenReleased(new StopVertConveyor());
   }
@@ -104,8 +98,8 @@ public class RobotContainer {
    *
    * @return the command to run in autonomous
    */
-  public Command getAutonomousCommand() {
+  /*public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
     return m_autoCommand;
-  }
+  }*/
 }
