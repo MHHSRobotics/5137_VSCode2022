@@ -14,14 +14,14 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static final int shooterId = 0;
-    public static final int uDPadButtonValue = 0;
-    public static final int rDPadButtonValue = 0;
-    public static final int dDPadButtonValue = 0;
+    public static final int shooterId = 8;
+    public static final double uDPadButtonValue = 0.4;
+    public static final double rDPadButtonValue = 0.6;
+    public static final double dDPadButtonValue = 0.8;
     public static final double InitiationLineShooterPerc = 0;
-    public static final int maxPercShooter = 0;
+    public static final int maxPercShooter = 1;
     public static final double BackTrenchShooterPerc = 0;
-    public static final double FrontTrenchShooterPerc = 0.4;
+    public static final double FrontTrenchShooterPerc = 0;
     public static final int driverControllerPort = 0;
     public static final int LTAxisPort = 3;
     public static final double veloError = 0;
