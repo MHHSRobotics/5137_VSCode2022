@@ -15,7 +15,7 @@ import frc.robot.simulation.SparkMaxWrapper;
 
 public class Conveyor_Subsystem extends SubsystemBase {
   SparkMaxWrapper SparkMAX = new SparkMaxWrapper(Constants.conveyorPort, MotorType.kBrushless);
-    //MotorController SparkMAX = new Spark(Constants.conveyorPort);
+  //MotorController SparkMAX = new Spark(Constants.conveyorPort);
   /** Creates a new Conveyor. */
   public Conveyor_Subsystem() {}
 

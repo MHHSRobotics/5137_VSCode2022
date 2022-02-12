@@ -28,16 +28,24 @@ public final class Constants {
     public static final int LYStickAxisPort = 1;
     public static final int RXStickAxisPort = 4;
     public static final int portForDrive = 0;
+    
+    //Trigger Ports
+    public static final int LTAxisPort = 3;
+    public static final int RTAxisPort = 4;
 
+    //Button Ports
+    public static final int LButtonPort = 5;
+    public static final int RButtonPort = 6;
+    
     //Motors have not been set to proper values 
     public static final int intakePort = 7;
     public static final double intakeSpeed = 0.3;
-    public static final int RTAxisPort = 3;
-    public static final int LTAxisPort = 2;
-    public static final int RButtonPort = 10;
-    public static final int LBButtonPort = 11;
+    
+    
+    
+    
     public static final int driverControllerPort = 0;
     public static final int assisControllerPort = 1;
-    public static final int conveyorPort = 0;
-    public static final double conveyorSpeed = 0;
+    public static final int conveyorPort = 8;
+    public static final double conveyorSpeed = 0.3;
 }

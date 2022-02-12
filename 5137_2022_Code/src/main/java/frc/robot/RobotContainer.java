@@ -6,19 +6,30 @@ package frc.robot;
 
 import java.util.function.BooleanSupplier;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.subsystems.Conveyor_Subsystem;
+//Subsystems
 import frc.robot.subsystems.DriveBase_Subsystem;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.subsystems.Conveyor_Subsystem;
+import frc.robot.subsystems.Intake_Subsystem;
+
+//Commands
 import frc.robot.commands.OffIntake_Command;
 import frc.robot.commands.OnIntake_Command;
-import frc.robot.subsystems.Intake_Subsystem;
 import frc.robot.commands.ReversedOnIntake_Command;
+import frc.robot.commands.RunConveyorTowardsShooter;
+import frc.robot.commands.StopConveyor;
+import frc.robot.commands.RunConveyorTowardsIntake;
 
+//Controllers
+import edu.wpi.first.wpilibj.PS4Controller;
 
+//Button Types
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
 
 
 
@@ -34,15 +45,22 @@ public class RobotContainer {
   public static DriveBase_Subsystem driveBase_Subsystem; 
 
   public static Command placeHolderCommand;
-
-  // Joysticks
-  public static Joystick driveController;
   
   public Command autoCommand;
 
   // Triggers
   public static Trigger ArTrigger;
   public static Trigger AlTrigger;
+
+  //Buttons
+  public static JoystickButton ArButton;
+  public static JoystickButton AlButton;
+  public static JoystickButton SquareButton;
+  public static JoystickButton CrossButton;
+  public static JoystickButton CircleButton;
+  public static JoystickButton TriangleButton;
+  public static JoystickButton ShareButton;
+  public static JoystickButton OptionButton;
 
 
   //Controllers
@@ -55,7 +73,7 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    driveController = new Joystick(Constants.portForDrive);
+    DriverController = new Joystick(Constants.portForDrive);
     driveBase_Subsystem = new DriveBase_Subsystem();
     conveyor_Subsystem = new Conveyor_Subsystem();
     // Configure the button bindings
@@ -72,7 +90,7 @@ public class RobotContainer {
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
+   * edu.wpi.first.wpilibj.Joystick} or {@link PS4Controller}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    * @param AssistantController 
    */
@@ -87,15 +105,15 @@ public class RobotContainer {
           return false;
       }
   }; 
-  BooleanSupplier booleanSupplyAssistantLT = () -> {
+    BooleanSupplier booleanSupplyAssistantLT = () -> {
       if (AssistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
           return true;
       } else {
           return false;
       }
   };
+
   
-  //Intake with conveyor (need to add conveyor code)
   //right = reverse 
   AlTrigger = new Trigger(booleanSupplyAssistantLT);
   AlTrigger.whileActiveContinuous(new OnIntake_Command());
@@ -103,9 +121,15 @@ public class RobotContainer {
 
   ArTrigger = new Trigger(booleanSupplyAssistantRT);
   ArTrigger.whileActiveContinuous(new ReversedOnIntake_Command());
-  ArTrigger.whenInactive(new OffIntake_Command()); 
+  ArTrigger.whenInactive(new OffIntake_Command());
 
-  
+  AlButton = new JoystickButton(AssistantController, Constants.LButtonPort);
+  AlButton.whileActiveContinuous(new RunConveyorTowardsShooter());
+  AlButton.whenInactive(new StopConveyor());
+
+  ArButton = new JoystickButton(AssistantController, Constants.RButtonPort);
+  ArButton.whileActiveContinuous(new RunConveyorTowardsIntake());
+  ArButton.whenInactive(new StopConveyor());
   }
 
 
