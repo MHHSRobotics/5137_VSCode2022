@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import frc.robot.simulation.SparkMaxWrapper;
 
 public class HangSubsystem extends SubsystemBase {
 
@@ -22,21 +23,15 @@ public class HangSubsystem extends SubsystemBase {
   public boolean allowedPivot;
 
   Joystick assController;
-  CANSparkMax extensionMotor;
-  CANSparkMax pivotMotor;
-  DigitalInput lowerExtendLimit;
-  DigitalInput upperExtendLimit;
-  DigitalInput lowerPivotLimit;
-  DigitalInput upperPivotLimit;
+  SparkMaxWrapper extensionMotor;
+  SparkMaxWrapper pivotMotor;
 
 
   /** Creates a new HangSubsystem. */
   public HangSubsystem() {
-    extensionMotor = new CANSparkMax(Constants.hangExtensionMotorPort, MotorType.kBrushless);
-    pivotMotor = new CANSparkMax(Constants.hangPivotMotorPort, MotorType.kBrushless);
+    extensionMotor = new SparkMaxWrapper(Constants.hangExtensionMotorPort, MotorType.kBrushless);
+    pivotMotor = new SparkMaxWrapper(Constants.hangPivotMotorPort, MotorType.kBrushless);
     assController = RobotContainer.assXBoxController;
-    limitSwitchExtend = RobotContainer.LimitSwitchExtend;
-    limitSwitchPivot = RobotContainer.LimitSwitchPivot;
   }
 
   public void config(){

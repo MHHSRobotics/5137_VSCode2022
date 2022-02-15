@@ -14,18 +14,12 @@ package frc.robot;
  */
 public final class Constants {
 
-    public static final int hangExtensionMotorPort = 0;
+    public static final int hangExtensionMotorPort = 1;
     public static final int hangPivotMotorPort = 0;
-    public static final double hangExtensionSpeed = 0;
-    public static final int assControllerPort = 0;
-    public static final int assLYStickAxisPort = 0;
-    public static final int assRXStickAxisPort = 0;
-    public static final int LimitSwitchPivotDIOPort = 0;
-    public static final int LimitSwitchExtendDIOPort = 0;
-    public static final int hangExtensionMotor = 0;
-    public static final int extensionHangCAN = 0;
+    public static final int assControllerPort = 1;
+    public static final int assLYStickAxisPort = 1;
+    public static final int assRXStickAxisPort = 4;
     public static final float pivotReverseLimit = (float) 0.25;
     public static final float pivotForwardLimit = 0;
-    public static final float extensionForwardLimit = 0; //Change value to however many rotations is concidered the limit 
-    public static int pivotHangCAN;
+    public static final float extensionForwardLimit = 1000; //Change value to however many rotations is concidered the limit 
 }
