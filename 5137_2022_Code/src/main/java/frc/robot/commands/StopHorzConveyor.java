@@ -7,9 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class StopHorzConveyor_Command extends CommandBase {
+public class StopHorzConveyor extends CommandBase {
   /** Creates a new StopConveyor. */
-  public StopHorzConveyor_Command() {
+  public StopHorzConveyor() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.horzConveyor_Subsystem);
   }
