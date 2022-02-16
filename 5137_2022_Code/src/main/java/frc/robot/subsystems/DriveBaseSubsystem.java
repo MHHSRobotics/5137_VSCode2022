@@ -103,7 +103,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
 	}
 
 	public void driveStraight(double speed) {
-		//CashwinsDifferentialDrive.arcadeDrive(speed, 0);
+		CashwinsDifferentialDrive.arcadeDrive(speed, 0);
 	}
 
 	public void stop() {
