@@ -6,6 +6,16 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
+import frc.robot.commands.OffIntake_Command;
+import frc.robot.commands.OnIntake_Command;
+import frc.robot.subsystems.Intake_Subsystem;
+import frc.robot.commands.ReversedOnIntake_Command;
+import frc.robot.commands.RunHorzConveyorForward_Command;
+import frc.robot.commands.RunHorzConveyorReverse_Command;
+import frc.robot.commands.StopHorzConveyor;
+import frc.robot.commands.Autonomous_DriveBack_Command;
+import frc.robot.commands.Autonomous_AutoShoot_Command;
+
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
@@ -15,7 +25,7 @@ public class Shoot_DriveBack_CommandGroup extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new AutonomousAutoShoot_Command(3),
+      new Autonomous_AutoShoot_Command(3),
       new Autonomous_DriveBack_Command(0.5, -1.0),
       new OnIntake_Command()
     );
