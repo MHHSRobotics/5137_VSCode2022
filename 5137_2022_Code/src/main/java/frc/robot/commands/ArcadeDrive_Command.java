@@ -5,12 +5,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
-public class ArcadeDrive extends CommandBase {
+public class ArcadeDrive_Command extends CommandBase {
   /** Creates a new ArcadeDrive. */
-  public ArcadeDrive() {
+  public ArcadeDrive_Command() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.driveBase_Subsystem);
   }
@@ -28,7 +27,7 @@ public class ArcadeDrive extends CommandBase {
 		DriveBase subsystem. No other commands are here to potentially interrupt ArcadeDrive, so the
     isFinished() and end() methods are irrelevant.*/
     System.out.println("DriveBase is running...");
-    RobotContainer.driveBase_Subsystem.rampArcadeDrive(RobotContainer.driverController);
+    RobotContainer.driveBase_Subsystem.rampArcadeDrive(RobotContainer.DriverController);
   }
 
   // Called once the command ends or is interrupted.

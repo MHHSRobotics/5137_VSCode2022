@@ -13,23 +13,23 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.simulation.SparkMaxWrapper;
 
-public class Conveyor extends SubsystemBase {
-  SparkMaxWrapper SparkMAX = new SparkMaxWrapper(Constants.conveyorPort, MotorType.kBrushless);
+public class HorzConveyor_Subsystem extends SubsystemBase {
+  SparkMaxWrapper HorzConveyorMotor = new SparkMaxWrapper(Constants.conveyorPort, MotorType.kBrushless);
     //MotorController SparkMAX = new Spark(Constants.conveyorPort);
   /** Creates a new Conveyor. */
-  public Conveyor() {}
+  public HorzConveyor_Subsystem() {}
 
-  public void shooterConveyorOn(){ //shooterConveyor is going in towards the shooter
-    SparkMAX.set(Constants.conveyorSpeed);
+  public void forwardHorzConveyorOn(){ //shooterConveyor is going in towards the shooter
+    HorzConveyorMotor.set(Constants.conveyorSpeed);
   }
 
-  public void intakeConveyorOn(){ //intakeConveyor is going out towards the intake (AKA shooting out balls if stuck)
-    SparkMAX.set(-Constants.conveyorSpeed);
+  public void reverseHorzConveyorOn(){ //intakeConveyor is going out towards the intake (AKA shooting out balls if stuck)
+    HorzConveyorMotor.set(-Constants.conveyorSpeed);
   }
 
-  public void turnConveyorOff()
+  public void turnHorzConveyorOff()
   {
-    SparkMAX.stopMotor();
+    HorzConveyorMotor.stopMotor();
   }
 
   @Override

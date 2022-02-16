@@ -3,21 +3,20 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
 import edu.wpi.first.wpilibj.motorcontrol.MotorControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import frc.robot.commands.ArcadeDrive;
+import frc.robot.RobotContainer;
+import frc.robot.commands.ArcadeDrive_Command;
 
-public class DriveBaseSubsystem extends SubsystemBase {
+public class DriveBase_Subsystem extends SubsystemBase {
 
   	DifferentialDrive CashwinsDifferentialDrive;
 
@@ -29,22 +28,24 @@ public class DriveBaseSubsystem extends SubsystemBase {
 	MotorControllerGroup m_leftDrive;
 	MotorControllerGroup m_rightDrive;
 
-	Joystick XBoxController;
+	Joystick PS4Controller;
 
 	double newDriveSpeed;
 	double actualDriveSpeed;
 	double previousDriveSpeed;
 
-	XboxController driveController;
+	PS4Controller driveController;
 
   /** Creates a new DriveBaseSubsystem. */
-  public DriveBaseSubsystem() {
+  public DriveBase_Subsystem() {
 	instantiateMotors();
 	createDifferentialDrive(m_leftDrive, m_rightDrive);
 
 	newDriveSpeed = 0;
 	actualDriveSpeed = 0;
 	previousDriveSpeed = 0;
+
+	PS4Controller = RobotContainer.DriverController;
   }
 
   @Override

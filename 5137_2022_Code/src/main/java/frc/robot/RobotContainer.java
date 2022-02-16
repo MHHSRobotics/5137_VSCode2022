@@ -9,15 +9,24 @@ import java.util.function.BooleanSupplier;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import frc.robot.commands.ExampleCommand;
-import frc.robot.commands.RunConveyorTowardsIntake;
-import frc.robot.commands.RunConveyorTowardsShooter;
-import frc.robot.commands.StopConveyor;
-import frc.robot.subsystems.Conveyor;
-import frc.robot.subsystems.DriveBaseSubsystem;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.HorzConveyor_Subsystem;
+import frc.robot.subsystems.DriveBase_Subsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.button.Button;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.OffIntake_Command;
+import frc.robot.commands.OnIntake_Command;
+import frc.robot.subsystems.Intake_Subsystem;
+import frc.robot.commands.ReversedOnIntake_Command;
+import frc.robot.commands.RunHorzConveyorForward_Command;
+import frc.robot.commands.RunHorzConveyorReverse_Command;
+import frc.robot.commands.StopHorzConveyor;
+
+
+
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -26,32 +35,52 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
- // public static final Joystick driveController = null;
-  // The robot's subsystems and commands are defined here...
-  private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
-  private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
-  public static DriveBaseSubsystem driveBase_Subsystem;
-  public static Conveyor conveyor_subsystem;
+// public static final Joystick driveController = null;
+  // The robot's subsystems and commands are defined here...
+  public static DriveBase_Subsystem driveBase_Subsystem; 
+
+  public static Command placeHolderCommand;
+
+  // Joysticks
+  public static Joystick driveController;
+  
+  public Command autoCommand;
 
   // Triggers
   public static Trigger ArTrigger;
   public static Trigger AlTrigger;
 
-  //XBox Controllers
-  public static Joystick driverController;
-  public static Joystick assistantController;
 
+  //Xbox Controllers
+  public static Joystick DriverController; // Static means that the method/class the variable or method belongs too doesn't need to be created
+  public static Joystick AssistantController;
+
+  //Joystick Button 
+  public static JoystickButton XButton;
+  public static JoystickButton BButton;
+
+
+  public static Intake_Subsystem intake_Subsystem;
+  public static HorzConveyor_Subsystem horzConveyor_Subsystem;
+
+
+
+  
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    conveyor_subsystem = new Conveyor();
-    driveBase_Subsystem = new DriveBaseSubsystem();
-    driverController = new Joystick(Constants.portForDrive);
-    assistantController = new Joystick(Constants.portForAssis);
-
-
+    driveController = new Joystick(Constants.portForDrive);
+    driveBase_Subsystem = new DriveBase_Subsystem();
+    horzConveyor_Subsystem = new HorzConveyor_Subsystem();
     // Configure the button bindings
-    configureButtonBindings();
+
+    intake_Subsystem = new Intake_Subsystem(); 
+    DriverController = new Joystick(Constants.driverControllerPort);
+    AssistantController = new Joystick(Constants.assisControllerPort);
+    configureButtonBindings(); 
+
+
+
   }
 
   /**
@@ -61,40 +90,57 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    * @param AssistantController 
    */
+
+
+  //Don't know if Command Schedualr does this but just in case 
   private void configureButtonBindings() {
     BooleanSupplier booleanSupplyAssistantRT = () -> {
-      if (assistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && driverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
-          return true;
-      } else {
-          return false;
-      }
-    };
-    
-    BooleanSupplier booleanSupplyAssistantLT = () -> {
-      if (assistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && driverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
+      if (AssistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
           return true;
       } else {
           return false;
       }
   }; 
-    
-    ArTrigger = new Trigger(booleanSupplyAssistantRT);
-    ArTrigger.whileActiveContinuous(new RunConveyorTowardsIntake());
-    ArTrigger.whenInactive(new StopConveyor());
+  BooleanSupplier booleanSupplyAssistantLT = () -> {
+      if (AssistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
+          return true;
+      } else {
+          return false;
+      }
+  };
+  
+  //Intake with conveyor (need to add conveyor code)
+  //right = reverse 
+  AlTrigger = new Trigger(booleanSupplyAssistantLT);
+  AlTrigger.whileActiveContinuous(new OnIntake_Command());
+  AlTrigger.whenInactive(new OffIntake_Command());
 
-    AlTrigger = new Trigger(booleanSupplyAssistantLT);
-    AlTrigger.whileActiveContinuous(new RunConveyorTowardsShooter());
-    AlTrigger.whenInactive(new StopConveyor());
+  ArTrigger = new Trigger(booleanSupplyAssistantRT);
+  ArTrigger.whileActiveContinuous(new ReversedOnIntake_Command());
+  ArTrigger.whenInactive(new OffIntake_Command()); 
 
+  XButton = new JoystickButton(AssistantController, Constants.XButtonPort);
+  XButton.whenHeld(new RunHorzConveyorForward_Command());
+  XButton.whenReleased(new StopHorzConveyor());
+
+  BButton = new JoystickButton(AssistantController, Constants.BButtonPort);
+  BButton.whenHeld(new RunHorzConveyorReverse_Command());
+  BButton.whenReleased(new StopHorzConveyor());
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
    */
+
+  //Autonomous Code 
+  
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return m_autoCommand;
+    return placeHolderCommand;
+    //return autoCommand;
   }
+  
 }
