@@ -67,6 +67,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
 	                                       MotorController rightBack, MotorController rightFront)
 	{
 		m_leftDrive = new MotorControllerGroup(leftBack, leftFront);
+		m_leftDrive.setInverted(true);
 		m_rightDrive = new MotorControllerGroup(rightBack, rightFront);
 	}
 
