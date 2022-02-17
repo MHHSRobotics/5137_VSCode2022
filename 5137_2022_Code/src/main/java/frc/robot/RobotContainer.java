@@ -9,6 +9,12 @@ import java.util.function.BooleanSupplier;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
+
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.ManShoot_Command;
+import frc.robot.subsystems.Shooter_Subsystem;
+
 import frc.robot.subsystems.HorzConveyor_Subsystem;
 import frc.robot.subsystems.DriveBase_Subsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -28,6 +34,7 @@ import frc.robot.commands.StopHorzConveyor;
 
 
 
+
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
  * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
@@ -38,12 +45,15 @@ public class RobotContainer {
 
 // public static final Joystick driveController = null;
   // The robot's subsystems and commands are defined here...
+
+  public static Command m_autoCommand;
+  public static Shooter_Subsystem shooter_Subsystem;
+
+  public static Joystick driveController;
+
   public static DriveBase_Subsystem driveBase_Subsystem; 
 
   public static Command placeHolderCommand;
-
-  // Joysticks
-  public static Joystick driveController;
   
   public Command autoCommand;
 
@@ -65,13 +75,17 @@ public class RobotContainer {
   public static HorzConveyor_Subsystem horzConveyor_Subsystem;
 
 
-
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    driveController = new Joystick(Constants.portForDrive);
+    
+    driveController = new Joystick(Constants.driverControllerPort);
+    shooter_Subsystem = new Shooter_Subsystem();
+
+    DriverController = new Joystick(Constants.portForDrive);
     driveBase_Subsystem = new DriveBase_Subsystem();
     horzConveyor_Subsystem = new HorzConveyor_Subsystem();
+
     // Configure the button bindings
 
     intake_Subsystem = new Intake_Subsystem(); 
@@ -79,9 +93,9 @@ public class RobotContainer {
     AssistantController = new Joystick(Constants.assisControllerPort);
     configureButtonBindings(); 
 
-
-
   }
+
+
 
   /**
    * Use this method to define your button->command mappings. Buttons can be created by
@@ -91,41 +105,57 @@ public class RobotContainer {
    * @param AssistantController 
    */
 
-
-  //Don't know if Command Schedualr does this but just in case 
   private void configureButtonBindings() {
+    BooleanSupplier booleanSupplyXBoxLT = () -> {
+      if (driveController.getRawAxis(Constants.LTAxisPort) > 0.1 && driveController.getRawAxis(Constants.RTAxisPort) < 0.1){
+        return true;
+      }
+      else {
+        return false;
+    }
+    };
+
     BooleanSupplier booleanSupplyAssistantRT = () -> {
       if (AssistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
           return true;
-      } else {
+      }
+      else {
           return false;
       }
-  }; 
-  BooleanSupplier booleanSupplyAssistantLT = () -> {
+    };
+   
+    BooleanSupplier booleanSupplyAssistantLT = () -> {
       if (AssistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
           return true;
-      } else {
+      } 
+      else {
           return false;
       }
-  };
+    };
   
-  //Intake with conveyor (need to add conveyor code)
-  //right = reverse 
-  AlTrigger = new Trigger(booleanSupplyAssistantLT);
-  AlTrigger.whileActiveContinuous(new OnIntake_Command());
-  AlTrigger.whenInactive(new OffIntake_Command());
+  
+    Trigger XlTrigger = new Trigger(booleanSupplyXBoxLT);
+    XlTrigger.whileActiveContinuous(new ManShoot_Command());
+  
 
-  ArTrigger = new Trigger(booleanSupplyAssistantRT);
-  ArTrigger.whileActiveContinuous(new ReversedOnIntake_Command());
-  ArTrigger.whenInactive(new OffIntake_Command()); 
+  
+   //Intake with conveyor (need to add conveyor code)
+   //right = reverse 
+    AlTrigger = new Trigger(booleanSupplyAssistantLT);
+    AlTrigger.whileActiveContinuous(new OnIntake_Command());
+    AlTrigger.whenInactive(new OffIntake_Command());
 
-  XButton = new JoystickButton(AssistantController, Constants.XButtonPort);
-  XButton.whenHeld(new RunHorzConveyorForward_Command());
-  XButton.whenReleased(new StopHorzConveyor());
+    ArTrigger = new Trigger(booleanSupplyAssistantRT);
+    ArTrigger.whileActiveContinuous(new ReversedOnIntake_Command());
+    ArTrigger.whenInactive(new OffIntake_Command()); 
 
-  BButton = new JoystickButton(AssistantController, Constants.BButtonPort);
-  BButton.whenHeld(new RunHorzConveyorReverse_Command());
-  BButton.whenReleased(new StopHorzConveyor());
+    XButton = new JoystickButton(AssistantController, Constants.XButtonPort);
+    XButton.whenHeld(new RunHorzConveyorForward_Command());
+    XButton.whenReleased(new StopHorzConveyor());
+
+    BButton = new JoystickButton(AssistantController, Constants.BButtonPort);
+    BButton.whenHeld(new RunHorzConveyorReverse_Command());
+    BButton.whenReleased(new StopHorzConveyor());
   }
 
 
@@ -142,5 +172,4 @@ public class RobotContainer {
     return placeHolderCommand;
     //return autoCommand;
   }
-  
 }

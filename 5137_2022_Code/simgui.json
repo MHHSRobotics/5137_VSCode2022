@@ -15,6 +15,11 @@
         "header": {
           "open": true
         }
+      },
+      "SparkMax[9]": {
+        "header": {
+          "open": true
+        }
       }
     }
   },
@@ -24,6 +29,7 @@
       "/LiveWindow/DriveBase_Subsystem": "Subsystem",
       "/LiveWindow/HorzConveyor_Subsystem": "Subsystem",
       "/LiveWindow/Intake_Subsystem": "Subsystem",
+      "/LiveWindow/Shooter_Subsystem": "Subsystem",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
     }
   }
