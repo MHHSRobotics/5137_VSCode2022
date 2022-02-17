@@ -49,17 +49,14 @@ public final class Constants {
     public final static int BButtonPort = 2;
     public final static int XButtonPort = 3;
     public final static int YButtonPort = 4;
-
-    //PS4 Button Ports
-    public static final int LButtonPort = 5;
-    public static final int RButtonPort = 6;
     
     //Motors have not been set to proper values 
     public static final int intakePort = 7;
     public static final double intakeSpeed = 0.3;
     
     public static final int assisControllerPort = 1;
-    public static final int conveyorPort = 9;
+    public static final int horzConveyorPort = 11;
+    public static final int vertConveyorPort = 10;
     public static final double conveyorSpeed = 0.3;
 }
 

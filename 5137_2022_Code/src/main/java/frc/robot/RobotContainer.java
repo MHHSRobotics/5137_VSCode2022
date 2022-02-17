@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ManShoot_Command;
 import frc.robot.subsystems.Shooter_Subsystem;
 
+import frc.robot.subsystems.VertConveyor_Subsystem;
 import frc.robot.subsystems.HorzConveyor_Subsystem;
 import frc.robot.subsystems.DriveBase_Subsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -29,10 +30,12 @@ import frc.robot.commands.ReversedOnIntake_Command;
 import frc.robot.commands.RunHorzConveyorForward_Command;
 import frc.robot.commands.RunHorzConveyorReverse_Command;
 import frc.robot.commands.StopHorzConveyor;
-
-
-
-
+import frc.robot.commands.RunVertConveyorForward_Command;
+import frc.robot.commands.RunVertConveyorReverse_Command;
+import frc.robot.commands.StopVertConveyor;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 
 /**
@@ -56,11 +59,16 @@ public class RobotContainer {
   public static Command placeHolderCommand;
   
   public Command autoCommand;
+  
+  public static VertConveyor_Subsystem vertConveyor_Subsystem;
 
   // Triggers
   public static Trigger ArTrigger;
   public static Trigger AlTrigger;
 
+  // Joystick buttons
+  public static JoystickButton AButton; // A
+  public static JoystickButton YButton; // Y
 
   //Xbox Controllers
   public static Joystick DriverController; // Static means that the method/class the variable or method belongs too doesn't need to be created
@@ -78,16 +86,17 @@ public class RobotContainer {
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    
-    driveController = new Joystick(Constants.driverControllerPort);
-    shooter_Subsystem = new Shooter_Subsystem();
+    DriverController = new Joystick(Constants.driverControllerPort);
+    AssistantController = new Joystick(Constants.assisControllerPort);
 
     DriverController = new Joystick(Constants.portForDrive);
     driveBase_Subsystem = new DriveBase_Subsystem();
-    horzConveyor_Subsystem = new HorzConveyor_Subsystem();
+   
 
     // Configure the button bindings
 
+    vertConveyor_Subsystem = new VertConveyor_Subsystem();
+    horzConveyor_Subsystem = new HorzConveyor_Subsystem();
     intake_Subsystem = new Intake_Subsystem(); 
     DriverController = new Joystick(Constants.driverControllerPort);
     AssistantController = new Joystick(Constants.assisControllerPort);
@@ -136,11 +145,7 @@ public class RobotContainer {
   
     Trigger XlTrigger = new Trigger(booleanSupplyXBoxLT);
     XlTrigger.whileActiveContinuous(new ManShoot_Command());
-  
 
-  
-   //Intake with conveyor (need to add conveyor code)
-   //right = reverse 
     AlTrigger = new Trigger(booleanSupplyAssistantLT);
     AlTrigger.whileActiveContinuous(new OnIntake_Command());
     AlTrigger.whenInactive(new OffIntake_Command());
@@ -150,12 +155,20 @@ public class RobotContainer {
     ArTrigger.whenInactive(new OffIntake_Command()); 
 
     XButton = new JoystickButton(AssistantController, Constants.XButtonPort);
-    XButton.whenHeld(new RunHorzConveyorForward_Command());
+    XButton.whenHeld(new RunHorzConveyorReverse_Command());
     XButton.whenReleased(new StopHorzConveyor());
 
     BButton = new JoystickButton(AssistantController, Constants.BButtonPort);
-    BButton.whenHeld(new RunHorzConveyorReverse_Command());
+    BButton.whenHeld(new RunHorzConveyorForward_Command());
     BButton.whenReleased(new StopHorzConveyor());
+
+    AButton = new JoystickButton(AssistantController, Constants.AButtonPort);
+    AButton.whenHeld(new RunVertConveyorReverse_Command());
+    AButton.whenReleased(new StopVertConveyor());
+
+    YButton = new JoystickButton(AssistantController, Constants.YButtonPort);
+    YButton.whenHeld(new RunVertConveyorForward_Command());
+    YButton.whenReleased(new StopVertConveyor());
   }
 
 
