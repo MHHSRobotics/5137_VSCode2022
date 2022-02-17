@@ -49,6 +49,7 @@ public final class Constants {
     public final static int BButtonPort = 2;
     public final static int XButtonPort = 3;
     public final static int YButtonPort = 4;
+    public final static int RightButtonPort = 11;
     
     //Motors have not been set to proper values 
     public static final int intakePort = 7;

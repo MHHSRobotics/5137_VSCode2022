@@ -77,6 +77,7 @@ public class RobotContainer {
   //Joystick Button 
   public static JoystickButton XButton;
   public static JoystickButton BButton;
+  public static JoystickButton RightButton;
 
 
   public static Intake_Subsystem intake_Subsystem;
@@ -95,6 +96,7 @@ public class RobotContainer {
 
     // Configure the button bindings
 
+    shooter_Subsystem = new Shooter_Subsystem();
     vertConveyor_Subsystem = new VertConveyor_Subsystem();
     horzConveyor_Subsystem = new HorzConveyor_Subsystem();
     intake_Subsystem = new Intake_Subsystem(); 
@@ -115,14 +117,6 @@ public class RobotContainer {
    */
 
   private void configureButtonBindings() {
-    BooleanSupplier booleanSupplyXBoxLT = () -> {
-      if (driveController.getRawAxis(Constants.LTAxisPort) > 0.1 && driveController.getRawAxis(Constants.RTAxisPort) < 0.1){
-        return true;
-      }
-      else {
-        return false;
-    }
-    };
 
     BooleanSupplier booleanSupplyAssistantRT = () -> {
       if (AssistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
@@ -143,8 +137,8 @@ public class RobotContainer {
     };
   
   
-    Trigger XlTrigger = new Trigger(booleanSupplyXBoxLT);
-    XlTrigger.whileActiveContinuous(new ManShoot_Command());
+    RightButton = new JoystickButton(AssistantController, Constants.RightButtonPort);
+    RightButton.whileActiveContinuous(new ManShoot_Command());
 
     AlTrigger = new Trigger(booleanSupplyAssistantLT);
     AlTrigger.whileActiveContinuous(new OnIntake_Command());
