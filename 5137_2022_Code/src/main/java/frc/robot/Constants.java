@@ -13,7 +13,7 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public final static double driveSensitivity = 2; //bigger # means less sensitivity, from 0.5 to 2.0
+    public final static double driveSensitivity = 3.0; //bigger # means less sensitivity, from 0.5 to 2.0
     //10.0: baby speed, 9.0: tdddler mode, 7.0: fast toddler mode, 5.0: optimal turn speed, 4.5:
     public final static double turnSensitivity = 5.0; //4.5 seems nice
     public final static boolean isQuickTurn = true; //makes turning the drive base able to override constant-curvature turning for turn-in-place maneuvers.
