@@ -24,8 +24,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
 	MotorController rightBack;
 	MotorController rightFront;
 
-	MotorControllerGroup m_leftDrive;
-	MotorControllerGroup m_rightDrive;
+	public static MotorControllerGroup m_leftDrive;
+	public static MotorControllerGroup m_rightDrive;
 
 	Joystick XBoxController;
 
@@ -40,9 +40,6 @@ public class DriveBaseSubsystem extends SubsystemBase {
 	instantiateMotors();
 	createDifferentialDrive(m_leftDrive, m_rightDrive);
 
-	newDriveSpeed = 0;
-	actualDriveSpeed = 0;
-	previousDriveSpeed = 0;
 
 	XBoxController = RobotContainer.driveController;
   }
@@ -97,6 +94,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
 	double driveValue = XBoxController.getRawAxis(Constants.LYStickAxisPort);
     double turnValue = XBoxController.getRawAxis(Constants.RXStickAxisPort);
     CashwinsDifferentialDrive.curvatureDrive(-driveValue / Constants.driveSensitivity, turnValue / Constants.turnSensitivity, Constants.isQuickTurn);
+	System.out.println("Left side going at: " + m_leftDrive.get());
+	System.out.println("Right side going at: " + m_rightDrive.get());
   }
 
   public void drivePivot(double speed) { // TODO may need to make this negative
