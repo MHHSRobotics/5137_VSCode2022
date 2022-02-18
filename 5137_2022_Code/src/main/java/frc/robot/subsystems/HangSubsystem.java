@@ -31,7 +31,7 @@ public class HangSubsystem extends SubsystemBase {
   public HangSubsystem() {
     extensionMotor = new SparkMaxWrapper(Constants.hangExtensionMotorPort, MotorType.kBrushless);
     pivotMotor = new SparkMaxWrapper(Constants.hangPivotMotorPort, MotorType.kBrushless);
-    assController = RobotContainer.assXBoxController;
+    assController = RobotContainer.AssistantController;
   }
 
   public void config(){
@@ -39,12 +39,12 @@ public class HangSubsystem extends SubsystemBase {
   }
 
   public void extendHang(Joystick xBoxController){
-    double extendValue = xBoxController.getRawAxis(Constants.assLYStickAxisPort);
+    double extendValue = xBoxController.getRawAxis(Constants.LYStickAxisPort);
     extensionMotor.set(extendValue);
   }
 
   public void pivotHang(Joystick xBoxController){
-    double pivotValue = xBoxController.getRawAxis(Constants.assRXStickAxisPort);
+    double pivotValue = xBoxController.getRawAxis(Constants.RXStickAxisPort);
     pivotMotor.set(pivotValue);
   }
 

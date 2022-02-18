@@ -16,9 +16,11 @@ public final class Constants {
 
     public static final int hangExtensionMotorPort = 1;
     public static final int hangPivotMotorPort = 0;
-    public static final int assControllerPort = 1;
-    public static final int assLYStickAxisPort = 1;
-    public static final int assRXStickAxisPort = 4;
+    public static final int assisControllerPort = 1;
+    public static final int LYStickAxisPort = 1;
+    public static final int RXStickAxisPort = 4;
+    public static final int RXAxisPort = 2;
+    public static final int RYAxisPort = 3;
     public static final float pivotReverseLimit = (float) 0.25;
     public static final float pivotForwardLimit = 0;
     public static final float extensionForwardLimit = 1000; //Change value to however many rotations is concidered the limit 

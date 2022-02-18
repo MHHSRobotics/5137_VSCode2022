@@ -22,7 +22,7 @@ public class pivotHang extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.hang_Subsystem.pivotHang(RobotContainer.assXBoxController);
+    RobotContainer.hang_Subsystem.pivotHang(RobotContainer.AssistantController);
   }
 
   // Called once the command ends or is interrupted.
