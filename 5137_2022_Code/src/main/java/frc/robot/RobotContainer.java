@@ -49,6 +49,7 @@ public static WPI_TalonFX pivotMotor = null;
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     AssistantController = new Joystick(Constants.assisControllerPort);
+    DriverController = new Joystick(Constants.driveControllerPort);
     hang_Subsystem = new HangSubsystem();
 
     // Configure the button bindings

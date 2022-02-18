@@ -1,0 +1,23 @@
+{
+  "HALProvider": {
+    "Other Devices": {
+      "SparkMax[0]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SparkMax[1]": {
+        "header": {
+          "open": true
+        }
+      }
+    }
+  },
+  "NTProvider": {
+    "types": {
+      "/FMSInfo": "FMSInfo",
+      "/LiveWindow/HangSubsystem": "Subsystem",
+      "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
+    }
+  }
+}
