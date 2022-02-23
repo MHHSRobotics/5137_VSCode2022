@@ -64,8 +64,8 @@ public class DriveBaseSubsystem extends SubsystemBase {
 	                                       MotorController rightBack, MotorController rightFront)
 	{
 		m_leftDrive = new MotorControllerGroup(leftBack, leftFront);
-		m_leftDrive.setInverted(true);
 		m_rightDrive = new MotorControllerGroup(rightBack, rightFront);
+		m_rightDrive.setInverted(true);
 	}
 
 	public void createDifferentialDrive(MotorControllerGroup leftDrive, MotorControllerGroup rightDrive) 
@@ -92,7 +92,7 @@ public class DriveBaseSubsystem extends SubsystemBase {
 
   public void rampArcadeDrive(Joystick XBoxController) {
 	double driveValue = XBoxController.getRawAxis(Constants.LYStickAxisPort);
-    double turnValue = XBoxController.getRawAxis(Constants.RXStickAxisPort);
+    double turnValue = XBoxController.getRawAxis(Constants.RXStickAxisPort) * (-1);
     CashwinsDifferentialDrive.curvatureDrive(-driveValue / Constants.driveSensitivity, turnValue / Constants.turnSensitivity, Constants.isQuickTurn);
 	System.out.println("Left side going at: " + m_leftDrive.get());
 	System.out.println("Right side going at: " + m_rightDrive.get());
