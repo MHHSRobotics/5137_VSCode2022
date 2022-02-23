@@ -5,6 +5,8 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.robot.commands.Autonomous_AutoShoot_Command;
+import frc.robot.commands.Autonomous_DriveBack_Command;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -14,6 +16,9 @@ public class DriveBack_Shoot_CommandGroup extends SequentialCommandGroup {
   public DriveBack_Shoot_CommandGroup() {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
-    addCommands();
+    addCommands(
+      new Autonomous_DriveBack_Command(0.5, -1.0),
+      new Autonomous_AutoShoot_Command(3)
+    );
   }
 }

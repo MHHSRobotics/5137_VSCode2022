@@ -54,4 +54,5 @@ public final class Constants {
     public static final int assisControllerPort = 1;
     public static final int conveyorPort = 8;
     public static final double conveyorSpeed = 0.3;
+    public static Object shooterAngle;
 }

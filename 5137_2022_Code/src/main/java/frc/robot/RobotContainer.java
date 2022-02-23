@@ -64,6 +64,10 @@ public class RobotContainer {
   public static Intake_Subsystem intake_Subsystem;
   public static HorzConveyor_Subsystem horzConveyor_Subsystem;
 
+public static Object storage_Subsystem;
+
+public static Object shooter_Subsystem;
+
 
 
   
