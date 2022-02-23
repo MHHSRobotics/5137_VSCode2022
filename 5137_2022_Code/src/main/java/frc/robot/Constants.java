@@ -29,9 +29,10 @@ public final class Constants {
     public static final double shooterAngle = 0;
     public static final int RTAxisPort = 2;
 
-    public final static double driveSensitivity = 1.0; //bigger # means less sensitivity, from 0.5 to 2.0
+    public final static double driveSensitivity = 3.0; //bigger # means less sensitivity, from 0.5 to 2.0
+    
     //10.0: baby speed, 9.0: tdddler mode, 7.0: fast toddler mode, 5.0: optimal turn speed, 4.5:
-    public final static double turnSensitivity = 3.0; //4.5 seems nice
+    public final static double turnSensitivity = 5.0; //4.5 seems nice
     public final static boolean isQuickTurn = true; //makes turning the drive base able to override constant-curvature turning for turn-in-place maneuvers.
 
     public static final int leftBackCAN = 1; 

@@ -25,8 +25,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	MotorController rightBack;
 	MotorController rightFront;
 
-	MotorControllerGroup m_leftDrive;
-	MotorControllerGroup m_rightDrive;
+	public static MotorControllerGroup m_leftDrive;
+	public static MotorControllerGroup m_rightDrive;
 
 	Joystick PS4Controller;
 
@@ -41,9 +41,6 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	instantiateMotors();
 	createDifferentialDrive(m_leftDrive, m_rightDrive);
 
-	newDriveSpeed = 0;
-	actualDriveSpeed = 0;
-	previousDriveSpeed = 0;
 
 	PS4Controller = RobotContainer.DriverController;
   }
@@ -67,8 +64,9 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	public void createMotorControllerGroup(MotorController leftBack, MotorController leftFront, 
 	                                       MotorController rightBack, MotorController rightFront)
 	{
-		//m_leftDrive = new MotorControllerGroup(leftBack, leftFront);
-		//m_rightDrive = new MotorControllerGroup(rightBack, rightFront);
+		m_leftDrive = new MotorControllerGroup(leftBack, leftFront);
+		m_rightDrive = new MotorControllerGroup(rightBack, rightFront);
+		m_rightDrive.setInverted(true);
 	}
 
 	public void createDifferentialDrive(MotorControllerGroup leftDrive, MotorControllerGroup rightDrive) 
@@ -94,9 +92,11 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	}
 
   public void rampArcadeDrive(Joystick XBoxController) {
-	//double driveValue = XBoxController.getRawAxis(Constants.LYStickAxisPort);
-    //double turnValue = XBoxController.getRawAxis(Constants.RXStickAxisPort);
-    //CashwinsDifferentialDrive.curvatureDrive(-driveValue / Constants.driveSensitivity, turnValue / Constants.turnSensitivity, Constants.isQuickTurn);
+	double driveValue = XBoxController.getRawAxis(Constants.LYStickAxisPort);
+    double turnValue = XBoxController.getRawAxis(Constants.RXStickAxisPort) * (-1);
+    CashwinsDifferentialDrive.curvatureDrive(-driveValue / Constants.driveSensitivity, turnValue / Constants.turnSensitivity, Constants.isQuickTurn);
+	System.out.println("Left side going at: " + m_leftDrive.get());
+	System.out.println("Right side going at: " + m_rightDrive.get());
   }
 
   public void drivePivot(double speed) { // TODO may need to make this negative
