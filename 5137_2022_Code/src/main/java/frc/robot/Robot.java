@@ -4,7 +4,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.HangSubsystem;
@@ -19,6 +21,7 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
+  private Joystick xboxController;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -29,6 +32,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+    xboxController = RobotContainer.AssistantController;
   }
 
   /**
@@ -82,7 +86,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    System.out.print("Extension speed at: " + (RobotContainer.hang_Subsystem.extensionMotor.get()));
+    System.out.println("\tPivot speed at: " + (RobotContainer.hang_Subsystem.pivotMotor.get()));
+  }
 
   @Override
   public void testInit() {

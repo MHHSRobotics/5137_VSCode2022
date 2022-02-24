@@ -9,6 +9,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
@@ -23,8 +24,8 @@ public class HangSubsystem extends SubsystemBase {
   public boolean allowedPivot;
 
   Joystick assController;
-  SparkMaxWrapper extensionMotor;
-  SparkMaxWrapper pivotMotor;
+  public SparkMaxWrapper extensionMotor; // Remove public static
+  public SparkMaxWrapper pivotMotor; // Remove public static
 
 
   /** Creates a new HangSubsystem. */
@@ -40,17 +41,28 @@ public class HangSubsystem extends SubsystemBase {
 
   public void extendHang(Joystick xBoxController){
     double extendValue = xBoxController.getRawAxis(Constants.RYAxisPort);
+    //System.out.println(xBoxController.getRawAxis(Constants.RYAxisPort));
     extensionMotor.set(extendValue);
   }
 
   public void pivotHang(Joystick xBoxController){
     double pivotValue = xBoxController.getRawAxis(Constants.RXAxisPort);
+    //System.out.println(xBoxController.getRawAxis(Constants.RXAxisPort));
     pivotMotor.set(pivotValue);
+  }
+
+  public void stopExtendHang(Joystick xBoxController){
+    extensionMotor.set(0);
+  }
+
+  public void stopPivotHang(Joystick xBoxController){
+    pivotMotor.set(0);
   }
 
   @Override
   public void periodic() {
     //limit switches :D
+    
     extensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     pivotMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     pivotMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
@@ -58,5 +70,6 @@ public class HangSubsystem extends SubsystemBase {
     extensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.extensionForwardLimit);
     pivotMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.pivotForwardLimit);
     pivotMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.pivotReverseLimit);
+    
   }
 }

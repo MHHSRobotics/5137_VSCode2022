@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 import frc.robot.commands.pivotHang;
 import frc.robot.commands.extendHang;
+import frc.robot.commands.stopPivotHang;
+import frc.robot.commands.stopExtendHang;
 import frc.robot.subsystems.HangSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -28,11 +30,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  public static WPI_TalonFX extensionMotor = null;
-public static WPI_TalonFX pivotMotor = null;
 // The robot's subsystems and commands are defined here...
-  public static DigitalInput LimitSwitchExtend;
-  public static DigitalInput LimitSwitchPivot;
+
   public static Joystick DriverController;
   
   /*private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();*/
@@ -83,9 +82,11 @@ public static WPI_TalonFX pivotMotor = null;
 
     RXAxis = new Trigger(booleanSupplyAssistantRX);
     RXAxis.whileActiveContinuous(new pivotHang());
+    RXAxis.whenInactive(new stopPivotHang());
 
     RYAxis = new Trigger(booleanSupplyAssistantRY);
     RYAxis.whileActiveContinuous(new extendHang());
+    RYAxis.whenInactive(new stopExtendHang());
   }
 
   /**
