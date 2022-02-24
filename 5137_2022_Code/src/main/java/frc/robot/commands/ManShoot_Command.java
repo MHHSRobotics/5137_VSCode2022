@@ -4,56 +4,36 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
-public class Autonomous_AutoShoot_Command extends CommandBase {
-  /** Creates a new Autonomous_AutoShoot* _Command. */
-
-  double m_time;
-
-  Timer m_timer; 
-
-  public Autonomous_AutoShoot_Command(double time) {
+public class ManShoot_Command extends CommandBase {
+  /** Creates a new ManShoot_Command. */
+  public ManShoot_Command() {
     // Use addRequirements() here to declare subsystem dependencies.
-    m_timer = new Timer();
-    m_time = time;
     addRequirements(RobotContainer.shooter_Subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
-    m_timer.reset();
-    m_timer.start();
-  }
+  public void initialize() {}
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   
+    if (RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false) == true) {//ready to shoot {
+      RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_timer.get() < m_time) {
-      return false;
-    }
-    else {
-      return true;
-  }
+    return false;
   }
 }
