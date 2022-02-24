@@ -12,8 +12,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
-import frc.robot.commands.pivotHang;
-import frc.robot.commands.extendHang;
+import frc.robot.commands.moveHang;
 import frc.robot.commands.stopPivotHang;
 import frc.robot.commands.stopExtendHang;
 import frc.robot.subsystems.HangSubsystem;
@@ -63,7 +62,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     BooleanSupplier booleanSupplyAssistantRX = () -> {
-      if (AssistantController.getRawAxis(Constants.RXAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RYAxisPort) < 0.1) {
+      if (Math.abs(AssistantController.getRawAxis(Constants.RXAxisPort)) > 0.1) {
           return true;
       }
       else {
@@ -72,20 +71,20 @@ public class RobotContainer {
     };
    
     BooleanSupplier booleanSupplyAssistantRY = () -> {
-      if (AssistantController.getRawAxis(Constants.RYAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RXAxisPort) < 0.1) {
+      if (Math.abs(AssistantController.getRawAxis(Constants.RYAxisPort)) > 0.1) {
           return true;
       } 
       else {
-          return false;
+          return false;da
       }
     };
 
     RXAxis = new Trigger(booleanSupplyAssistantRX);
-    RXAxis.whileActiveContinuous(new pivotHang());
+    RXAxis.whileActiveContinuous(new moveHang());
     RXAxis.whenInactive(new stopPivotHang());
 
     RYAxis = new Trigger(booleanSupplyAssistantRY);
-    RYAxis.whileActiveContinuous(new extendHang());
+    RYAxis.whileActiveContinuous(new moveHang());
     RYAxis.whenInactive(new stopExtendHang());
   }
 

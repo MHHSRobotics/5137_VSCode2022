@@ -39,16 +39,9 @@ public class HangSubsystem extends SubsystemBase {
 
   }
 
-  public void extendHang(Joystick xBoxController){
-    double extendValue = xBoxController.getRawAxis(Constants.RYAxisPort);
-    //System.out.println(xBoxController.getRawAxis(Constants.RYAxisPort));
-    extensionMotor.set(extendValue);
-  }
-
-  public void pivotHang(Joystick xBoxController){
-    double pivotValue = xBoxController.getRawAxis(Constants.RXAxisPort);
-    //System.out.println(xBoxController.getRawAxis(Constants.RXAxisPort));
-    pivotMotor.set(pivotValue);
+  public void moveHang(Joystick xBoxController){
+    extensionMotor.set(xBoxController.getRawAxis(Constants.RYAxisPort));
+    pivotMotor.set(xBoxController.getRawAxis(Constants.RXAxisPort));
   }
 
   public void stopExtendHang(Joystick xBoxController){

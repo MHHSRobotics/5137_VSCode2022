@@ -7,9 +7,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class extendHang extends CommandBase {
+public class moveHang extends CommandBase {
   /** Creates a new extendHang. */
-  public extendHang() {
+  public moveHang() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.hang_Subsystem);
   }
@@ -21,7 +21,7 @@ public class extendHang extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.hang_Subsystem.extendHang(RobotContainer.AssistantController);
+    RobotContainer.hang_Subsystem.moveHang(RobotContainer.AssistantController);
   }
 
   // Called once the command ends or is interrupted.
