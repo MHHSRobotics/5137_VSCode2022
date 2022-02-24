@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.CommandGroups.DriveBack_Shoot_CommandGroup;
 import frc.robot.commands.OffIntake_Command;
 import frc.robot.commands.OnIntake_Command;
 import frc.robot.subsystems.Intake_Subsystem;
@@ -39,6 +40,8 @@ public class RobotContainer {
 // public static final Joystick driveController = null;
   // The robot's subsystems and commands are defined here...
   public static DriveBase_Subsystem driveBase_Subsystem; 
+
+  public static DriveBack_Shoot_CommandGroup driveBack_Shoot_CommandGroup;
 
   public static Command placeHolderCommand;
 
@@ -142,8 +145,9 @@ public static Object shooter_Subsystem;
   //Autonomous Code 
   
   public Command getAutonomousCommand() {
+    driveBack_Shoot_CommandGroup = new DriveBack_Shoot_CommandGroup();
     // An ExampleCommand will run in autonomous
-    return placeHolderCommand;
+    return driveBack_Shoot_CommandGroup;
     //return autoCommand;
   }
   
