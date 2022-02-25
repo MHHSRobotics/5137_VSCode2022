@@ -9,7 +9,7 @@ import java.util.function.BooleanSupplier;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-
+import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.ManShoot_Command;
@@ -79,6 +79,7 @@ public class RobotContainer {
   // Triggers
   public static Trigger ArTrigger;
   public static Trigger AlTrigger;
+  public static Trigger RightTrigger;
 
   // Joystick buttons
   public static JoystickButton AButton; // A
@@ -91,7 +92,9 @@ public class RobotContainer {
   //Joystick Button 
   public static JoystickButton XButton;
   public static JoystickButton BButton;
-  public static JoystickButton RightButton;
+
+  // D Pad Buttons
+  public 
 
 
   public static Intake_Subsystem intake_Subsystem;
@@ -103,8 +106,7 @@ public class RobotContainer {
   /*private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();*/
   /*private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);*/
 
-  public static Trigger RXAxis;
-  public static Trigger RYAxis;
+
 
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -139,6 +141,15 @@ public class RobotContainer {
    */
 
   private void configureButtonBindings() {
+
+    BooleanSupplier booleanSupplyXBoxRT = () -> {
+      if (DriverController.getRawAxis(Constants.RTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.LTAxisPort) < 0.1)
+      {
+          return true;
+      } else {
+          return false;
+      }
+  };
 
     BooleanSupplier booleanSupplyAssistantRT = () -> {
       if (AssistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
@@ -177,8 +188,25 @@ public class RobotContainer {
     };
   
   
-    RightButton = new JoystickButton(DriverController, Constants.RightButtonPort);
-    RightButton.whileActiveContinuous(new ManShoot_Command());
+    RightTrigger = new Trigger(booleanSupplyXBoxRT);
+    RightTrigger.whileActiveContinuous(new ManShoot_Command());
+
+    //Up DPAD
+    uDPadButton = new POVButton(XBoxController, Constants.uDPadButtonValue); //uDPadButtonValue
+    uDPadButton.whileActiveContinuous(new ManShoot_Command()); //makes manual shooter engage
+    uDPadButton.whenInactive(new StahpTheShoot_Command());
+    uDPadButton.whenInactive(new StopShootStorage_Command());
+
+    rDPadButton = new POVButton(XBoxController, Constants.rDPadButtonValue);
+    rDPadButton.whileActiveContinuous(new ManShoot_Command()); //makes manual shooter engage
+    rDPadButton.whenInactive(new StahpTheShoot_Command());
+    rDPadButton.whenInactive(new StopShootStorage_Command());
+
+    dDPadButton = new POVButton(XBoxController, Constants.dDPadButtonValue);
+    dDPadButton.whileActiveContinuous(new ManShoot_Command()); //makes manual shooter engage
+    dDPadButton.whileActiveOnce(new ArcadeDrive()); //may need to change
+    dDPadButton.whenInactive(new StahpTheShoot_Command());
+    dDPadButton.whenInactive(new StopShootStorage_Command());
 
     AlTrigger = new Trigger(booleanSupplyAssistantLT);
     AlTrigger.whileActiveContinuous(new OnIntake_Command());
@@ -204,11 +232,11 @@ public class RobotContainer {
     YButton.whenHeld(new RunVertConveyorForward_Command());
     YButton.whenReleased(new StopVertConveyor());
 
-    RXAxis = new Trigger(booleanSupplyAssistantRX);
+    Trigger RXAxis = new Trigger(booleanSupplyAssistantRX);
     RXAxis.whileActiveContinuous(new pivotHang());
     RXAxis.whenInactive(new stopPivotHang());
 
-    RYAxis = new Trigger(booleanSupplyAssistantRY);
+    Trigger RYAxis = new Trigger(booleanSupplyAssistantRY);
     RYAxis.whileActiveContinuous(new extendHang());
     RYAxis.whenInactive(new stopExtendHang());
     
