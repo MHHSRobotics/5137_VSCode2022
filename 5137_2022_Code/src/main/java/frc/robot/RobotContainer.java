@@ -37,6 +37,22 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.motorcontrol.Spark;
+import frc.robot.commands.pivotHang;
+import frc.robot.commands.extendHang;
+import frc.robot.commands.stopPivotHang;
+import frc.robot.commands.stopExtendHang;
+import frc.robot.subsystems.HangSubsystem;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -51,8 +67,6 @@ public class RobotContainer {
 
   public static Command m_autoCommand;
   public static Shooter_Subsystem shooter_Subsystem;
-
-  public static Joystick driveController;
 
   public static DriveBase_Subsystem driveBase_Subsystem; 
 
@@ -82,7 +96,15 @@ public class RobotContainer {
 
   public static Intake_Subsystem intake_Subsystem;
   public static HorzConveyor_Subsystem horzConveyor_Subsystem;
+  public static HangSubsystem hang_Subsystem;
 
+// The robot's subsystems and commands are defined here...
+  
+  /*private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();*/
+  /*private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);*/
+
+  public static Trigger RXAxis;
+  public static Trigger RYAxis;
 
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -92,7 +114,7 @@ public class RobotContainer {
 
     DriverController = new Joystick(Constants.portForDrive);
     driveBase_Subsystem = new DriveBase_Subsystem();
-   
+    hang_Subsystem = new HangSubsystem();
 
     // Configure the button bindings
 
@@ -120,6 +142,15 @@ public class RobotContainer {
 
     BooleanSupplier booleanSupplyAssistantRT = () -> {
       if (AssistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
+        return true;
+      } 
+      else {
+          return false;
+      }
+    };
+    
+    BooleanSupplier booleanSupplyAssistantRX = () -> {
+      if (AssistantController.getRawAxis(Constants.RXAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RYAxisPort) < 0.1) {
           return true;
       }
       else {
@@ -129,15 +160,24 @@ public class RobotContainer {
    
     BooleanSupplier booleanSupplyAssistantLT = () -> {
       if (AssistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
-          return true;
+        return true;
       } 
       else {
-          return false;
+        return false;
+      }
+    };
+
+    BooleanSupplier booleanSupplyAssistantRY = () -> {
+      if (AssistantController.getRawAxis(Constants.RYAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RXAxisPort) < 0.1) {
+        return true;
+      }
+      else {
+        return false;
       }
     };
   
   
-    RightButton = new JoystickButton(AssistantController, Constants.RightButtonPort);
+    RightButton = new JoystickButton(DriverController, Constants.RightButtonPort);
     RightButton.whileActiveContinuous(new ManShoot_Command());
 
     AlTrigger = new Trigger(booleanSupplyAssistantLT);
@@ -163,8 +203,16 @@ public class RobotContainer {
     YButton = new JoystickButton(AssistantController, Constants.YButtonPort);
     YButton.whenHeld(new RunVertConveyorForward_Command());
     YButton.whenReleased(new StopVertConveyor());
-  }
 
+    RXAxis = new Trigger(booleanSupplyAssistantRX);
+    RXAxis.whileActiveContinuous(new pivotHang());
+    RXAxis.whenInactive(new stopPivotHang());
+
+    RYAxis = new Trigger(booleanSupplyAssistantRY);
+    RYAxis.whileActiveContinuous(new extendHang());
+    RYAxis.whenInactive(new stopExtendHang());
+    
+  };
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -176,6 +224,6 @@ public class RobotContainer {
   
   public Command getAutonomousCommand() {
     // An ExampleCommand will run in autonomous
-    return placeHolderCommand;
+    return autoCommand;
   }
 }

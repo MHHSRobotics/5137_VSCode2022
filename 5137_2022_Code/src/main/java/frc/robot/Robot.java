@@ -6,9 +6,12 @@ package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.HangSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -21,6 +24,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   public static UsbCamera driverCam; 
+  private Joystick xboxController;
 
   /*
    * This function is run when the robot is first started up and should be used for any
@@ -36,6 +40,7 @@ public class Robot extends TimedRobot {
 
     //driverCam.setResolution(240, 180);
     //driverCam.setFPS(30);
+    xboxController = RobotContainer.AssistantController;
   }
 
   /**
@@ -90,7 +95,10 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+    System.out.print("Extension speed at: " + (RobotContainer.hang_Subsystem.extensionMotor.get()));
+    System.out.println("\tPivot speed at: " + (RobotContainer.hang_Subsystem.pivotMotor.get()));
+  }
 
   @Override
   public void testInit() {

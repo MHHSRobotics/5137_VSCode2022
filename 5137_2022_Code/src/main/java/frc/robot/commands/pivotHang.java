@@ -4,16 +4,15 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class ManShoot_Command extends CommandBase {
-  /** Creates a new ManShoot_Command. */
-  public ManShoot_Command() {
+public class pivotHang extends CommandBase {
+  /** Creates a new pivotHang. */
+  public pivotHang() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.shooter_Subsystem);
-
+    addRequirements(RobotContainer.hang_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -23,9 +22,7 @@ public class ManShoot_Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false) == true) {//ready to shoot {
-      RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false);
-    }
+    RobotContainer.hang_Subsystem.pivotHang(RobotContainer.AssistantController);
   }
 
   // Called once the command ends or is interrupted.

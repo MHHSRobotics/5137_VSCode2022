@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.MotorCommutation;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -17,7 +18,7 @@ import frc.robot.simulation.SparkMaxWrapper;
 public class Shooter_Subsystem extends SubsystemBase {
 
   SparkMaxWrapper shooterMotor;
-
+  SparkMaxWrapper backSpinShooterMotor;
   Joystick driveController;
 
   boolean horizontalTurnGood;
@@ -27,8 +28,9 @@ public class Shooter_Subsystem extends SubsystemBase {
     horizontalTurnGood = false;
     velocityRunningGood = false;
     shooterMotor = new SparkMaxWrapper(Constants.shooterId, MotorType.kBrushless);
+    backSpinShooterMotor = new SparkMaxWrapper(Constants.backSpinShooterId, MotorType.kBrushless);
 
-    driveController = RobotContainer.driveController;
+    driveController = RobotContainer.DriverController;
   }
 
   @Override
@@ -38,6 +40,7 @@ public class Shooter_Subsystem extends SubsystemBase {
 
   public void endShoot() { 
     shooterMotor.stopMotor();
+    backSpinShooterMotor.stopMotor();
     //table.getEntry("pipeline").setNumber(2); //sets pipeline number 1-9. 1 isnt limelight, 2 is (new*)
 }
 
@@ -82,6 +85,7 @@ public class Shooter_Subsystem extends SubsystemBase {
       }
 
       shooterMotor.set(controllerMAGVelo);
+      backSpinShooterMotor.set(-controllerMAGVelo / 3.0);
       //shooterFollowerTalon.set(ControlMode.Follower, Constants.shooterCAN);
       RelativeEncoder encoder = shooterMotor.getEncoder();
       double veloReading = encoder.getVelocity();
