@@ -20,7 +20,7 @@ public final class Constants {
     public static final int driveControllerPort = 0;
     public static final int LYStickAxisPort = 2;
     public static final int RXStickAxisPort = 3;
-    public static final int RXAxisPort = 0; //4
+    public static final int RXAxisPort = 4; //4
     public static final int RYAxisPort = 1; //5
     public static final float pivotReverseLimit = (float) 0.25;
     public static final float pivotForwardLimit = 0;

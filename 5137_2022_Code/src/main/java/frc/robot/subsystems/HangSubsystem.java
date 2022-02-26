@@ -48,11 +48,11 @@ public class HangSubsystem extends SubsystemBase {
   }
 
   public void stopExtendHang(Joystick xBoxController){
-    extensionMotor.set(0);
+    extensionMotor.stopMotor();
   }
 
   public void stopPivotHang(Joystick xBoxController){
-    pivotMotor.set(0);
+    pivotMotor.stopMotor();
   }
 
   @Override
