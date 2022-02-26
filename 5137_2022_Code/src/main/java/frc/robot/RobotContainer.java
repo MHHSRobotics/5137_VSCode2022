@@ -70,7 +70,7 @@ public class RobotContainer {
   // Triggers
   public static Trigger ArTrigger;
   public static Trigger AlTrigger;
-  public static Trigger RightTrigger;
+  public static Trigger rightTrigger;
 
   // Joystick buttons
   public static JoystickButton AButton; // A
@@ -180,8 +180,9 @@ public class RobotContainer {
     };
   
   
-    RightTrigger = new Trigger(booleanSupplyXBoxRT);
-    RightTrigger.whileActiveContinuous(new ManShoot_Command());
+    rightTrigger = new Trigger(booleanSupplyXBoxRT);
+    rightTrigger.whileActiveContinuous(new ManShoot_Command());
+    rightTrigger.whenInactive(new stopShoot());
 
     //Up DPAD
     uDPadButton = new POVButton(DriverController, 0); //uDPadButtonValue
