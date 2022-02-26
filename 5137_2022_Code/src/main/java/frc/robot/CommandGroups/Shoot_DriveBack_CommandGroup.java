@@ -25,9 +25,8 @@ public class Shoot_DriveBack_CommandGroup extends SequentialCommandGroup{
 
   public Shoot_DriveBack_CommandGroup(){
     addCommands(
-      new Autonomous_AutoShoot_Command(3),
-      new Autonomous_DriveBack_Command(0.5, -1.0)
-      //new OnIntake_Command()
+      new Autonomous_AutoShoot_Command(2),
+      new Autonomous_DriveBack_Command(3, -1.0)
       );
   }
 }

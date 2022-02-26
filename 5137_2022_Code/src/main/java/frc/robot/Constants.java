@@ -14,12 +14,15 @@ package frc.robot;
  */
 public final class Constants {
 
-
-    public static final int shooterId = 8;
+    public static final String autoSelection = "shoot_DriveBack";
+    public static final String driveBack_Shoot = "driveBack_Shoot";
+    public static final String shoot_DriveBack = "shoot_DriveBack";
+    
+    public static final int shooterId = 9;
     public static final double uDPadButtonValue = 0.4;
     public static final double rDPadButtonValue = 0.6;
     public static final double dDPadButtonValue = 0.8;
-    public static final double InitiationLineShooterPerc = 0;
+    public static final double InitiationLineShooterPerc = 1.0;
     public static final int maxPercShooter = 1;
     public static final double BackTrenchShooterPerc = 0;
     public static final double FrontTrenchShooterPerc = 0;

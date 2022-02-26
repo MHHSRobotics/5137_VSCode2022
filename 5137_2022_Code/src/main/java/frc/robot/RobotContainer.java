@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.CommandGroups.Shoot_DriveBack_CommandGroup;
 import frc.robot.CommandGroups.DriveBack_Shoot_CommandGroup;
 import frc.robot.commands.OffIntake_Command;
 import frc.robot.commands.OnIntake_Command;
@@ -52,6 +53,7 @@ public class RobotContainer {
 
   public static DriveBase_Subsystem driveBase_Subsystem; 
 
+  public static Shoot_DriveBack_CommandGroup shoot_DriveBack_CommandGroup;
   public static DriveBack_Shoot_CommandGroup driveBack_Shoot_CommandGroup;
 
   public static Command placeHolderCommand;
@@ -167,11 +169,18 @@ public static Object storage_Subsystem;
 
   //Autonomous Code 
   
-  public Command getAutonomousCommand() {
+  public static Command getAutonomousCommand() {
+
     driveBack_Shoot_CommandGroup = new DriveBack_Shoot_CommandGroup();
-    // An ExampleCommand will run in autonomous
-    return driveBack_Shoot_CommandGroup;
-    //return autoCommand;
+    shoot_DriveBack_CommandGroup = new Shoot_DriveBack_CommandGroup();
+    
+    switch (Constants.autoSelection) {
+      case (Constants.driveBack_Shoot):
+        return driveBack_Shoot_CommandGroup;
+      case (Constants.shoot_DriveBack):
+        return shoot_DriveBack_CommandGroup;
+      default:
+        return driveBack_Shoot_CommandGroup;
+    }
   }
-  
 }

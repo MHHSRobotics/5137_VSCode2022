@@ -37,13 +37,14 @@ public class Autonomous_AutoShoot_Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-   
+    System.out.println("This is the time: "+m_timer.get());
+    RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, false, true);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    
+    RobotContainer.shooter_Subsystem.endShoot();
   }
 
   // Returns true when the command should end.

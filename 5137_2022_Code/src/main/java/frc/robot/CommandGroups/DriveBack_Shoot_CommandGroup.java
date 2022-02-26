@@ -17,8 +17,8 @@ public class DriveBack_Shoot_CommandGroup extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new Autonomous_DriveBack_Command(0.5, -1.0),
-      new Autonomous_AutoShoot_Command(3)
+      new Autonomous_DriveBack_Command(3, -1.0),
+      new Autonomous_AutoShoot_Command(2)
     );
   }
 }
