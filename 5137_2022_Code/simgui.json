@@ -1,12 +1,6 @@
 {
   "HALProvider": {
     "Other Devices": {
-      "SparkMax[0]": {
-        "header": {
-          "open": true
-        }
-      },
-<<<<<<< HEAD
       "SparkMax[10]": {
         "header": {
           "open": true
@@ -17,14 +11,6 @@
           "open": true
         }
       },
-=======
->>>>>>> Hang
-      "SparkMax[1]": {
-        "header": {
-          "open": true
-        }
-<<<<<<< HEAD
-      },
       "SparkMax[8]": {
         "header": {
           "open": true
@@ -34,15 +20,12 @@
         "header": {
           "open": true
         }
-=======
->>>>>>> Hang
       }
     }
   },
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
-<<<<<<< HEAD
       "/LiveWindow/DriveBase_Subsystem": "Subsystem",
       "/LiveWindow/HangSubsystem": "Subsystem",
       "/LiveWindow/HorzConveyor_Subsystem": "Subsystem",
@@ -50,10 +33,6 @@
       "/LiveWindow/Shooter_Subsystem": "Subsystem",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/VertConveyor_Subsystem": "Subsystem"
-=======
-      "/LiveWindow/HangSubsystem": "Subsystem",
-      "/LiveWindow/Ungrouped/Scheduler": "Scheduler"
->>>>>>> Hang
     }
   }
 }

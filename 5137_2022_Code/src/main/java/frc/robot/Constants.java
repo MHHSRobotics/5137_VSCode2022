@@ -16,62 +16,69 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
  */
 public final class Constants {
 
-    // Shooter Constants 
-    public static final int shooterId = 8;
-    public static final int backSpinShooterId = 9; //change later
+    //MOTORS HAVE NOT BEEN SET TO PROPER VALUES
+
+    //Controllers
+    public static final int driverControllerPort = 0; //White Knight
+    public static final int assisControllerPort = 1; //Black Jack
+
+    //Joysticks
+    public static final int LXStickAxisPort = 0;
+    public static final int LYStickAxisPort = 1;
+    public static final int RXStickAxisPort = 4;
+    public static final int RYStickAxisPort = 5;
+
+    //Triggers
+    public static final int RTAxisPort = 2;
+    public static final int LTAxisPort = 3;
+
+    //Buttons
+    public final static int AButtonPort = 1;
+    public final static int BButtonPort = 2;
+    public final static int XButtonPort = 3;
+    public final static int YButtonPort = 4;
+
+    //D-Pad
     public static final int uDPadButtonValue = 0;
     public static final int rDPadButtonValue = 90;
     public static final int dDPadButtonValue = 180;
-    public static final double InitiationLineShooterPerc = 0.4;
-    public static final int maxPercShooter = 1;
-    public static final double BackTrenchShooterPerc = 0.6;
-    public static final double FrontTrenchShooterPerc = 0.8;
-    public static final int LTAxisPort = 3;
-    public static final double veloError = 0;
-    public static final double shooterAngle = 0;
-    public static final int RTAxisPort = 2;
 
-    // Drive Constants
-    public final static double driveSensitivity = 3.0; //bigger # means less sensitivity, from 0.5 to 2.0
-    
-    //10.0: baby speed, 9.0: tdddler mode, 7.0: fast toddler mode, 5.0: optimal turn speed, 4.5:
+    //DriveBase
+    public final static double driveSensitivity = 3.0;
     public final static double turnSensitivity = 5.0; //4.5 seems nice
     public final static boolean isQuickTurn = true; //makes turning the drive base able to override constant-curvature turning for turn-in-place maneuvers.
-
+    
     public static final int leftBackCAN = 1; 
     public static final int leftFrontCAN = 2;
     public static final int rightBackCAN = 5;
     public static final int rightFrontCAN = 6;
 
-    // Controller Constants
-    public static final int LYStickAxisPort = 1;
-    public static final int RXStickAxisPort = 4;
-    public static final int portForDrive = 0;
-
-    //Xbox button ports 
-    public final static int AButtonPort = 1;
-    public final static int BButtonPort = 2;
-    public final static int XButtonPort = 3;
-    public final static int YButtonPort = 4;
-    public final static int RightButtonPort = 11;
-    
-
-    //Motors have not been set to proper values 
-    public static final int intakePort = 7;
+    //Intake
+    public static final int intakePort = 7; //Need to Change
     public static final double intakeSpeed = 0.3;
-    
-    public static final int assisControllerPort = 1;
-    public static final int driverControllerPort = 0;
-    public static final int horzConveyorPort = 11;
-    public static final int vertConveyorPort = 10;
+
+    //Conveyor
+    public static final int horzConveyorPort = 10;
+    public static final int vertConveyorPort = 11;
     public static final double conveyorSpeed = 0.3;
 
-    public static final int hangExtensionMotorPort = 1;
-    public static final int hangPivotMotorPort = 0;
+    //Shooter
+    public static final int shooterId = 8;
+    public static final int backSpinShooterId = 9; //Change Later
+    
+    public static final double InitiationLineShooterPerc = 0.4;
+    public static final double BackTrenchShooterPerc = 0.6;
+    public static final double FrontTrenchShooterPerc = 0.8;
+    public static final int maxPercShooter = 1;
+
+    public static final double veloError = 0;
+    public static final double shooterAngle = 0;
+    
+    //Hang
+    public static final int hangExtensionMotorPort = 0;
+    public static final int hangPivotMotorPort = 1;
 
     public static final float pivotReverseLimit = (float) 0.25;
     public static final float pivotForwardLimit = 0;
-    public static final float extensionForwardLimit = 1000; //Change value to however many rotations is concidered the limit 
-   
-    public static final int driveControllerPort = 0;
+    public static final float extensionForwardLimit = 1000; //Change value to however many rotations is concidered the limit   
 }
