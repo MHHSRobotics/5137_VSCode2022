@@ -12,7 +12,8 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
-import frc.robot.commands.moveHang;
+import frc.robot.commands.pivotHang;
+import frc.robot.commands.extendHang;
 import frc.robot.commands.stopPivotHang;
 import frc.robot.commands.stopExtendHang;
 import frc.robot.subsystems.HangSubsystem;
@@ -44,6 +45,9 @@ public class RobotContainer {
   public static Trigger RXAxis;
   public static Trigger RYAxis;
 
+  public static double RXRawAxis;
+  public static double RYRawAxis;
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
     AssistantController = new Joystick(Constants.assisControllerPort);
@@ -62,7 +66,7 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     BooleanSupplier booleanSupplyAssistantRX = () -> {
-      if (Math.abs(AssistantController.getRawAxis(Constants.RXAxisPort)) > 0.1) {
+      if (Math.abs(AssistantController.getRawAxis(Constants.RXAxisPort)) > 0.1 && Math.abs(AssistantController.getRawAxis(Constants.RYAxisPort)) < Math.abs(AssistantController.getRawAxis(Constants.RXAxisPort))) {
           return true;
       }
       else {
@@ -71,20 +75,19 @@ public class RobotContainer {
     };
    
     BooleanSupplier booleanSupplyAssistantRY = () -> {
-      if (Math.abs(AssistantController.getRawAxis(Constants.RYAxisPort)) > 0.1) {
+      if (Math.abs(AssistantController.getRawAxis(Constants.RYAxisPort)) > 0.1 && Math.abs(AssistantController.getRawAxis(Constants.RXAxisPort)) < Math.abs(AssistantController.getRawAxis(Constants.RYAxisPort))) {
           return true;
       } 
       else {
           return false;
       }
     };
-
     RXAxis = new Trigger(booleanSupplyAssistantRX);
-    RXAxis.whileActiveContinuous(new moveHang());
+    RXAxis.whileActiveContinuous(new pivotHang());
     RXAxis.whenInactive(new stopPivotHang());
 
     RYAxis = new Trigger(booleanSupplyAssistantRY);
-    RYAxis.whileActiveContinuous(new moveHang());
+    RYAxis.whileActiveContinuous(new extendHang());
     RYAxis.whenInactive(new stopExtendHang());
   }
 
