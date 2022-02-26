@@ -66,7 +66,7 @@ public class RobotContainer {
   public static Joystick DriverController;
   public static Joystick AssistantController;
 
-  // Triggers
+  //Triggers
   public static Trigger ArTrigger;
   public static Trigger AlTrigger;
   public static Trigger rightTrigger;
