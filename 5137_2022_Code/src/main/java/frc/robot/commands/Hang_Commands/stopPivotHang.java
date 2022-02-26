@@ -2,18 +2,16 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Hang_Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class ManShoot_Command extends CommandBase {
-  /** Creates a new ManShoot_Command. */
-  public ManShoot_Command() {
+public class stopPivotHang extends CommandBase {
+  /** Creates a new extendHang. */
+  public stopPivotHang() {
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(RobotContainer.shooter_Subsystem);
-
+    addRequirements(RobotContainer.hang_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -23,9 +21,7 @@ public class ManShoot_Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false) == true) {//ready to shoot {
-      RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false);
-    }
+    RobotContainer.hang_Subsystem.stopPivotHang(RobotContainer.AssistantController);
   }
 
   // Called once the command ends or is interrupted.

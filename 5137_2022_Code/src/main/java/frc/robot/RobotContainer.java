@@ -4,15 +4,14 @@
 
 package frc.robot;
 
+import java.sql.Driver;
 import java.util.function.BooleanSupplier;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
-import edu.wpi.first.wpilibj.buttons.POVButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.ManShoot_Command;
 import frc.robot.subsystems.Shooter_Subsystem;
 
 import frc.robot.subsystems.VertConveyor_Subsystem;
@@ -22,35 +21,27 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.button.Button;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.commands.OffIntake_Command;
-import frc.robot.commands.OnIntake_Command;
 import frc.robot.subsystems.Intake_Subsystem;
-import frc.robot.commands.ReversedOnIntake_Command;
-import frc.robot.commands.RunHorzConveyorForward_Command;
-import frc.robot.commands.RunHorzConveyorReverse_Command;
-import frc.robot.commands.StopHorzConveyor;
-import frc.robot.commands.RunVertConveyorForward_Command;
-import frc.robot.commands.RunVertConveyorReverse_Command;
-import frc.robot.commands.StopVertConveyor;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.GenericHID;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
-import frc.robot.commands.pivotHang;
-import frc.robot.commands.extendHang;
-import frc.robot.commands.stopPivotHang;
-import frc.robot.commands.stopExtendHang;
+import frc.robot.commands.Conveyor_Commands.RunHorzConveyorForward_Command;
+import frc.robot.commands.Conveyor_Commands.RunHorzConveyorReverse_Command;
+import frc.robot.commands.Conveyor_Commands.RunVertConveyorForward_Command;
+import frc.robot.commands.Conveyor_Commands.RunVertConveyorReverse_Command;
+import frc.robot.commands.Conveyor_Commands.StopHorzConveyor;
+import frc.robot.commands.Conveyor_Commands.StopVertConveyor;
+import frc.robot.commands.Hang_Commands.extendHang;
+import frc.robot.commands.Hang_Commands.pivotHang;
+import frc.robot.commands.Hang_Commands.stopExtendHang;
+import frc.robot.commands.Hang_Commands.stopPivotHang;
+import frc.robot.commands.Intake_Commands.OffIntake_Command;
+import frc.robot.commands.Intake_Commands.OnIntake_Command;
+import frc.robot.commands.Intake_Commands.ReversedOnIntake_Command;
+import frc.robot.commands.Shooter_Commands.ManShoot_Command;
+import frc.robot.commands.Shooter_Commands.stopShoot;
 import frc.robot.subsystems.HangSubsystem;
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -94,7 +85,10 @@ public class RobotContainer {
   public static JoystickButton BButton;
 
   // D Pad Buttons
-  public 
+  public static POVButton uDPadButton;
+  public static POVButton dDPadButton;
+  public static POVButton rDPadButton;
+  public static POVButton lDPadButton;
 
 
   public static Intake_Subsystem intake_Subsystem;
@@ -124,8 +118,6 @@ public class RobotContainer {
     vertConveyor_Subsystem = new VertConveyor_Subsystem();
     horzConveyor_Subsystem = new HorzConveyor_Subsystem();
     intake_Subsystem = new Intake_Subsystem(); 
-    DriverController = new Joystick(Constants.driverControllerPort);
-    AssistantController = new Joystick(Constants.assisControllerPort);
     configureButtonBindings(); 
 
   }
@@ -143,7 +135,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
 
     BooleanSupplier booleanSupplyXBoxRT = () -> {
-      if (DriverController.getRawAxis(Constants.RTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.LTAxisPort) < 0.1)
+      if (DriverController.getRawAxis(Constants.LTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RTAxisPort) < 0.1)
       {
           return true;
       } else {
@@ -192,21 +184,18 @@ public class RobotContainer {
     RightTrigger.whileActiveContinuous(new ManShoot_Command());
 
     //Up DPAD
-    uDPadButton = new POVButton(XBoxController, Constants.uDPadButtonValue); //uDPadButtonValue
-    uDPadButton.whileActiveContinuous(new ManShoot_Command()); //makes manual shooter engage
-    uDPadButton.whenInactive(new StahpTheShoot_Command());
-    uDPadButton.whenInactive(new StopShootStorage_Command());
+    uDPadButton = new POVButton(DriverController, 0); //uDPadButtonValue
+    uDPadButton.whenActive(new ManShoot_Command()); //makes manual shooter engage
+    uDPadButton.whenInactive(new stopShoot());
 
-    rDPadButton = new POVButton(XBoxController, Constants.rDPadButtonValue);
-    rDPadButton.whileActiveContinuous(new ManShoot_Command()); //makes manual shooter engage
-    rDPadButton.whenInactive(new StahpTheShoot_Command());
-    rDPadButton.whenInactive(new StopShootStorage_Command());
+    rDPadButton = new POVButton(DriverController, 90);
+    rDPadButton.whenActive(new ManShoot_Command()); //makes manual shooter engage
+    rDPadButton.whenInactive(new stopShoot());
 
-    dDPadButton = new POVButton(XBoxController, Constants.dDPadButtonValue);
-    dDPadButton.whileActiveContinuous(new ManShoot_Command()); //makes manual shooter engage
-    dDPadButton.whileActiveOnce(new ArcadeDrive()); //may need to change
-    dDPadButton.whenInactive(new StahpTheShoot_Command());
-    dDPadButton.whenInactive(new StopShootStorage_Command());
+
+    dDPadButton = new POVButton(DriverController, 180);
+    dDPadButton.whenActive(new ManShoot_Command()); //makes manual shooter engage
+    dDPadButton.whenInactive(new stopShoot());
 
     AlTrigger = new Trigger(booleanSupplyAssistantLT);
     AlTrigger.whileActiveContinuous(new OnIntake_Command());

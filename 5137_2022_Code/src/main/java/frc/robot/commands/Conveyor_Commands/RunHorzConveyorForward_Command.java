@@ -2,14 +2,14 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Conveyor_Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class RunHorzConveyorReverse_Command extends CommandBase {
-  /** Creates a new RunConveyorTowardsIntake. */
-  public RunHorzConveyorReverse_Command() {
+public class RunHorzConveyorForward_Command extends CommandBase {
+  /** Creates a new RunIntakeTowardsShooter. */
+  public RunHorzConveyorForward_Command() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.horzConveyor_Subsystem);
   }
@@ -21,7 +21,7 @@ public class RunHorzConveyorReverse_Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.horzConveyor_Subsystem.reverseHorzConveyorOn();
+    RobotContainer.horzConveyor_Subsystem.forwardHorzConveyorOn();
   }
 
   // Called once the command ends or is interrupted.

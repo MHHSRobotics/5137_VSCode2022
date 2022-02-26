@@ -1,7 +1,7 @@
 //also command scheduler stuff 
 // but sets all values to false because motors arent running
 
-package frc.robot.commands;
+package frc.robot.commands.Intake_Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;

@@ -16,22 +16,22 @@ import edu.wpi.first.wpilibj.buttons.Trigger;
  */
 public final class Constants {
 
-
+    // Shooter Constants 
     public static final int shooterId = 8;
     public static final int backSpinShooterId = 9; //change later
-
-    public static final double uDPadButtonValue = 0.4;
-    public static final double rDPadButtonValue = 0.6;
-    public static final double dDPadButtonValue = 0.8;
-    public static final double InitiationLineShooterPerc = 0;
+    public static final int uDPadButtonValue = 0;
+    public static final int rDPadButtonValue = 90;
+    public static final int dDPadButtonValue = 180;
+    public static final double InitiationLineShooterPerc = 0.4;
     public static final int maxPercShooter = 1;
-    public static final double BackTrenchShooterPerc = 0;
-    public static final double FrontTrenchShooterPerc = 0;
+    public static final double BackTrenchShooterPerc = 0.6;
+    public static final double FrontTrenchShooterPerc = 0.8;
     public static final int LTAxisPort = 3;
     public static final double veloError = 0;
     public static final double shooterAngle = 0;
     public static final int RTAxisPort = 2;
 
+    // Drive Constants
     public final static double driveSensitivity = 3.0; //bigger # means less sensitivity, from 0.5 to 2.0
     
     //10.0: baby speed, 9.0: tdddler mode, 7.0: fast toddler mode, 5.0: optimal turn speed, 4.5:
@@ -68,10 +68,7 @@ public final class Constants {
 
     public static final int hangExtensionMotorPort = 1;
     public static final int hangPivotMotorPort = 0;
-    //public static final int assisControllerPort = 1;
-    //public static final int driveControllerPort = 0;
-    //public static final int LYStickAxisPort = 2;
-    //public static final int RXStickAxisPort = 3;
+
     public static final int RXAxisPort = 0;
     public static final int RYAxisPort = 1;
     public static final float pivotReverseLimit = (float) 0.25;

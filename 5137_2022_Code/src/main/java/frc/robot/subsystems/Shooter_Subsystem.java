@@ -104,5 +104,10 @@ public class Shooter_Subsystem extends SubsystemBase {
       }  
     
     }
+
+    public void stopShoot(){
+      shooterMotor.stopMotor();
+      backSpinShooterMotor.stopMotor();
+    }
 }
 

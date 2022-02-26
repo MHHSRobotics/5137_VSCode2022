@@ -2,14 +2,14 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.Hang_Commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class stopPivotHang extends CommandBase {
+public class stopExtendHang extends CommandBase {
   /** Creates a new extendHang. */
-  public stopPivotHang() {
+  public stopExtendHang() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.hang_Subsystem);
   }
@@ -21,7 +21,7 @@ public class stopPivotHang extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.hang_Subsystem.stopPivotHang(RobotContainer.AssistantController);
+    RobotContainer.hang_Subsystem.stopExtendHang(RobotContainer.AssistantController);
   }
 
   // Called once the command ends or is interrupted.
