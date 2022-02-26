@@ -26,7 +26,8 @@ public class Robot extends TimedRobot {
   public static UsbCamera driverCam; 
   private Joystick xboxController;
 
-  /*
+
+  /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
    */
@@ -96,8 +97,6 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during operator control. */
   @Override
   public void teleopPeriodic() {
-    System.out.print("Extension speed at: " + (RobotContainer.hang_Subsystem.extensionMotor.get()));
-    System.out.println("\tPivot speed at: " + (RobotContainer.hang_Subsystem.pivotMotor.get()));
   }
 
   @Override

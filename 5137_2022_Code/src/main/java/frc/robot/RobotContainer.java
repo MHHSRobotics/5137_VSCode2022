@@ -42,6 +42,7 @@ import frc.robot.commands.Intake_Commands.ReversedOnIntake_Command;
 import frc.robot.commands.Shooter_Commands.ManShoot_Command;
 import frc.robot.commands.Shooter_Commands.stopShoot;
 import frc.robot.subsystems.HangSubsystem;
+
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -57,20 +58,19 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   public static Command m_autoCommand;
-  public static Shooter_Subsystem shooter_Subsystem;
 
   public static DriveBase_Subsystem driveBase_Subsystem; 
 
   public static Command placeHolderCommand;
   
   public Command autoCommand;
-  
-  public static VertConveyor_Subsystem vertConveyor_Subsystem;
 
   // Triggers
   public static Trigger ArTrigger;
   public static Trigger AlTrigger;
   public static Trigger rightTrigger;
+  public static Trigger RXAxis;
+  public static Trigger LYAxis;
 
   // Joystick buttons
   public static JoystickButton AButton; // A
@@ -93,7 +93,9 @@ public class RobotContainer {
 
   public static Intake_Subsystem intake_Subsystem;
   public static HorzConveyor_Subsystem horzConveyor_Subsystem;
+  public static VertConveyor_Subsystem vertConveyor_Subsystem;
   public static HangSubsystem hang_Subsystem;
+  public static Shooter_Subsystem shooter_Subsystem;
 
 // The robot's subsystems and commands are defined here...
   
@@ -109,15 +111,16 @@ public class RobotContainer {
     AssistantController = new Joystick(Constants.assisControllerPort);
 
     DriverController = new Joystick(Constants.portForDrive);
-    driveBase_Subsystem = new DriveBase_Subsystem();
-    hang_Subsystem = new HangSubsystem();
+    
+    
 
     // Configure the button bindings
-
+    driveBase_Subsystem = new DriveBase_Subsystem();
     shooter_Subsystem = new Shooter_Subsystem();
     vertConveyor_Subsystem = new VertConveyor_Subsystem();
     horzConveyor_Subsystem = new HorzConveyor_Subsystem();
-    intake_Subsystem = new Intake_Subsystem(); 
+    intake_Subsystem = new Intake_Subsystem();
+    hang_Subsystem = new HangSubsystem(); 
     configureButtonBindings(); 
 
   }
@@ -153,7 +156,7 @@ public class RobotContainer {
     };
     
     BooleanSupplier booleanSupplyAssistantRX = () -> {
-      if (AssistantController.getRawAxis(Constants.RXAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RYAxisPort) < 0.1) {
+      if (Math.abs(AssistantController.getRawAxis(Constants.RXStickAxisPort)) > 0.1 && Math.abs(AssistantController.getRawAxis(Constants.LYStickAxisPort)) < Math.abs(AssistantController.getRawAxis(Constants.RXStickAxisPort))) {
           return true;
       }
       else {
@@ -170,15 +173,14 @@ public class RobotContainer {
       }
     };
 
-    BooleanSupplier booleanSupplyAssistantRY = () -> {
-      if (AssistantController.getRawAxis(Constants.RYAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RXAxisPort) < 0.1) {
-        return true;
-      }
-      else {
-        return false;
-      }
-    };
-  
+    BooleanSupplier booleanSupplyAssistantLY = () -> {
+        if (Math.abs(AssistantController.getRawAxis(Constants.LYStickAxisPort)) > 0.1 && Math.abs(AssistantController.getRawAxis(Constants.RXStickAxisPort)) < Math.abs(AssistantController.getRawAxis(Constants.LYStickAxisPort))) {
+            return true;
+        } 
+        else {
+            return false;
+        }
+      };
   
     rightTrigger = new Trigger(booleanSupplyXBoxRT);
     rightTrigger.whileActiveContinuous(new ManShoot_Command());
@@ -221,16 +223,15 @@ public class RobotContainer {
     YButton = new JoystickButton(AssistantController, Constants.YButtonPort);
     YButton.whenHeld(new RunVertConveyorForward_Command());
     YButton.whenReleased(new StopVertConveyor());
-
-    Trigger RXAxis = new Trigger(booleanSupplyAssistantRX);
+    
+    RXAxis = new Trigger(booleanSupplyAssistantRX);
     RXAxis.whileActiveContinuous(new pivotHang());
     RXAxis.whenInactive(new stopPivotHang());
 
-    Trigger RYAxis = new Trigger(booleanSupplyAssistantRY);
-    RYAxis.whileActiveContinuous(new extendHang());
-    RYAxis.whenInactive(new stopExtendHang());
-    
-  };
+    LYAxis = new Trigger(booleanSupplyAssistantLY);
+    LYAxis.whileActiveContinuous(new extendHang());
+    LYAxis.whenInactive(new stopExtendHang());
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

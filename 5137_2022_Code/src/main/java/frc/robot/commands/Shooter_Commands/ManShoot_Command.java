@@ -13,8 +13,8 @@ public class ManShoot_Command extends CommandBase {
   public ManShoot_Command() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.shooter_Subsystem);
-
   }
+
 
   // Called when the command is initially scheduled.
   @Override
@@ -30,7 +30,9 @@ public class ManShoot_Command extends CommandBase {
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+
+  }
 
   // Returns true when the command should end.
   @Override
