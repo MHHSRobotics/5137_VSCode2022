@@ -24,7 +24,7 @@ public class ManShoot_Command extends CommandBase {
   @Override
   public void execute() {
     if (RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false) == true) {//ready to shoot {
-      RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false);
+      RobotContainer.vertConveyor_Subsystem.forwardVertConveyorOn();
     }
   }
 

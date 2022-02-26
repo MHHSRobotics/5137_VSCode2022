@@ -5,6 +5,9 @@
 package frc.robot.subsystems;
 
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -25,9 +28,9 @@ public class Intake_Subsystem extends SubsystemBase {
     boolean intakeDown = false;
     boolean toggleIntakeDirection = false;
 
-
+    VictorSPX intakeMotor = new VictorSPX(Constants.intakePort);
     //public CANSparkMax intakeMotor = new CANSparkMax(Constants.intakePort, MotorType.kBrushless);
-    SparkMaxWrapper intakeMotor = new SparkMaxWrapper(Constants.intakePort, MotorType.kBrushless);
+    //SparkMaxWrapper intakeMotor = new SparkMaxWrapper(Constants.intakePort, MotorType.kBrushless);
 
     public Intake_Subsystem() {
         //constructor 
@@ -58,18 +61,18 @@ public class Intake_Subsystem extends SubsystemBase {
     
     //picks up balls from field into robot
     public void intakeBallsIn() {
-        intakeMotor.set(Constants.intakeSpeed);
+        intakeMotor.set(ControlMode.PercentOutput, Constants.intakeSpeed);
     } 
 
     //reverses intake to push balls out
     public void intakeBallsOut() {
-        intakeMotor.set(Constants.intakeSpeed * -1);
+        intakeMotor.set(ControlMode.PercentOutput, Constants.intakeSpeed * -1);
     }
 
     //switches motor off
     public void endIntake() {
         //switches motor off by setting it's value to zero
-        intakeMotor.stopMotor();
+        intakeMotor.setNeutralMode(NeutralMode.Coast);
     }
 
     //autonomous maybe possibly hopefully 
