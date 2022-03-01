@@ -28,25 +28,23 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	public static MotorControllerGroup m_leftDrive;
 	public static MotorControllerGroup m_rightDrive;
 
-	Joystick PS4Controller;
+	Joystick driverController;
 
 	double newDriveSpeed;
 	double actualDriveSpeed;
 	double previousDriveSpeed;
 
-	PS4Controller driveController;
-
   /** Creates a new DriveBaseSubsystem. */
   public DriveBase_Subsystem() {
 	instantiateMotors();
 	createDifferentialDrive(m_leftDrive, m_rightDrive);
-
+	driverController = new Joystick(Constants.driverControllerPort);
   }
 
   @Override
 	public void periodic() {
 		// This method will be called once per scheduler run
-		//rampArcadeDrive(XBoxController);
+		rampArcadeDrive(driverController);
 	}
 
 	public void instantiateMotors()
@@ -89,9 +87,9 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		// to run scaled to the deadZone
 	}
 
-  public void rampArcadeDrive(Joystick XBoxController) {
-	double driveValue = XBoxController.getRawAxis(Constants.LYStickAxisPort);
-    double turnValue = XBoxController.getRawAxis(Constants.RXStickAxisPort);
+  public void rampArcadeDrive(Joystick driverController) {
+	double driveValue = driverController.getRawAxis(Constants.LYStickAxisPort);
+    double turnValue = driverController.getRawAxis(Constants.RXStickAxisPort);
     CashwinsDifferentialDrive.curvatureDrive(-driveValue / Constants.driveSensitivity, turnValue / Constants.turnSensitivity, Constants.isQuickTurn);
 	//System.out.println("Left side going at: " + m_leftDrive.get());
 	//System.out.println("Right side going at: " + m_rightDrive.get());

@@ -45,7 +45,7 @@ public final class Constants {
 
     //DriveBase
     public final static double driveSensitivity = 3.0;
-    public final static double turnSensitivity = 5.0; //4.5 seems nice
+    public final static double turnSensitivity = 4.5; //4.5 seems nice
     public final static boolean isQuickTurn = true; //makes turning the drive base able to override constant-curvature turning for turn-in-place maneuvers.
     
     public static final int leftBackCAN = 1; 
