@@ -2,32 +2,44 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.Drivebase_Commands;
+package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
-public class ArcadeDrive_Command extends CommandBase {
-  /** Creates a new ArcadeDrive. */
-  public ArcadeDrive_Command() {
+
+import edu.wpi.first.wpilibj2.command.CommandBase;
+
+public class Autonomous_DriveBack_Command extends CommandBase {
+  /** Creates a new Autonomous_DriveBack_Command. */
+
+  double m_time;
+  double m_speed;
+
+  Timer m_timer; 
+
+  public Autonomous_DriveBack_Command(double time, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
+    m_timer = new Timer();
+    m_time = time;
+    m_speed = speed;
     addRequirements(RobotContainer.driveBase_Subsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_timer.reset();
+    m_timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-        /* As you can see, whenever ArcadeDrive is scheduled to execute (which,
-		due to being the default, is every 20ms), the code runs the method rampArcadeDrive() in the
-		DriveBase subsystem. No other commands are here to potentially interrupt ArcadeDrive, so the
-    isFinished() and end() methods are irrelevant.*/
-    System.out.println("DriveBase is running...");
-    RobotContainer.driveBase_Subsystem.rampArcadeDrive(RobotContainer.driverController);
+    RobotContainer.driveBase_Subsystem.driveStraight(m_speed);
   }
 
   // Called once the command ends or is interrupted.
@@ -39,6 +51,13 @@ public class ArcadeDrive_Command extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    if (m_timer.get() < m_time) {
+      return false;
+    }
+    else {
+      return true;
+  }
   }
 }
+
+

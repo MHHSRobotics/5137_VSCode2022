@@ -21,7 +21,7 @@ public class stopPivotHang extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.hang_Subsystem.stopPivotHang(RobotContainer.AssistantController);
+    RobotContainer.hang_Subsystem.stopPivotHang(RobotContainer.assistantController);
   }
 
   // Called once the command ends or is interrupted.

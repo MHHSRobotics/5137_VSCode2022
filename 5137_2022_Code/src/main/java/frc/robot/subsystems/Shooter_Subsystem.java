@@ -30,7 +30,7 @@ public class Shooter_Subsystem extends SubsystemBase {
     shooterMotor = new SparkMaxWrapper(Constants.shooterId, MotorType.kBrushless);
     backSpinShooterMotor = new SparkMaxWrapper(Constants.backSpinShooterId, MotorType.kBrushless);
 
-    driveController = RobotContainer.DriverController;
+    driveController = RobotContainer.driverController;
   }
 
   @Override
@@ -90,8 +90,8 @@ public class Shooter_Subsystem extends SubsystemBase {
       RelativeEncoder encoder = shooterMotor.getEncoder();
       double veloReading = encoder.getVelocity();
 
-      System.out.println("Shooters Running at: " + driveController.getRawAxis(Constants.LTAxisPort) + "%");
-      System.out.println("Velocity is reading as: " + veloReading);
+      //System.out.println("Shooters Running at: " + driveController.getRawAxis(Constants.LTAxisPort) + "%");
+      //System.out.println("Velocity is reading as: " + veloReading);
       
       //Return true if within a degree of error, or else don't
 

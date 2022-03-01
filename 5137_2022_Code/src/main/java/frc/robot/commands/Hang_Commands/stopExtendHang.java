@@ -21,7 +21,7 @@ public class stopExtendHang extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.hang_Subsystem.stopExtendHang(RobotContainer.AssistantController);
+    RobotContainer.hang_Subsystem.stopExtendHang(RobotContainer.assistantController);
   }
 
   // Called once the command ends or is interrupted.

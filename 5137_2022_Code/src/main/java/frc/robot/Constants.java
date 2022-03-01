@@ -60,7 +60,7 @@ public final class Constants {
     //Conveyor
     public static final int horzConveyorPort = 10;
     public static final int vertConveyorPort = 11;
-    public static final double conveyorSpeed = 0.3;
+    public static final double conveyorSpeed = 0.1;
 
     //Shooter
     public static final int shooterId = 8;
@@ -74,11 +74,16 @@ public final class Constants {
     public static final double veloError = 0;
     public static final double shooterAngle = 0;
     
-    //Hang
+    //Hnag
     public static final int hangExtensionMotorPort = 0;
     public static final int hangPivotMotorPort = 1;
 
     public static final float pivotReverseLimit = (float) 0.25;
     public static final float pivotForwardLimit = 0;
     public static final float extensionForwardLimit = 1000; //Change value to however many rotations is concidered the limit   
+
+    //Auto-mousse 
+    public static final String autoSelection = "shoot_DriveBack";
+    public static final String driveBack_Shoot = "driveBack_Shoot";
+    public static final String shoot_DriveBack = "shoot_DriveBack";
 }

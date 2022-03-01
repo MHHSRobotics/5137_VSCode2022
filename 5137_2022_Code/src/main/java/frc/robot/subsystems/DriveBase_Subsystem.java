@@ -41,8 +41,6 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	instantiateMotors();
 	createDifferentialDrive(m_leftDrive, m_rightDrive);
 
-
-	PS4Controller = RobotContainer.DriverController;
   }
 
   @Override
@@ -71,11 +69,11 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
 	public void createDifferentialDrive(MotorControllerGroup leftDrive, MotorControllerGroup rightDrive) 
 	{
-		//CashwinsDifferentialDrive = new DifferentialDrive(leftDrive, rightDrive);
+		CashwinsDifferentialDrive = new DifferentialDrive(leftDrive, rightDrive);
 	}
 
 	public void initDefaultCommand() {
-		//setDefaultCommand(new ArcadeDrive());
+		setDefaultCommand(new ArcadeDrive_Command());
 	}
 
   public double adjustJoystickValue(double joystick, double deadZone) {
@@ -93,22 +91,22 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
   public void rampArcadeDrive(Joystick XBoxController) {
 	double driveValue = XBoxController.getRawAxis(Constants.LYStickAxisPort);
-    double turnValue = XBoxController.getRawAxis(Constants.RXStickAxisPort) * (-1);
+    double turnValue = XBoxController.getRawAxis(Constants.RXStickAxisPort);
     CashwinsDifferentialDrive.curvatureDrive(-driveValue / Constants.driveSensitivity, turnValue / Constants.turnSensitivity, Constants.isQuickTurn);
-	System.out.println("Left side going at: " + m_leftDrive.get());
-	System.out.println("Right side going at: " + m_rightDrive.get());
+	//System.out.println("Left side going at: " + m_leftDrive.get());
+	//System.out.println("Right side going at: " + m_rightDrive.get());
   }
 
   public void drivePivot(double speed) { // TODO may need to make this negative
-		//CashwinsDifferentialDrive.arcadeDrive(0, speed);
+		CashwinsDifferentialDrive.arcadeDrive(0, speed);
 	}
 
 	public void driveStraight(double speed) {
-		//CashwinsDifferentialDrive.arcadeDrive(speed, 0);
+		CashwinsDifferentialDrive.arcadeDrive(speed, 0);
 	}
 
 	public void stop() {
-		//CashwinsDifferentialDrive.arcadeDrive(0, 0);
+		CashwinsDifferentialDrive.arcadeDrive(0, 0);
 	}
 
 }

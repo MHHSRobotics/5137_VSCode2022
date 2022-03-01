@@ -32,7 +32,7 @@ public class HangSubsystem extends SubsystemBase {
   public HangSubsystem() {
     extensionMotor = new SparkMaxWrapper(Constants.hangExtensionMotorPort, MotorType.kBrushless);
     pivotMotor = new SparkMaxWrapper(Constants.hangPivotMotorPort, MotorType.kBrushless);
-    assController = RobotContainer.AssistantController;
+    assController = RobotContainer.assistantController;
   }
 
   public void config(){

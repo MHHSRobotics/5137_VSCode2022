@@ -41,7 +41,7 @@ public class Robot extends TimedRobot {
 
     //driverCam.setResolution(240, 180);
     //driverCam.setFPS(30);
-    xboxController = RobotContainer.AssistantController;
+    xboxController = RobotContainer.assistantController;
   }
 
   /**
@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //Autonomous Code
-    //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = RobotContainer.getAutonomousCommand();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

@@ -41,6 +41,8 @@ import frc.robot.commands.Hang_Commands.stopExtendHang;
 import frc.robot.commands.Hang_Commands.stopPivotHang;
 
 //CommandGroups
+import frc.robot.CommandGroups.Shoot_DriveBack_CommandGroup;
+import frc.robot.CommandGroups.DriveBack_Shoot_CommandGroup;
 
 //Motors
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
@@ -56,15 +58,14 @@ import edu.wpi.first.wpilibj.DigitalInput;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and button mappings) should be declared here.
  */
-
-// Static means that the method/class the variable or method belongs too doesn't need to be created
 public class RobotContainer {
 
-  public Command autoCommand; //On Death Row
+// public static final Joystick driveController = null;
+  // The robot's subsystems and commands are defined here...
 
   //Xbox Controllers
-  public static Joystick DriverController;
-  public static Joystick AssistantController;
+  public static Joystick driverController;
+  public static Joystick assistantController;
 
   //Triggers
   public static Trigger ArTrigger;
@@ -92,13 +93,20 @@ public class RobotContainer {
   public static VertConveyor_Subsystem vertConveyor_Subsystem;
   public static Shooter_Subsystem shooter_Subsystem;
   public static HangSubsystem hang_Subsystem;
+  public static Object storage_Subsystem;
+
+  //Commands
+
+  //Command Groups
+  public static Shoot_DriveBack_CommandGroup shoot_DriveBack_CommandGroup;
+  public static DriveBack_Shoot_CommandGroup driveBack_Shoot_CommandGroup;
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
 
     //Controllers
-    DriverController = new Joystick(Constants.driverControllerPort);
-    AssistantController = new Joystick(Constants.assisControllerPort);
+    driverController = new Joystick(Constants.driverControllerPort);
+    assistantController = new Joystick(Constants.assisControllerPort);
     
     //Subsystems
     driveBase_Subsystem = new DriveBase_Subsystem(); 
@@ -117,23 +125,21 @@ public class RobotContainer {
    * instantiating a {@link GenericHID} or one of its subclasses ({@link
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   * @param AssistantController 
+   * @param assistantController 
    */
 
   private void configureButtonBindings() {
-
-    //Boolean Suppliers
-    BooleanSupplier booleanSupplyXBoxRT = () -> {
-      if (DriverController.getRawAxis(Constants.LTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RTAxisPort) < 0.1)
+    BooleanSupplier booleanSupplyXBoxLT = () -> {
+      if (driverController.getRawAxis(Constants.LTAxisPort) > 0.1 && driverController.getRawAxis(Constants.RTAxisPort) < 0.1)
       {
-          return true;
+        return true;
       } else {
-          return false;
+        return false;
       }
     };
 
     BooleanSupplier booleanSupplyAssistantLT = () -> {
-      if (AssistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
+      if (assistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && driverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
         return true;
       } 
       else {
@@ -142,7 +148,7 @@ public class RobotContainer {
     };
 
     BooleanSupplier booleanSupplyAssistantRT = () -> {
-      if (AssistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && DriverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
+      if (assistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && driverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
         return true;
       } 
       else {
@@ -151,7 +157,7 @@ public class RobotContainer {
     };
 
     BooleanSupplier booleanSupplyAssistantLY = () -> {
-       if (Math.abs(AssistantController.getRawAxis(Constants.LYStickAxisPort)) > 0.1 && Math.abs(AssistantController.getRawAxis(Constants.RXStickAxisPort)) < Math.abs(AssistantController.getRawAxis(Constants.LYStickAxisPort))) {
+       if (Math.abs(assistantController.getRawAxis(Constants.LYStickAxisPort)) > 0.1 && Math.abs(assistantController.getRawAxis(Constants.RXStickAxisPort)) < Math.abs(assistantController.getRawAxis(Constants.LYStickAxisPort))) {
            return true;
        } 
        else {
@@ -160,7 +166,7 @@ public class RobotContainer {
     };
 
     BooleanSupplier booleanSupplyAssistantRX = () -> {
-      if (Math.abs(AssistantController.getRawAxis(Constants.RXStickAxisPort)) > 0.1 && Math.abs(AssistantController.getRawAxis(Constants.LYStickAxisPort)) < Math.abs(AssistantController.getRawAxis(Constants.RXStickAxisPort))) {
+      if (Math.abs(assistantController.getRawAxis(Constants.RXStickAxisPort)) > 0.1 && Math.abs(assistantController.getRawAxis(Constants.LYStickAxisPort)) < Math.abs(assistantController.getRawAxis(Constants.RXStickAxisPort))) {
           return true;
       }
       else {
@@ -171,25 +177,24 @@ public class RobotContainer {
     //Buton Bindings
 
     //DriverController Triggers
-    rightTrigger = new Trigger(booleanSupplyXBoxRT);
+    rightTrigger = new Trigger(booleanSupplyXBoxLT);
     rightTrigger.whileActiveContinuous(new ManShoot_Command());
     rightTrigger.whenInactive(new stopShoot());
 
     //DriverController Buttons
 
     //DriverController D-Pad
-    uDPadButton = new POVButton(DriverController, 0);
+    uDPadButton = new POVButton(driverController, 0);
     uDPadButton.whenActive(new ManShoot_Command()); //makes manual shooter engage
     uDPadButton.whenInactive(new stopShoot());
 
-    rDPadButton = new POVButton(DriverController, 90);
+    rDPadButton = new POVButton(driverController, 90);
     rDPadButton.whenActive(new ManShoot_Command()); //makes manual shooter engage
-    rDPadButton.whenInactive(new stopShoot());
+    rDPadButton.whenInactive(new stopShoot()); 
 
-
-    dDPadButton = new POVButton(DriverController, 180);
+    dDPadButton = new POVButton(driverController, 180);
     dDPadButton.whenActive(new ManShoot_Command()); //makes manual shooter engage
-    dDPadButton.whenInactive(new stopShoot());
+    dDPadButton.whenInactive(new stopShoot()); 
 
     //AssistController Triggers
     AlTrigger = new Trigger(booleanSupplyAssistantLT);
@@ -209,19 +214,19 @@ public class RobotContainer {
     LYAxis.whenInactive(new stopExtendHang());
 
     //AssistController Buttons
-    XButton = new JoystickButton(AssistantController, Constants.XButtonPort);
+    XButton = new JoystickButton(assistantController, Constants.XButtonPort);
     XButton.whenHeld(new RunHorzConveyorReverse_Command());
     XButton.whenReleased(new StopHorzConveyor());
 
-    BButton = new JoystickButton(AssistantController, Constants.BButtonPort);
+    BButton = new JoystickButton(assistantController, Constants.BButtonPort);
     BButton.whenHeld(new RunHorzConveyorForward_Command());
     BButton.whenReleased(new StopHorzConveyor());
 
-    AButton = new JoystickButton(AssistantController, Constants.AButtonPort);
+    AButton = new JoystickButton(assistantController, Constants.AButtonPort);
     AButton.whenHeld(new RunVertConveyorReverse_Command());
     AButton.whenReleased(new StopVertConveyor());
 
-    YButton = new JoystickButton(AssistantController, Constants.YButtonPort);
+    YButton = new JoystickButton(assistantController, Constants.YButtonPort);
     YButton.whenHeld(new RunVertConveyorForward_Command());
     YButton.whenReleased(new StopVertConveyor());
   }
@@ -232,8 +237,18 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   
-  public Command getAutonomousCommand() {
-    // Autonomous needs to be merged :(
-    return autoCommand;
+  public static Command getAutonomousCommand() {
+
+    driveBack_Shoot_CommandGroup = new DriveBack_Shoot_CommandGroup();
+    shoot_DriveBack_CommandGroup = new Shoot_DriveBack_CommandGroup();
+    
+    switch (Constants.autoSelection) {
+      case (Constants.driveBack_Shoot):
+        return driveBack_Shoot_CommandGroup;
+      case (Constants.shoot_DriveBack):
+        return shoot_DriveBack_CommandGroup;
+      default:
+        return driveBack_Shoot_CommandGroup;
+    }
   }
 }
