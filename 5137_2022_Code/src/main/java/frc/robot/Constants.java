@@ -4,7 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.buttons.Trigger;
+import edu.wpi.first.wpilibj.util.Color;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -86,4 +89,10 @@ public final class Constants {
     public static final String autoSelection = "shoot_DriveBack";
     public static final String driveBack_Shoot = "driveBack_Shoot";
     public static final String shoot_DriveBack = "shoot_DriveBack";
+
+    //Color Sensor
+    public static final I2C.Port i2cPort = I2C.Port.kOnboard;
+    public static final Color paper = new Color(1, 1, 1);
+
+     
 }

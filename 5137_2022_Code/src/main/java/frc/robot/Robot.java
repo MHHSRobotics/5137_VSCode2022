@@ -4,13 +4,18 @@
 
 package frc.robot;
 
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorSensorV3;
+
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.ColorSensor_Subsystem;
 import frc.robot.subsystems.HangSubsystem;
 
 /**
@@ -25,6 +30,11 @@ public class Robot extends TimedRobot {
   private RobotContainer m_robotContainer;
   public static UsbCamera driverCam; 
   private Joystick xboxController;
+
+  ColorSensorV3 colorSensor;
+
+  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(Constants.i2cPort);
+  private final ColorMatch m_ColorMatcher = new ColorMatch();
 
 
   /**
@@ -51,12 +61,26 @@ public class Robot extends TimedRobot {
    * <p>This runs after the mode specific periodic functions, but before LiveWindow and
    * SmartDashboard integrated updating.
    */
+
+  
   @Override
   public void robotPeriodic() {
     // Runs the Scheduler.  This is responsible for polling buttons, adding newly-scheduled
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+   
+    Color detectedColor = m_colorSensor.getColor();
+    //String colorString;
+
+    if (detectedColor.equals(Constants.paper)){
+        ColorSensor_Subsystem.colorString = "Empty Conveyor";
+        
+    }
+    else {
+        ColorSensor_Subsystem.colorString = "Ball Detected";
+    }
+  
     CommandScheduler.getInstance().run();
   }
 

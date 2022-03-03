@@ -5,8 +5,8 @@
 package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.robot.commands.Autonomous_AutoShoot_Command;
-import frc.robot.commands.Autonomous_DriveBack_Command;
+import frc.robot.commands.Autonomous_Commands.Autonomous_AutoShoot_Command;
+import frc.robot.commands.Autonomous_Commands.Autonomous_DriveBack_Command;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
