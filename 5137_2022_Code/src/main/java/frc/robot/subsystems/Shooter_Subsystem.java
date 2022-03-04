@@ -17,8 +17,8 @@ import frc.robot.simulation.SparkMaxWrapper;
 
 public class Shooter_Subsystem extends SubsystemBase {
 
-  SparkMaxWrapper shooterMotor;
-  SparkMaxWrapper backSpinShooterMotor;
+  CANSparkMax shooterMotor;
+  CANSparkMax backSpinShooterMotor;
   Joystick driveController;
 
   boolean horizontalTurnGood;
@@ -28,6 +28,7 @@ public class Shooter_Subsystem extends SubsystemBase {
     horizontalTurnGood = false;
     velocityRunningGood = false;
     shooterMotor = new SparkMaxWrapper(Constants.shooterId, MotorType.kBrushless);
+    shooterMotor.setInverted(true);
     backSpinShooterMotor = new SparkMaxWrapper(Constants.backSpinShooterId, MotorType.kBrushless);
 
     driveController = RobotContainer.driverController;
@@ -85,7 +86,7 @@ public class Shooter_Subsystem extends SubsystemBase {
       }
 
       shooterMotor.set(controllerMAGVelo);
-      backSpinShooterMotor.set(-controllerMAGVelo / 3.0);
+      backSpinShooterMotor.set(-controllerMAGVelo / 1.3);
       //shooterFollowerTalon.set(ControlMode.Follower, Constants.shooterCAN);
       RelativeEncoder encoder = shooterMotor.getEncoder();
       double veloReading = encoder.getVelocity();
@@ -95,14 +96,14 @@ public class Shooter_Subsystem extends SubsystemBase {
       
       //Return true if within a degree of error, or else don't
 
-      if ((controllerMAGVelo <= (veloReading + Constants.veloError)) && 
-      (controllerMAGVelo >= (veloReading - Constants.veloError))) {
-      return true; 
-      }
-      else {
-      return false;
-      }  
-    
+      //if ((controllerMAGVelo <= (veloReading + Constants.veloError)) && 
+      //(controllerMAGVelo >= (veloReading - Constants.veloError))) {
+      //return true; 
+      //}
+      //else {
+      //return false;
+      //}  
+        return false;
     }
 
     public void stopShoot(){
