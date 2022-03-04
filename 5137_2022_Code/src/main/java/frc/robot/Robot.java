@@ -15,8 +15,14 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.commands.Conveyor_Commands.StopHorzConveyor;
 import frc.robot.subsystems.ColorSensor_Subsystem;
 import frc.robot.subsystems.HangSubsystem;
+import frc.robot.subsystems.VertConveyor_Subsystem;
+import frc.robot.commands.Conveyor_Commands.StopVertConveyor;
+
+
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -69,6 +75,12 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+
+    while (RobotContainer.YButton.getAsBoolean()){
+      if (ColorSensor_Subsystem.checkConveyorEmpty() == false){
+        new StopVertConveyor();
+      }
+    }
    
     Color detectedColor = m_colorSensor.getColor();
     //String colorString;

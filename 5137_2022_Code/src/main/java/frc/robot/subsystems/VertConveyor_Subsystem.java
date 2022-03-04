@@ -15,6 +15,7 @@ import frc.robot.simulation.SparkMaxWrapper;
 
 public class VertConveyor_Subsystem extends SubsystemBase {
   SparkMaxWrapper VertConveyorMotor = new SparkMaxWrapper(Constants.vertConveyorPort, MotorType.kBrushless);
+  
   //MotorController VeryConveyorMotor = new Spark(Constants.vertConveyorPort);
   /** Creates a new Conveyor. */
   public void VertConveyor() {}
