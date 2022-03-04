@@ -11,7 +11,11 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.CommandGroups.Shoot_DriveBack_CommandGroup;
 import frc.robot.subsystems.HangSubsystem;
+
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -26,6 +30,11 @@ public class Robot extends TimedRobot {
   public static UsbCamera driverCam; 
   private Joystick xboxController;
 
+  public static final String m_Shoot_DriveBack = Constants.shoot_DriveBack;
+  public static final String m_DriveBack_Shoot = Constants.driveBack_Shoot;
+  private String m_autoSelected;
+  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -36,6 +45,12 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
+
+    m_chooser.setDefaultOption("Shoot_DriveBack", m_Shoot_DriveBack);
+    m_chooser.addOption("Shoot_DriveBack", m_Shoot_DriveBack);
+    m_chooser.addOption("DriveBack_Shoot", m_DriveBack_Shoot);
+    
+    SmartDashboard.putData("Auto choices", m_chooser);
 
     //driverCam = edu.wpi.first.cameraserver.CameraServer.getInstance().startAutomaticCapture();
 
@@ -70,8 +85,10 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    //Autonomous Code
-    m_autonomousCommand = RobotContainer.getAutonomousCommand();
+    m_autoSelected = m_chooser.getSelected();
+    System.out.println("Auto selected: " + m_autoSelected);
+
+    m_autonomousCommand = RobotContainer.getAutonomousCommand(m_autoSelected);
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
