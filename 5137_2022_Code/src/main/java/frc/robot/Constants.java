@@ -86,8 +86,8 @@ public final class Constants {
     public static final float extensionForwardLimit = 1000; //Change value to however many rotations is concidered the limit   
 
     //Auto-mousse
-    public static final String driveBack_Shoot = "driveBack_Shoot";
-    public static final String shoot_DriveBack = "shoot_DriveBack";
+    public static final String driveBack_Shoot = "drive_Shoot";
+    public static final String shoot_DriveBack = "shoot_Drive";
 
     //Color Sensor
     public static final I2C.Port i2cPort = I2C.Port.kOnboard;

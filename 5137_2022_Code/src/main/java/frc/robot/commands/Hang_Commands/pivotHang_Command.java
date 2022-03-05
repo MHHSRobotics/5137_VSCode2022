@@ -7,9 +7,9 @@ package frc.robot.commands.Hang_Commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class pivotHang extends CommandBase {
+public class pivotHang_Command extends CommandBase {
   /** Creates a new extendHang. */
-  public pivotHang() {
+  public pivotHang_Command() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.hang_Subsystem);
   }

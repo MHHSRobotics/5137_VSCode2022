@@ -15,11 +15,11 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
-import frc.robot.commands.Conveyor_Commands.StopHorzConveyor;
+import frc.robot.commands.Conveyor_Commands.StopHorzConveyor_Command;
 import frc.robot.subsystems.ColorSensor_Subsystem;
 import frc.robot.subsystems.HangSubsystem;
 import frc.robot.subsystems.VertConveyor_Subsystem;
-import frc.robot.commands.Conveyor_Commands.StopVertConveyor;
+import frc.robot.commands.Conveyor_Commands.StopVertConveyor_Command;
 
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -45,8 +45,8 @@ public class Robot extends TimedRobot {
   private final ColorSensorV3 m_colorSensor = new ColorSensorV3(Constants.i2cPort);
   private final ColorMatch m_ColorMatcher = new ColorMatch();
 
-  public static final String m_Shoot_DriveBack = Constants.shoot_DriveBack;
-  public static final String m_DriveBack_Shoot = Constants.driveBack_Shoot;
+  public static final String m_Shoot_Drive = Constants.shoot_DriveBack;
+  public static final String m_Drive_Shoot = Constants.driveBack_Shoot;
   private String m_autoSelected;
   private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
@@ -61,9 +61,9 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    m_chooser.setDefaultOption("Shoot_DriveBack", m_Shoot_DriveBack);
-    m_chooser.addOption("Shoot_DriveBack", m_Shoot_DriveBack);
-    m_chooser.addOption("DriveBack_Shoot", m_DriveBack_Shoot);
+    m_chooser.setDefaultOption("Shoot_Drive", m_Shoot_Drive);
+    m_chooser.addOption("Shoot_Drive", m_Shoot_Drive);
+    m_chooser.addOption("Drive_Shoot", m_Drive_Shoot);
     SmartDashboard.putData("Auto Choices", m_chooser);
 
     //driverCam = edu.wpi.first.cameraserver.CameraServer.getInstance().startAutomaticCapture();
@@ -91,7 +91,7 @@ public class Robot extends TimedRobot {
 
     while (RobotContainer.YButton.getAsBoolean()){
       if (ColorSensor_Subsystem.checkConveyorEmpty() == false){
-        new StopVertConveyor();
+        new StopVertConveyor_Command();
       }
     }
    

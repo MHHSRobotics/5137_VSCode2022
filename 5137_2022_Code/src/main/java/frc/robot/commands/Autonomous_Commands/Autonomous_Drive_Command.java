@@ -13,7 +13,7 @@ import frc.robot.RobotContainer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Autonomous_DriveBack_Command extends CommandBase {
+public class Autonomous_Drive_Command extends CommandBase {
   /** Creates a new Autonomous_DriveBack_Command. */
 
   double m_time;
@@ -21,7 +21,7 @@ public class Autonomous_DriveBack_Command extends CommandBase {
 
   Timer m_timer; 
 
-  public Autonomous_DriveBack_Command(double time, double speed) {
+  public Autonomous_Drive_Command(double time, double speed) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_timer = new Timer();
     m_time = time;

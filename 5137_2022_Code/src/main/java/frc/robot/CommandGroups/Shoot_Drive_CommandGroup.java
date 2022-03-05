@@ -6,17 +6,17 @@ package frc.robot.CommandGroups;
 
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Autonomous_Commands.Autonomous_AutoShoot_Command;
-import frc.robot.commands.Autonomous_Commands.Autonomous_DriveBack_Command;
+import frc.robot.commands.Autonomous_Commands.Autonomous_Drive_Command;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Shoot_DriveBack_CommandGroup extends SequentialCommandGroup{
+public class Shoot_Drive_CommandGroup extends SequentialCommandGroup{
 
-  public Shoot_DriveBack_CommandGroup(){
+  public Shoot_Drive_CommandGroup(){
     addCommands(
       new Autonomous_AutoShoot_Command(2),
-      new Autonomous_DriveBack_Command(3, -1.0)
+      new Autonomous_Drive_Command(3, 1.0)
       );
   }
 }

@@ -31,18 +31,18 @@ import frc.robot.commands.Conveyor_Commands.RunHorzConveyorForward_Command;
 import frc.robot.commands.Conveyor_Commands.RunHorzConveyorReverse_Command;
 import frc.robot.commands.Conveyor_Commands.RunVertConveyorForward_Command;
 import frc.robot.commands.Conveyor_Commands.RunVertConveyorReverse_Command;
-import frc.robot.commands.Conveyor_Commands.StopHorzConveyor;
-import frc.robot.commands.Conveyor_Commands.StopVertConveyor;
+import frc.robot.commands.Conveyor_Commands.StopHorzConveyor_Command;
+import frc.robot.commands.Conveyor_Commands.StopVertConveyor_Command;
 import frc.robot.commands.Shooter_Commands.ManShoot_Command;
-import frc.robot.commands.Shooter_Commands.stopShoot;
-import frc.robot.commands.Hang_Commands.extendHang;
-import frc.robot.commands.Hang_Commands.pivotHang;
-import frc.robot.commands.Hang_Commands.stopExtendHang;
-import frc.robot.commands.Hang_Commands.stopPivotHang;
+import frc.robot.commands.Shooter_Commands.stopShoot_Command;
+import frc.robot.commands.Hang_Commands.extendHang_Command;
+import frc.robot.commands.Hang_Commands.pivotHang_Command;
+import frc.robot.commands.Hang_Commands.stopExtendHang_Command;
+import frc.robot.commands.Hang_Commands.stopPivotHang_Command;
 
 //CommandGroups
-import frc.robot.CommandGroups.Shoot_DriveBack_CommandGroup;
-import frc.robot.CommandGroups.DriveBack_Shoot_CommandGroup;
+import frc.robot.CommandGroups.Shoot_Drive_CommandGroup;
+import frc.robot.CommandGroups.Drive_Shoot_CommandGroup;
 
 //Motors
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
@@ -98,8 +98,8 @@ public class RobotContainer {
   //Commands
 
   //Command Groups
-  public static Shoot_DriveBack_CommandGroup shoot_DriveBack_CommandGroup;
-  public static DriveBack_Shoot_CommandGroup driveBack_Shoot_CommandGroup;
+  public static Shoot_Drive_CommandGroup shoot_DriveBack_CommandGroup;
+  public static Drive_Shoot_CommandGroup driveBack_Shoot_CommandGroup;
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -179,22 +179,22 @@ public class RobotContainer {
     //DriverController Triggers
     rightTrigger = new Trigger(booleanSupplyXBoxLT);
     rightTrigger.whileActiveContinuous(new ManShoot_Command());
-    rightTrigger.whenInactive(new stopShoot());
+    rightTrigger.whenInactive(new stopShoot_Command());
 
     //DriverController Buttons
 
     //DriverController D-Pad
     uDPadButton = new POVButton(driverController, 0);
     uDPadButton.whenActive(new ManShoot_Command()); //makes manual shooter engage
-    uDPadButton.whenInactive(new stopShoot());
+    uDPadButton.whenInactive(new stopShoot_Command());
 
     rDPadButton = new POVButton(driverController, 90);
     rDPadButton.whenActive(new ManShoot_Command()); //makes manual shooter engage
-    rDPadButton.whenInactive(new stopShoot()); 
+    rDPadButton.whenInactive(new stopShoot_Command()); 
 
     dDPadButton = new POVButton(driverController, 180);
     dDPadButton.whenActive(new ManShoot_Command()); //makes manual shooter engage
-    dDPadButton.whenInactive(new stopShoot()); 
+    dDPadButton.whenInactive(new stopShoot_Command()); 
 
     //AssistController Triggers
     AlTrigger = new Trigger(booleanSupplyAssistantLT);
@@ -206,29 +206,29 @@ public class RobotContainer {
     ArTrigger.whenInactive(new OffIntake_Command()); 
 
     RXAxis = new Trigger(booleanSupplyAssistantRX);
-    RXAxis.whileActiveContinuous(new pivotHang());
-    RXAxis.whenInactive(new stopPivotHang());
+    RXAxis.whileActiveContinuous(new pivotHang_Command());
+    RXAxis.whenInactive(new stopPivotHang_Command());
 
     LYAxis = new Trigger(booleanSupplyAssistantLY);
-    LYAxis.whileActiveContinuous(new extendHang());
-    LYAxis.whenInactive(new stopExtendHang());
+    LYAxis.whileActiveContinuous(new extendHang_Command());
+    LYAxis.whenInactive(new stopExtendHang_Command());
 
     //AssistController Buttons
     XButton = new JoystickButton(driverController, Constants.XButtonPort);
     XButton.whenHeld(new RunHorzConveyorReverse_Command());
-    XButton.whenReleased(new StopHorzConveyor());
+    XButton.whenReleased(new StopHorzConveyor_Command());
 
     BButton = new JoystickButton(driverController, Constants.BButtonPort);
     BButton.whenHeld(new RunHorzConveyorForward_Command());
-    BButton.whenReleased(new StopHorzConveyor());
+    BButton.whenReleased(new StopHorzConveyor_Command());
 
     AButton = new JoystickButton(driverController, Constants.AButtonPort);
     AButton.whenHeld(new RunVertConveyorReverse_Command());
-    AButton.whenReleased(new StopVertConveyor());
+    AButton.whenReleased(new StopVertConveyor_Command());
 
     YButton = new JoystickButton(driverController, Constants.YButtonPort);
     YButton.whenHeld(new RunVertConveyorForward_Command());
-    YButton.whenReleased(new StopVertConveyor());
+    YButton.whenReleased(new StopVertConveyor_Command());
 
     
   }
@@ -241,8 +241,8 @@ public class RobotContainer {
   
   public static Command getAutonomousCommand(String m_autoSelection) {
 
-    driveBack_Shoot_CommandGroup = new DriveBack_Shoot_CommandGroup();
-    shoot_DriveBack_CommandGroup = new Shoot_DriveBack_CommandGroup();
+    driveBack_Shoot_CommandGroup = new Drive_Shoot_CommandGroup();
+    shoot_DriveBack_CommandGroup = new Shoot_Drive_CommandGroup();
     
     switch (m_autoSelection) {
       case (Constants.driveBack_Shoot):
