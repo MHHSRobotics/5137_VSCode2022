@@ -214,19 +214,19 @@ public class RobotContainer {
     LYAxis.whenInactive(new stopExtendHang());
 
     //AssistController Buttons
-    XButton = new JoystickButton(assistantController, Constants.XButtonPort);
+    XButton = new JoystickButton(driverController, Constants.XButtonPort);
     XButton.whenHeld(new RunHorzConveyorReverse_Command());
     XButton.whenReleased(new StopHorzConveyor());
 
-    BButton = new JoystickButton(assistantController, Constants.BButtonPort);
+    BButton = new JoystickButton(driverController, Constants.BButtonPort);
     BButton.whenHeld(new RunHorzConveyorForward_Command());
     BButton.whenReleased(new StopHorzConveyor());
 
-    AButton = new JoystickButton(assistantController, Constants.AButtonPort);
+    AButton = new JoystickButton(driverController, Constants.AButtonPort);
     AButton.whenHeld(new RunVertConveyorReverse_Command());
     AButton.whenReleased(new StopVertConveyor());
 
-    YButton = new JoystickButton(assistantController, Constants.YButtonPort);
+    YButton = new JoystickButton(driverController, Constants.YButtonPort);
     YButton.whenHeld(new RunVertConveyorForward_Command());
     YButton.whenReleased(new StopVertConveyor());
 

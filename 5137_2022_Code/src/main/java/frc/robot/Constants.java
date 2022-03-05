@@ -61,18 +61,18 @@ public final class Constants {
     public static final double intakeSpeed = 0.3;
 
     //Conveyor
-    public static final int horzConveyorPort = 6;
-    public static final int vertConveyorPort = 10;
+    public static final int horzConveyorPort = 9;
+    public static final int vertConveyorPort = 6;
     public static final double conveyorSpeed = 0.4;
 
     //Shooter
-    public static final int shooterId = 9; // 
-    public static final int backSpinShooterId = 5; //Change Later
+    public static final int shooterId = 5; // 
+    public static final int backSpinShooterId = 10; //Change Later
     
     public static final double InitiationLineShooterPerc = 0.2;
     public static final double BackTrenchShooterPerc = 0.1;
     public static final double FrontTrenchShooterPerc = 0.05;
-    public static final double maxPercShooter = 0.25;
+    public static final double maxPercShooter = 0.20;
 
     public static final double veloError = 20;
     public static final double shooterAngle = 0;
