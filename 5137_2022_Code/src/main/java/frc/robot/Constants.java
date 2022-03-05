@@ -85,8 +85,7 @@ public final class Constants {
     public static final float pivotForwardLimit = 0;
     public static final float extensionForwardLimit = 1000; //Change value to however many rotations is concidered the limit   
 
-    //Auto-mousse 
-    public static final String autoSelection = "shoot_DriveBack";
+    //Auto-mousse
     public static final String driveBack_Shoot = "driveBack_Shoot";
     public static final String shoot_DriveBack = "shoot_DriveBack";
 

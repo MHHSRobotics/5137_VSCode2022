@@ -239,12 +239,12 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   
-  public static Command getAutonomousCommand() {
+  public static Command getAutonomousCommand(String m_autoSelection) {
 
     driveBack_Shoot_CommandGroup = new DriveBack_Shoot_CommandGroup();
     shoot_DriveBack_CommandGroup = new Shoot_DriveBack_CommandGroup();
     
-    switch (Constants.autoSelection) {
+    switch (m_autoSelection) {
       case (Constants.driveBack_Shoot):
         return driveBack_Shoot_CommandGroup;
       case (Constants.shoot_DriveBack):
