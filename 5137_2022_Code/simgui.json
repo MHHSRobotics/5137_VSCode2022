@@ -39,7 +39,8 @@
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": "DifferentialDrive",
       "/LiveWindow/Ungrouped/Scheduler": "Scheduler",
       "/LiveWindow/VertConveyor_Subsystem": "Subsystem",
-      "/SmartDashboard/Auto Choices": "String Chooser"
+      "/SmartDashboard/Auto Choices": "String Chooser",
+      "/SmartDashboard/SendableChooser[0]": "String Chooser"
     },
     "windows": {
       "/LiveWindow/Ungrouped/DifferentialDrive[1]": {
@@ -61,9 +62,6 @@
   },
   "NetworkTables": {
     "LiveWindow": {
-      "HangSubsystem": {
-        "open": true
-      },
       "open": true
     }
   }

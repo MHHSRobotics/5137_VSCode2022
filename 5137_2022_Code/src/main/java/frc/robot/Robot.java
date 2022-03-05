@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
   public static final String m_Shoot_Drive = Constants.shoot_DriveBack;
   public static final String m_Drive_Shoot = Constants.driveBack_Shoot;
   private String m_autoSelected;
-  private final SendableChooser<String> m_chooser = new SendableChooser<>();
+  SendableChooser<String> m_chooser = new SendableChooser<>();
 
 
   /**
@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Shoot_Drive", m_Shoot_Drive);
     m_chooser.addOption("Shoot_Drive", m_Shoot_Drive);
     m_chooser.addOption("Drive_Shoot", m_Drive_Shoot);
-    SmartDashboard.putData("Auto Choices", m_chooser);
+    SmartDashboard.putData("Auto Choices",m_chooser);
 
     //driverCam = edu.wpi.first.cameraserver.CameraServer.getInstance().startAutomaticCapture();
 
