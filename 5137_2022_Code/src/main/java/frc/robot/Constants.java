@@ -51,23 +51,23 @@ public final class Constants {
     public final static double turnSensitivity = 4.5; //4.5 seems nice
     public final static boolean isQuickTurn = true; //makes turning the drive base able to override constant-curvature turning for turn-in-place maneuvers.
     
-    public static final int leftBackCAN = 1; 
-    public static final int leftFrontCAN = 2;
-    public static final int rightBackCAN = 4;
-    public static final int rightFrontCAN = 15;
+    public static final int leftFrontCAN = 1;
+    public static final int leftBackCAN = 2; 
+    public static final int rightFrontCAN = 5;
+    public static final int rightBackCAN = 6;
 
     //Intake
-    public static final int intakePort = 7; //Need to Change
+    public static final int intakePort = 16;
     public static final double intakeSpeed = 0.3;
 
     //Conveyor
-    public static final int horzConveyorPort = 9;
-    public static final int vertConveyorPort = 6;
+    public static final int horzConveyorPort = 13;
+    public static final int vertConveyorPort = 9;
     public static final double conveyorSpeed = 0.4;
 
     //Shooter
-    public static final int shooterId = 5; // 
-    public static final int backSpinShooterId = 10; //Change Later
+    public static final int shooterId = 4;
+    public static final int backSpinShooterId = 8;
     
     public static final double InitiationLineShooterPerc = 0.2;
     public static final double BackTrenchShooterPerc = 0.1;
@@ -78,8 +78,8 @@ public final class Constants {
     public static final double shooterAngle = 0;
     
     //Hnag
-    public static final int hangExtensionMotorPort = 0;
-    public static final int hangPivotMotorPort = 1;
+    public static final int hangExtensionMotorPort = 3; // Might be switched
+    public static final int hangPivotMotorPort = 7; // Might be switched
 
     public static final float pivotReverseLimit = (float) 0.25;
     public static final float pivotForwardLimit = 0;
