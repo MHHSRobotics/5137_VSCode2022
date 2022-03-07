@@ -13,19 +13,18 @@ import frc.robot.RobotContainer;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class Autonomous_Drive_Command extends CommandBase {
-  /** Creates a new Autonomous_DriveBack_Command. */
+public class Autonomous_AutoIntake_Command extends CommandBase {
+  /** Creates a new Autonomous_AutoShoot* _Command. */
 
   double m_time;
-  double m_speed;
 
   Timer m_timer; 
 
-  public Autonomous_Drive_Command(double time, double speed) {
+  public Autonomous_AutoIntake_Command(double time) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_timer = new Timer();
     m_time = time;
-    m_speed = speed;
+    addRequirements(RobotContainer.intake_Subsystem);
     addRequirements(RobotContainer.driveBase_Subsystem);
   }
 
@@ -39,13 +38,14 @@ public class Autonomous_Drive_Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.driveBase_Subsystem.driveStraight(m_speed);
+    RobotContainer.intake_Subsystem.intakeBallsIn();
+    RobotContainer.driveBase_Subsystem.drive(1.0, 0.0);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.driveBase_Subsystem.stop();
+    RobotContainer.intake_Subsystem.endIntake();
   }
 
   // Returns true when the command should end.
@@ -59,5 +59,3 @@ public class Autonomous_Drive_Command extends CommandBase {
   }
   }
 }
-
-

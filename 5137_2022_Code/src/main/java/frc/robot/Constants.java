@@ -88,6 +88,7 @@ public final class Constants {
     //Auto-mousse
     public static final String driveBack_Shoot = "drive_Shoot";
     public static final String shoot_DriveBack = "shoot_Drive";
+    public static final String complex = "complex"; //Change this later
 
     //Color Sensor
     public static final I2C.Port i2cPort = I2C.Port.kOnboard;

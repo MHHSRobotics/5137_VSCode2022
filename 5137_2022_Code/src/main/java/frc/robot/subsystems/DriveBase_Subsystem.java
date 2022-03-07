@@ -94,13 +94,13 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	//System.out.println("Left side going at: " + m_leftDrive.get());
 	//System.out.println("Right side going at: " + m_rightDrive.get());
   }
-
+/*
   public void drivePivot(double speed) { // TODO may need to make this negative
 		CashwinsDifferentialDrive.arcadeDrive(0, speed);
 	}
-
-	public void driveStraight(double speed) {
-		CashwinsDifferentialDrive.arcadeDrive(speed, 0);
+*/
+	public void drive(double speed, double pivot) {
+		CashwinsDifferentialDrive.arcadeDrive(speed, pivot);
 	}
 
 	public void stop() {

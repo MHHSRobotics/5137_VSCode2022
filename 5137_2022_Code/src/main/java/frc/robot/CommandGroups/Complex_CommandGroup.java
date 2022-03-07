@@ -12,15 +12,16 @@ import frc.robot.commands.Autonomous_Commands.Autonomous_AutoIntake_Command;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class Shoot_Drive_CommandGroup extends SequentialCommandGroup{
-
-  public Shoot_Drive_CommandGroup(){
+public class Complex_CommandGroup extends SequentialCommandGroup {
+  /** Creates a new DriveBack_Shoot_CommandGroup. */
+  public Complex_CommandGroup() {
+    // Add your commands in the addCommands() call, e.g.
+    // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new Autonomous_AutoShoot_Command(2),
-      new Autonomous_AutoDrive_Command(3.0, 1.0, 0.0),
-      new Autonomous_AutoIntake_Command(2)
-      );
+      new Autonomous_AutoDrive_Command(3.0, 1.0, -1.0), //ALL OF THESE NEED TO BE CHANGED
+      new Autonomous_AutoIntake_Command(1.0),
+      new Autonomous_AutoDrive_Command(2.0, 0.0, 1.0),
+      new Autonomous_AutoShoot_Command(2.0)
+    );
   }
 }
-
-

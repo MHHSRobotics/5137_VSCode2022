@@ -33,6 +33,7 @@ import frc.robot.commands.Conveyor_Commands.RunVertConveyorForward_Command;
 import frc.robot.commands.Conveyor_Commands.RunVertConveyorReverse_Command;
 import frc.robot.commands.Conveyor_Commands.StopHorzConveyor_Command;
 import frc.robot.commands.Conveyor_Commands.StopVertConveyor_Command;
+import frc.robot.commands.Drivebase_Commands.ArcadeDrive_Command;
 import frc.robot.commands.Shooter_Commands.ManShoot_Command;
 import frc.robot.commands.Shooter_Commands.stopShoot_Command;
 import frc.robot.commands.Hang_Commands.extendHang_Command;
@@ -43,6 +44,7 @@ import frc.robot.commands.Hang_Commands.stopPivotHang_Command;
 //CommandGroups
 import frc.robot.CommandGroups.Shoot_Drive_CommandGroup;
 import frc.robot.CommandGroups.Drive_Shoot_CommandGroup;
+import frc.robot.CommandGroups.Complex_CommandGroup;
 
 //Motors
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
@@ -100,6 +102,7 @@ public class RobotContainer {
   //Command Groups
   public static Shoot_Drive_CommandGroup shoot_DriveBack_CommandGroup;
   public static Drive_Shoot_CommandGroup driveBack_Shoot_CommandGroup;
+  public static Complex_CommandGroup complex_CommandGroup;
   
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -243,12 +246,15 @@ public class RobotContainer {
 
     driveBack_Shoot_CommandGroup = new Drive_Shoot_CommandGroup();
     shoot_DriveBack_CommandGroup = new Shoot_Drive_CommandGroup();
+    complex_CommandGroup = new Complex_CommandGroup();
     
     switch (m_autoSelection) {
       case (Constants.driveBack_Shoot):
         return driveBack_Shoot_CommandGroup;
       case (Constants.shoot_DriveBack):
         return shoot_DriveBack_CommandGroup;
+      case (Constants.complex):
+        return complex_CommandGroup;
       default:
         return driveBack_Shoot_CommandGroup;
     }
