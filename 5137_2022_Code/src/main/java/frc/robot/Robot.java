@@ -72,6 +72,10 @@ public class Robot extends TimedRobot {
 
     //driverCam.setResolution(240, 180);
     //driverCam.setFPS(30);
+    driverCam = edu.wpi.first.cameraserver.CameraServer.getInstance().startAutomaticCapture();
+
+    driverCam.setResolution(240, 180);
+    driverCam.setFPS(60);
     xboxController = RobotContainer.assistantController;
   }
 
