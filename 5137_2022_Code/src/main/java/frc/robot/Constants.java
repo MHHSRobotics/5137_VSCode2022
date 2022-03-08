@@ -94,5 +94,7 @@ public final class Constants {
     public static final I2C.Port i2cPort = I2C.Port.kOnboard;
     public static final Color paper = new Color(1, 1, 1);
 
-     
+     //LED
+    public static final int LEDPort = 9;
+    public static final int LEDLength = 10;
 }

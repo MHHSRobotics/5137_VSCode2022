@@ -9,9 +9,12 @@ import com.revrobotics.ColorSensorV3;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.AddressableLED;
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.simulation.PWMSim;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -51,6 +54,10 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   SendableChooser<String> m_chooser = new SendableChooser<>();
 
+  public AddressableLED m_led;
+  public AddressableLEDBuffer m_ledBuffer;
+  public int m_rainbowFirstPixelHue;
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -61,18 +68,42 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
+  
     m_chooser.setDefaultOption("Shoot_Drive", m_Shoot_Drive);
     m_chooser.addOption("Shoot_Drive", m_Shoot_Drive);
     m_chooser.addOption("Drive_Shoot", m_Drive_Shoot);
     m_chooser.addOption("Complex",m_Complex);
     SmartDashboard.putData("Auto Choices",m_chooser);
 
+    
+    m_led = new AddressableLED(Constants.LEDPort);
+    m_ledBuffer = new AddressableLEDBuffer(Constants.LEDLength);
+    m_led.setLength(m_ledBuffer.getLength());
+
+    m_led.setData(m_ledBuffer);
+    m_led.start();
+    
+
     //driverCam = edu.wpi.first.cameraserver.CameraServer.getInstance().startAutomaticCapture();
 
     //driverCam.setResolution(240, 180);
     //driverCam.setFPS(30);
     xboxController = RobotContainer.assistantController;
+  }
+
+  private void rainbow() {
+    // For every pixel
+    for (var i = 0; i < m_ledBuffer.getLength(); i++) {
+      // Calculate the hue - hue is easier for rainbows because the color
+      // shape is a circle so only one value needs to precess
+      final var hue = (m_rainbowFirstPixelHue + (i * 180 / m_ledBuffer.getLength())) % 180;
+      // Set the value
+      m_ledBuffer.setHSV(i, hue, 255, 128);
+    }
+    // Increase by to make the rainbow "move"
+    m_rainbowFirstPixelHue += 3;
+    // Check bounds
+    m_rainbowFirstPixelHue %= 180;
   }
 
   /**
@@ -90,6 +121,8 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
+
+    rainbow();
 
     while (RobotContainer.YButton.getAsBoolean()){
       if (ColorSensor_Subsystem.checkConveyorEmpty() == false){
