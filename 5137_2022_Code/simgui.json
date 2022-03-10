@@ -1,7 +1,22 @@
 {
   "HALProvider": {
     "Other Devices": {
+      "REV Color Sensor V3[0,82]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SparkMax[4]": {
+        "header": {
+          "open": true
+        }
+      },
       "SparkMax[5]": {
+        "header": {
+          "open": true
+        }
+      },
+      "SparkMax[8]": {
         "header": {
           "open": true
         }

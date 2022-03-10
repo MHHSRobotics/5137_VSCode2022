@@ -4,6 +4,8 @@
 
 package frc.robot;
 
+import java.net.PortUnreachableException;
+
 import com.revrobotics.ColorMatch;
 import com.revrobotics.ColorSensorV3;
 
@@ -11,9 +13,12 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SensorUtil;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.simulation.PWMSim;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -75,7 +80,6 @@ public class Robot extends TimedRobot {
     m_chooser.addOption("Complex",m_Complex);
     SmartDashboard.putData("Auto Choices",m_chooser);
 
-    
     m_led = new AddressableLED(Constants.LEDPort);
     m_ledBuffer = new AddressableLEDBuffer(Constants.LEDLength);
     m_led.setLength(m_ledBuffer.getLength());
@@ -88,14 +92,14 @@ public class Robot extends TimedRobot {
 
     //driverCam.setResolution(240, 180);
     //driverCam.setFPS(30);
-    driverCam = edu.wpi.first.cameraserver.CameraServer.getInstance().startAutomaticCapture();
+    //driverCam = edu.wpi.first.cameraserver.CameraServer.getInstance().startAutomaticCapture();
 
-    driverCam.setResolution(240, 180);
-    driverCam.setFPS(60);
+    //driverCam.setResolution(240, 180);
+    //driverCam.setFPS(60);
     xboxController = RobotContainer.assistantController;
   }
 
-  private void rainbow() {
+  private void partyMode() {
     // For every pixel
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
       // Calculate the hue - hue is easier for rainbows because the color
@@ -126,8 +130,6 @@ public class Robot extends TimedRobot {
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
 
-    rainbow();
-
     while (RobotContainer.YButton.getAsBoolean()){
       if (ColorSensor_Subsystem.checkConveyorEmpty() == false){
         new StopVertConveyor_Command();
@@ -153,7 +155,9 @@ public class Robot extends TimedRobot {
   public void disabledInit() {}
 
   @Override
-  public void disabledPeriodic() {}
+  public void disabledPeriodic() {
+    partyMode();
+  }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override

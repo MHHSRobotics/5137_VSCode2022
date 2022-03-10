@@ -23,7 +23,7 @@ public class ManShoot_Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false) == true) {//ready to shoot {
+    if (RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false, 0) == true) {//ready to shoot {
       RobotContainer.vertConveyor_Subsystem.forwardVertConveyorOn();
     }
   }

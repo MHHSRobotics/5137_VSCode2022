@@ -37,7 +37,7 @@ public class Autonomous_AutoShoot_Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, false, true);
+    RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, false, true, 0);
   }
 
   // Called once the command ends or is interrupted.
