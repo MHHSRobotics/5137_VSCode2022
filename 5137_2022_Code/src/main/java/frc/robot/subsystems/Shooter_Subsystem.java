@@ -91,8 +91,8 @@ if (newVelo == 0) {
 
       shooterMotor.set(controllerMAGVelo);
       backSpinShooterMotor.set(-controllerMAGVelo / 1.3);
-      if ((controllerMAGVelo <= (veloReading + Constants.veloError)) && 
-       (controllerMAGVelo >= (veloReading - Constants.veloError))) {
+      if (((controllerMAGVelo * 5700) <= (veloReading + Constants.veloError)) && 
+       ((controllerMAGVelo * 5700) >= (veloReading - Constants.veloError))) {
          return true; 
        } else {
           return false;
