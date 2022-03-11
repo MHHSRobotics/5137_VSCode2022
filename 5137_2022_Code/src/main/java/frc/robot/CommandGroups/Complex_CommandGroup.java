@@ -18,7 +18,7 @@ public class Complex_CommandGroup extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new Autonomous_AutoDrive_Command(3.0, 1.0, -1.0), //ALL OF THESE NEED TO BE CHANGED
+      new Autonomous_AutoDrive_Command(3.0, 0.2, -1.0), //ALL OF THESE NEED TO BE CHANGED
       new Autonomous_AutoIntake_Command(1.0),
       new Autonomous_AutoDrive_Command(2.0, 0.0, 1.0),
       new Autonomous_AutoShoot_Command(2.0)

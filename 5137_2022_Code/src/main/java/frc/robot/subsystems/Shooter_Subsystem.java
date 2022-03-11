@@ -91,7 +91,7 @@ if (newVelo == 0) {
 
       shooterMotor.set(controllerMAGVelo);
       backSpinShooterMotor.set(-controllerMAGVelo / 1.3);
-      if (((controllerMAGVelo * 5700) <= (veloReading + Constants.veloError)) && 
+      if (((controllerMAGVelo * 5700) <= (veloReading + Constants.veloError)) && // 5700 is the max rpm
        ((controllerMAGVelo * 5700) >= (veloReading - Constants.veloError))) {
          return true; 
        } else {
