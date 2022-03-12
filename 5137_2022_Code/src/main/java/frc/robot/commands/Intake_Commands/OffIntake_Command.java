@@ -19,12 +19,12 @@ public class OffIntake_Command extends CommandBase{
     //Called every time the scheduler runs while the command is scheduled
     @Override
     public void execute() {
-        RobotContainer.intake_Subsystem.toggleIntake(false, false); //motors are off and reverse is false
+        RobotContainer.intake_Subsystem.endIntake();; //motors are off and reverse is false
     }
 
     @Override
     public void end(boolean interrupted) {
-        RobotContainer.intake_Subsystem.toggleIntake(false, false); //motors are off and reverse false 
+        //RobotContainer.intake_Subsystem.toggleIntake(false, false); //motors are off and reverse false 
     }
 
     @Override

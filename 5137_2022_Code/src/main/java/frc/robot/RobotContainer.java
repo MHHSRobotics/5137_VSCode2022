@@ -95,7 +95,6 @@ public class RobotContainer {
   public static VertConveyor_Subsystem vertConveyor_Subsystem;
   public static Shooter_Subsystem shooter_Subsystem;
   public static HangSubsystem hang_Subsystem;
-  public static Object storage_Subsystem;
 
   //Commands
 
@@ -217,20 +216,20 @@ public class RobotContainer {
     LYAxis.whenInactive(new stopExtendHang_Command());
 
     //AssistController Buttons
-    XButton = new JoystickButton(driverController, Constants.XButtonPort);
-    XButton.whenHeld(new RunHorzConveyorReverse_Command());
+    XButton = new JoystickButton(assistantController, Constants.XButtonPort);
+    XButton.whileHeld(new RunHorzConveyorReverse_Command());
     XButton.whenReleased(new StopHorzConveyor_Command());
 
-    BButton = new JoystickButton(driverController, Constants.BButtonPort);
-    BButton.whenHeld(new RunHorzConveyorForward_Command());
+    BButton = new JoystickButton(assistantController, Constants.BButtonPort);
+    BButton.whileHeld(new RunHorzConveyorForward_Command());
     BButton.whenReleased(new StopHorzConveyor_Command());
 
-    AButton = new JoystickButton(driverController, Constants.AButtonPort);
-    AButton.whenHeld(new RunVertConveyorReverse_Command());
+    AButton = new JoystickButton(assistantController, Constants.AButtonPort);
+    AButton.whileHeld(new RunVertConveyorReverse_Command());
     AButton.whenReleased(new StopVertConveyor_Command());
 
-    YButton = new JoystickButton(driverController, Constants.YButtonPort);
-    YButton.whenHeld(new RunVertConveyorForward_Command());
+    YButton = new JoystickButton(assistantController, Constants.YButtonPort);
+    YButton.whileHeld(new RunVertConveyorForward_Command());
     YButton.whenReleased(new StopVertConveyor_Command());
 
     

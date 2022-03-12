@@ -48,10 +48,10 @@ public class Robot extends TimedRobot {
   public static UsbCamera driverCam; 
   private Joystick xboxController;
 
-  ColorSensorV3 colorSensor;
+  //ColorSensorV3 colorSensor;
 
-  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(Constants.i2cPort);
-  private final ColorMatch m_ColorMatcher = new ColorMatch();
+  //private final ColorSensorV3 m_colorSensor = new ColorSensorV3(Constants.i2cPort);
+  //private final ColorMatch m_ColorMatcher = new ColorMatch();
 
   public static final String m_Shoot_Drive = Constants.shoot_DriveBack;
   public static final String m_Drive_Shoot = Constants.driveBack_Shoot;
@@ -59,9 +59,9 @@ public class Robot extends TimedRobot {
   private String m_autoSelected;
   SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  public AddressableLED m_led;
-  public AddressableLEDBuffer m_ledBuffer;
-  public int m_rainbowFirstPixelHue;
+  //public AddressableLED m_led;
+  //public AddressableLEDBuffer m_ledBuffer;
+  //public int m_rainbowFirstPixelHue;
 
 
   /**
@@ -73,7 +73,7 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-  
+    /*
     m_chooser.setDefaultOption("Shoot_Drive", m_Shoot_Drive);
     m_chooser.addOption("Shoot_Drive", m_Shoot_Drive);
     m_chooser.addOption("Drive_Shoot", m_Drive_Shoot);
@@ -86,6 +86,7 @@ public class Robot extends TimedRobot {
 
     m_led.setData(m_ledBuffer);
     m_led.start();
+    */
     
 
     //driverCam = edu.wpi.first.cameraserver.CameraServer.getInstance().startAutomaticCapture();
@@ -101,6 +102,7 @@ public class Robot extends TimedRobot {
 
   private void partyMode() {
     // For every pixel
+    /*
     for (var i = 0; i < m_ledBuffer.getLength(); i++) {
       // Calculate the hue - hue is easier for rainbows because the color
       // shape is a circle so only one value needs to precess
@@ -112,6 +114,7 @@ public class Robot extends TimedRobot {
     m_rainbowFirstPixelHue += 3;
     // Check bounds
     m_rainbowFirstPixelHue %= 180;
+    */
   }
 
   /**
@@ -129,23 +132,23 @@ public class Robot extends TimedRobot {
     // commands, running already-scheduled commands, removing finished or interrupted commands,
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
-
+    /*
     while (RobotContainer.YButton.getAsBoolean()){
       if (ColorSensor_Subsystem.checkConveyorEmpty() == false){
         new StopVertConveyor_Command();
       }
     }
-   
-    Color detectedColor = m_colorSensor.getColor();
+   */
+    //Color detectedColor = m_colorSensor.getColor();
     //String colorString;
 
-    if (detectedColor.equals(Constants.paper)){
-        ColorSensor_Subsystem.colorString = "Empty Conveyor";
+    //if (detectedColor.equals(Constants.paper)){
+    //    ColorSensor_Subsystem.colorString = "Empty Conveyor";
         
-    }
-    else {
-        ColorSensor_Subsystem.colorString = "Ball Detected";
-    }
+    //}
+    //else {
+    //    ColorSensor_Subsystem.colorString = "Ball Detected";
+    //}
   
     CommandScheduler.getInstance().run();
   }
@@ -156,7 +159,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {
-    partyMode();
+    //partyMode();
   }
 
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */

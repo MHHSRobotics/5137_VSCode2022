@@ -29,7 +29,7 @@ public class HorzConveyor_Subsystem extends SubsystemBase {
 
   public void turnHorzConveyorOff()
   {
-    HorzConveyorMotor.stopMotor();
+    HorzConveyorMotor.set(0);
   }
 
   @Override

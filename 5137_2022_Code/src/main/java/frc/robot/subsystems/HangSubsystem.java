@@ -24,14 +24,14 @@ public class HangSubsystem extends SubsystemBase {
   public boolean allowedPivot;
 
   Joystick assController;
-  public SparkMaxWrapper extensionMotor; // Remove public static
-  public SparkMaxWrapper pivotMotor; // Remove public static
+  public CANSparkMax extensionMotor; // Remove public static
+  public CANSparkMax pivotMotor; // Remove public static
 
 
   /** Creates a new HangSubsystem. */
   public HangSubsystem() {
-    extensionMotor = new SparkMaxWrapper(Constants.hangExtensionMotorPort, MotorType.kBrushless);
-    pivotMotor = new SparkMaxWrapper(Constants.hangPivotMotorPort, MotorType.kBrushless);
+    extensionMotor = new CANSparkMax(Constants.hangExtensionMotorPort, MotorType.kBrushless);
+    pivotMotor = new CANSparkMax(Constants.hangPivotMotorPort, MotorType.kBrushless);
     assController = RobotContainer.assistantController;
   }
 

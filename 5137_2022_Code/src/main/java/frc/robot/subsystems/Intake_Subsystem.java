@@ -28,9 +28,9 @@ public class Intake_Subsystem extends SubsystemBase {
     boolean intakeDown = false;
     boolean toggleIntakeDirection = false;
 
-    //VictorSPX intakeMotor = new VictorSPX(Constants.intakePort);
+    VictorSPX intakeMotor = new VictorSPX(Constants.intakePort);
     //public CANSparkMax intakeMotor = new CANSparkMax(Constants.intakePort, MotorType.kBrushless);
-    SparkMaxWrapper intakeMotor = new SparkMaxWrapper(Constants.intakePort, MotorType.kBrushless);
+    //SparkMaxWrapper intakeMotor = new SparkMaxWrapper(Constants.intakePort, MotorType.kBrushless);
 
     public Intake_Subsystem() {
         //constructor 
@@ -61,20 +61,20 @@ public class Intake_Subsystem extends SubsystemBase {
     
     //picks up balls from field into robot
     public void intakeBallsIn() {
-        //intakeMotor.set(ControlMode.PercentOutput, Constants.intakeSpeed);
-        intakeMotor.set(Constants.intakeSpeed);
+        intakeMotor.set(ControlMode.PercentOutput, Constants.intakeSpeed);
+        //intakeMotor.set(Constants.intakeSpeed);
     } 
 
     //reverses intake to push balls out
     public void intakeBallsOut() {
-        //intakeMotor.set(ControlMode.PercentOutput, Constants.intakeSpeed * -1);
-        intakeMotor.set(Constants.intakeSpeed * -1);
+        intakeMotor.set(ControlMode.PercentOutput, Constants.intakeSpeed * -1);
+        //intakeMotor.set(Constants.intakeSpeed * -1);
     }
 
     //switches motor off
     public void endIntake() {
-        //intakeMotor.setNeutralMode(NeutralMode.Coast);
-        intakeMotor.set(0);
+        intakeMotor.set(ControlMode.PercentOutput, 0.0);
+        //intakeMotor.set(0);
     }
 }
 

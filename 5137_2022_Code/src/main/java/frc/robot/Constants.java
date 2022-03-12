@@ -61,9 +61,9 @@ public final class Constants {
     public static final double intakeSpeed = 0.3;
 
     //Conveyor
-    public static final int horzConveyorPort = 13;
     public static final int vertConveyorPort = 9;
-    public static final double conveyorSpeed = 0.4;
+    public static final int horzConveyorPort = 13;
+    public static final double conveyorSpeed = 0.5;
 
     //Shooter
     public static final int shooterId = 3;

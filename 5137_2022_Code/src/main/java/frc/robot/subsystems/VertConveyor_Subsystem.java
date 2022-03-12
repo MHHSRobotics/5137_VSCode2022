@@ -14,7 +14,7 @@ import frc.robot.Constants;
 import frc.robot.simulation.SparkMaxWrapper;
 
 public class VertConveyor_Subsystem extends SubsystemBase {
-  SparkMaxWrapper VertConveyorMotor = new SparkMaxWrapper(Constants.vertConveyorPort, MotorType.kBrushless);
+  CANSparkMax VertConveyorMotor = new CANSparkMax(Constants.vertConveyorPort, MotorType.kBrushless);
   
   //MotorController VeryConveyorMotor = new Spark(Constants.vertConveyorPort);
   /** Creates a new Conveyor. */
@@ -30,7 +30,7 @@ public class VertConveyor_Subsystem extends SubsystemBase {
 
   public void turnVertConveyorOff()
   {
-    VertConveyorMotor.stopMotor();
+    VertConveyorMotor.set(0);
   }
 
   @Override
