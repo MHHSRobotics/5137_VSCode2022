@@ -14,22 +14,22 @@ import frc.robot.Constants;
 import frc.robot.simulation.SparkMaxWrapper;
 
 public class HorzConveyor_Subsystem extends SubsystemBase {
-  SparkMaxWrapper HorzConveyorMotor = new SparkMaxWrapper(Constants.horzConveyorPort, MotorType.kBrushless);
+  SparkMaxWrapper horzConveyorMotor = new SparkMaxWrapper(Constants.horzConveyorPort, MotorType.kBrushless);
   //MotorController HorzConveyorMotor = new Spark(Constants.horzConveyorPort);
   /** Creates a new Conveyor. */
   public HorzConveyor_Subsystem() {}
 
   public void forwardHorzConveyorOn(){ //shooterConveyor is going in towards the shooter
-    HorzConveyorMotor.set(Constants.conveyorSpeed);
+    horzConveyorMotor.set(Constants.conveyorSpeed);
   }
 
   public void reverseHorzConveyorOn(){ //intakeConveyor is going out towards the intake (AKA shooting out balls if stuck)
-    HorzConveyorMotor.set(-Constants.conveyorSpeed);
+    horzConveyorMotor.set(-Constants.conveyorSpeed);
   }
 
   public void turnHorzConveyorOff()
   {
-    HorzConveyorMotor.set(0);
+    horzConveyorMotor.set(0);
   }
 
   @Override

@@ -73,13 +73,13 @@ public class Robot extends TimedRobot {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-    /*
+    
     m_chooser.setDefaultOption("Shoot_Drive", m_Shoot_Drive);
     m_chooser.addOption("Shoot_Drive", m_Shoot_Drive);
     m_chooser.addOption("Drive_Shoot", m_Drive_Shoot);
     m_chooser.addOption("Complex",m_Complex);
     SmartDashboard.putData("Auto Choices",m_chooser);
-
+    /*
     m_led = new AddressableLED(Constants.LEDPort);
     m_ledBuffer = new AddressableLEDBuffer(Constants.LEDLength);
     m_led.setLength(m_ledBuffer.getLength());

@@ -187,25 +187,29 @@ public class RobotContainer {
 
     //DriverController D-Pad
     uDPadButton = new POVButton(driverController, 0);
-    uDPadButton.whenActive(new ManShoot_Command()); //makes manual shooter engage
+    uDPadButton.whileActiveContinuous(new ManShoot_Command()); //makes manual shooter engage
     uDPadButton.whenInactive(new stopShoot_Command());
 
     rDPadButton = new POVButton(driverController, 90);
-    rDPadButton.whenActive(new ManShoot_Command()); //makes manual shooter engage
+    rDPadButton.whileActiveContinuous(new ManShoot_Command()); //makes manual shooter engage
     rDPadButton.whenInactive(new stopShoot_Command()); 
 
     dDPadButton = new POVButton(driverController, 180);
-    dDPadButton.whenActive(new ManShoot_Command()); //makes manual shooter engage
+    dDPadButton.whileActiveContinuous(new ManShoot_Command()); //makes manual shooter engage
     dDPadButton.whenInactive(new stopShoot_Command()); 
 
     //AssistController Triggers
     AlTrigger = new Trigger(booleanSupplyAssistantLT);
     AlTrigger.whileActiveContinuous(new OnIntake_Command());
+    AlTrigger.whileActiveContinuous(new RunHorzConveyorForward_Command());
     AlTrigger.whenInactive(new OffIntake_Command());
+    AlTrigger.whenInactive(new StopHorzConveyor_Command());
 
     ArTrigger = new Trigger(booleanSupplyAssistantRT);
     ArTrigger.whileActiveContinuous(new ReversedOnIntake_Command());
-    ArTrigger.whenInactive(new OffIntake_Command()); 
+    ArTrigger.whileActiveContinuous(new RunHorzConveyorReverse_Command());
+    ArTrigger.whenInactive(new OffIntake_Command());
+    ArTrigger.whenInactive(new StopHorzConveyor_Command()); 
 
     RXAxis = new Trigger(booleanSupplyAssistantRX);
     RXAxis.whileActiveContinuous(new pivotHang_Command());
@@ -217,11 +221,11 @@ public class RobotContainer {
 
     //AssistController Buttons
     XButton = new JoystickButton(assistantController, Constants.XButtonPort);
-    XButton.whileHeld(new RunHorzConveyorReverse_Command());
+    XButton.whileHeld(new RunHorzConveyorForward_Command());
     XButton.whenReleased(new StopHorzConveyor_Command());
 
     BButton = new JoystickButton(assistantController, Constants.BButtonPort);
-    BButton.whileHeld(new RunHorzConveyorForward_Command());
+    BButton.whileHeld(new RunHorzConveyorReverse_Command());
     BButton.whenReleased(new StopHorzConveyor_Command());
 
     AButton = new JoystickButton(assistantController, Constants.AButtonPort);
@@ -256,6 +260,7 @@ public class RobotContainer {
         return complex_CommandGroup;
       default:
         return driveBack_Shoot_CommandGroup;
+      }
     }
   }
-}
+

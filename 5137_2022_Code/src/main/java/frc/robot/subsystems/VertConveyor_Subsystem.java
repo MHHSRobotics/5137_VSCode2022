@@ -14,23 +14,23 @@ import frc.robot.Constants;
 import frc.robot.simulation.SparkMaxWrapper;
 
 public class VertConveyor_Subsystem extends SubsystemBase {
-  CANSparkMax VertConveyorMotor = new CANSparkMax(Constants.vertConveyorPort, MotorType.kBrushless);
+  SparkMaxWrapper vertConveyorMotor = new SparkMaxWrapper(Constants.vertConveyorPort, MotorType.kBrushless);
   
   //MotorController VeryConveyorMotor = new Spark(Constants.vertConveyorPort);
   /** Creates a new Conveyor. */
   public void VertConveyor() {}
 
   public void forwardVertConveyorOn(){ //shooterConveyor is going in towards the shooter
-    VertConveyorMotor.set(Constants.conveyorSpeed);
+    vertConveyorMotor.set(Constants.conveyorSpeed);
   }
 
   public void reverseVertConveyorOn(){ //intakeConveyor is going out towards the intake (AKA shooting out balls if stuck)
-    VertConveyorMotor.set(-Constants.conveyorSpeed);
+    vertConveyorMotor.set(-Constants.conveyorSpeed);
   }
 
   public void turnVertConveyorOff()
   {
-    VertConveyorMotor.set(0);
+    vertConveyorMotor.set(0);
   }
 
   @Override

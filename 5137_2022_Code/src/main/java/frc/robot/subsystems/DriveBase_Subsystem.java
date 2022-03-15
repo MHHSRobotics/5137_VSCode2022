@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.XboxController;
@@ -34,11 +35,15 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	double actualDriveSpeed;
 	double previousDriveSpeed;
 
+	SlewRateLimiter rateLimiter;
+
   /** Creates a new DriveBaseSubsystem. */
   public DriveBase_Subsystem() {
 	instantiateMotors();
 	createDifferentialDrive(m_leftDrive, m_rightDrive);
 	driveController = RobotContainer.driverController;
+	CashwinsDifferentialDrive.setMaxOutput(0.4);
+	rateLimiter = new SlewRateLimiter(0.8);
   }
 
   @Override
@@ -90,7 +95,9 @@ public class DriveBase_Subsystem extends SubsystemBase {
   public void rampArcadeDrive(Joystick driverController) {
 	double driveValue = driverController.getRawAxis(Constants.LYStickAxisPort);
     double turnValue = driverController.getRawAxis(Constants.RXStickAxisPort);
-    CashwinsDifferentialDrive.curvatureDrive(-driveValue / Constants.driveSensitivity, turnValue / Constants.turnSensitivity, Constants.isQuickTurn);
+
+	double rateLimitedDriveValue = rateLimiter.calculate(driveValue);
+    CashwinsDifferentialDrive.curvatureDrive(-rateLimitedDriveValue, -turnValue, Constants.isQuickTurn);
 	//System.out.println("Left side going at: " + m_leftDrive.get());
 	//System.out.println("Right side going at: " + m_rightDrive.get());
   }

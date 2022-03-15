@@ -58,7 +58,7 @@ public final class Constants {
 
     //Intake
     public static final int intakePort = 16;
-    public static final double intakeSpeed = 0.3;
+    public static final double intakeSpeed = 0.4;
 
     //Conveyor
     public static final int vertConveyorPort = 9;
@@ -66,7 +66,7 @@ public final class Constants {
     public static final double conveyorSpeed = 0.5;
 
     //Shooter
-    public static final int shooterId = 3;
+    public static final int shooterId = 4;
     public static final int backSpinShooterId = 7;
     
     public static final double InitiationLineShooterPerc = 0.2;
@@ -74,11 +74,11 @@ public final class Constants {
     public static final double FrontTrenchShooterPerc = 0.05;
     public static final double maxPercShooter = 0.20;
 
-    public static final double veloError = 20;
+    public static final double veloError = 100;
     public static final double shooterAngle = 0;
     
     //Hnag
-    public static final int hangExtensionMotorPort = 4; // Might be switched
+    public static final int hangExtensionMotorPort = 3; // Might be switched
     public static final int hangPivotMotorPort = 8; // Might be switched
 
     public static final float pivotReverseLimit = (float) 0.25;

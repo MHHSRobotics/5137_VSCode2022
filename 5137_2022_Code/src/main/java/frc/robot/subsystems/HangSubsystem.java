@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -24,15 +25,26 @@ public class HangSubsystem extends SubsystemBase {
   public boolean allowedPivot;
 
   Joystick assController;
-  public CANSparkMax extensionMotor; // Remove public static
-  public CANSparkMax pivotMotor; // Remove public static
+  public SparkMaxWrapper extensionMotor;
+  public SparkMaxWrapper pivotMotor; 
 
+  private SparkMaxLimitSwitch extforwardLimit;
+  private SparkMaxLimitSwitch extreverseLimit;
+
+  private SparkMaxLimitSwitch pivforwardLimit;
+  private SparkMaxLimitSwitch pivreverseLimit;
 
   /** Creates a new HangSubsystem. */
   public HangSubsystem() {
-    extensionMotor = new CANSparkMax(Constants.hangExtensionMotorPort, MotorType.kBrushless);
-    pivotMotor = new CANSparkMax(Constants.hangPivotMotorPort, MotorType.kBrushless);
+    extensionMotor = new SparkMaxWrapper(Constants.hangExtensionMotorPort, MotorType.kBrushless);
+    pivotMotor = new SparkMaxWrapper(Constants.hangPivotMotorPort, MotorType.kBrushless);
     assController = RobotContainer.assistantController;
+
+    //extforwardLimit = extensionMotor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    //extreverseLimit = extensionMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+
+    //pivforwardLimit = pivotMotor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
+    //pivreverseLimit = pivotMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
   }
 
   public void config(){
@@ -47,17 +59,26 @@ public class HangSubsystem extends SubsystemBase {
     pivotMotor.set(xBoxController.getRawAxis(Constants.RXStickAxisPort));
   }
 
-  public void stopExtendHang(Joystick xBoxController){
+  public void stopExtendHang(){
     extensionMotor.stopMotor();
   }
 
-  public void stopPivotHang(Joystick xBoxController){
+  public void stopPivotHang(){
     pivotMotor.stopMotor();
   }
 
   @Override
   public void periodic() {
     //limit switches :D
+    /*
+    if (extforwardLimit.isPressed() || extreverseLimit.isPressed()){
+      stopExtendHang();
+    }
+
+    if (pivforwardLimit.isPressed() || pivreverseLimit.isPressed()){
+      stopPivotHang();
+    }
+    */
     
     extensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     pivotMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
@@ -66,6 +87,7 @@ public class HangSubsystem extends SubsystemBase {
     extensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.extensionForwardLimit);
     pivotMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.pivotForwardLimit);
     pivotMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.pivotReverseLimit);
+    
     
   }
 }
