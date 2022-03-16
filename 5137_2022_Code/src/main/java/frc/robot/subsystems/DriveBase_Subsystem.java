@@ -35,7 +35,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	double actualDriveSpeed;
 	double previousDriveSpeed;
 
-	SlewRateLimiter rateLimiter;
+	SlewRateLimiter forewardRateLimiter;
+	SlewRateLimiter turnRateLimiter;
 
   /** Creates a new DriveBaseSubsystem. */
   public DriveBase_Subsystem() {
@@ -43,7 +44,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	createDifferentialDrive(m_leftDrive, m_rightDrive);
 	driveController = RobotContainer.driverController;
 	CashwinsDifferentialDrive.setMaxOutput(0.4);
-	rateLimiter = new SlewRateLimiter(0.8);
+	forewardRateLimiter = new SlewRateLimiter(1.2);
+	turnRateLimiter = new SlewRateLimiter(1);
   }
 
   @Override
@@ -96,8 +98,9 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	double driveValue = driverController.getRawAxis(Constants.LYStickAxisPort);
     double turnValue = driverController.getRawAxis(Constants.RXStickAxisPort);
 
-	double rateLimitedDriveValue = rateLimiter.calculate(driveValue);
-    CashwinsDifferentialDrive.curvatureDrive(-rateLimitedDriveValue, -turnValue, Constants.isQuickTurn);
+	double rateLimitedDriveValue = forewardRateLimiter.calculate(driveValue);
+	double rateLimitedTurnValue = turnRateLimiter.calculate(turnValue);
+    CashwinsDifferentialDrive.curvatureDrive(-rateLimitedDriveValue, -rateLimitedTurnValue, Constants.isQuickTurn);
 	//System.out.println("Left side going at: " + m_leftDrive.get());
 	//System.out.println("Right side going at: " + m_rightDrive.get());
   }

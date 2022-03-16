@@ -45,7 +45,8 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
-  public static UsbCamera driverCam; 
+  public static UsbCamera driverCam;
+  public static UsbCamera converyorCam; 
   private Joystick xboxController;
 
   //ColorSensorV3 colorSensor;
@@ -53,9 +54,9 @@ public class Robot extends TimedRobot {
   //private final ColorSensorV3 m_colorSensor = new ColorSensorV3(Constants.i2cPort);
   //private final ColorMatch m_ColorMatcher = new ColorMatch();
 
-  public static final String m_Shoot_Drive = Constants.shoot_DriveBack;
-  public static final String m_Drive_Shoot = Constants.driveBack_Shoot;
-  public static final String m_Complex = Constants.complex;
+  public static String m_Shoot_Drive = Constants.shoot_DriveBack;
+  public static String m_Drive_Shoot = Constants.driveBack_Shoot;
+  public static String m_Complex = Constants.complex;
   private String m_autoSelected;
   SendableChooser<String> m_chooser = new SendableChooser<>();
 
@@ -89,14 +90,16 @@ public class Robot extends TimedRobot {
     */
     
 
-    //driverCam = edu.wpi.first.cameraserver.CameraServer.getInstance().startAutomaticCapture();
+    driverCam = edu.wpi.first.cameraserver.CameraServer.startAutomaticCapture(0);
 
-    //driverCam.setResolution(240, 180);
-    //driverCam.setFPS(30);
-    //driverCam = edu.wpi.first.cameraserver.CameraServer.getInstance().startAutomaticCapture();
+    driverCam.setResolution(240, 180);
+    driverCam.setFPS(50);
 
-    //driverCam.setResolution(240, 180);
-    //driverCam.setFPS(60);
+
+    converyorCam = edu.wpi.first.cameraserver.CameraServer.startAutomaticCapture(1);
+
+    converyorCam.setResolution(240, 180);
+    converyorCam.setFPS(30);
     xboxController = RobotContainer.assistantController;
   }
 
