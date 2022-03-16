@@ -182,6 +182,8 @@ public class RobotContainer {
     rightTrigger = new Trigger(booleanSupplyXBoxLT);
     rightTrigger.whileActiveContinuous(new ManShoot_Command());
     rightTrigger.whenInactive(new stopShoot_Command());
+    rightTrigger.whenInactive(new StopHorzConveyor_Command());
+    rightTrigger.whenInactive(new StopVertConveyor_Command());
 
     //DriverController Buttons
 
@@ -189,25 +191,31 @@ public class RobotContainer {
     uDPadButton = new POVButton(driverController, 0);
     uDPadButton.whileActiveContinuous(new ManShoot_Command()); //makes manual shooter engage
     uDPadButton.whenInactive(new stopShoot_Command());
+    uDPadButton.whenInactive(new StopHorzConveyor_Command());
+    uDPadButton.whenInactive(new StopVertConveyor_Command());
 
     rDPadButton = new POVButton(driverController, 90);
     rDPadButton.whileActiveContinuous(new ManShoot_Command()); //makes manual shooter engage
     rDPadButton.whenInactive(new stopShoot_Command()); 
+    rDPadButton.whenInactive(new StopHorzConveyor_Command());
+    rDPadButton.whenInactive(new StopVertConveyor_Command());
 
     dDPadButton = new POVButton(driverController, 180);
     dDPadButton.whileActiveContinuous(new ManShoot_Command()); //makes manual shooter engage
     dDPadButton.whenInactive(new stopShoot_Command()); 
+    dDPadButton.whenInactive(new StopHorzConveyor_Command());
+    dDPadButton.whenInactive(new StopVertConveyor_Command());
 
     //AssistController Triggers
     AlTrigger = new Trigger(booleanSupplyAssistantLT);
     AlTrigger.whileActiveContinuous(new OnIntake_Command());
-    AlTrigger.whileActiveContinuous(new RunHorzConveyorForward_Command());
+    AlTrigger.whileActiveContinuous(new RunHorzConveyorReverse_Command());
     AlTrigger.whenInactive(new OffIntake_Command());
     AlTrigger.whenInactive(new StopHorzConveyor_Command());
 
     ArTrigger = new Trigger(booleanSupplyAssistantRT);
     ArTrigger.whileActiveContinuous(new ReversedOnIntake_Command());
-    ArTrigger.whileActiveContinuous(new RunHorzConveyorReverse_Command());
+    ArTrigger.whileActiveContinuous(new RunHorzConveyorForward_Command());
     ArTrigger.whenInactive(new OffIntake_Command());
     ArTrigger.whenInactive(new StopHorzConveyor_Command()); 
 

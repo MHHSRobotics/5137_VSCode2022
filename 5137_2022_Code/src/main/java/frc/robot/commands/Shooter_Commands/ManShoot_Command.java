@@ -25,13 +25,13 @@ public class ManShoot_Command extends CommandBase {
   public void execute() {
     if (RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false) == true) {//ready to shoot {
       RobotContainer.vertConveyor_Subsystem.forwardVertConveyorOn();
+      RobotContainer.horzConveyor_Subsystem.forwardHorzConveyorOn();
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.vertConveyor_Subsystem.turnVertConveyorOff();
   }
 
   // Returns true when the command should end.

@@ -21,7 +21,7 @@ public class Complex_CommandGroup extends SequentialCommandGroup {
       new Autonomous_AutoDrive_Command(3.0, 0.2, -0.3), //ALL OF THESE NEED TO BE CHANGED
       new Autonomous_AutoIntake_Command(1.0),
       new Autonomous_AutoDrive_Command(2.0, 0.0, 0.3),
-      new Autonomous_AutoShoot_Command(2.0)
+      new Autonomous_AutoShoot_Command(9.0)
     );
   }
 }
