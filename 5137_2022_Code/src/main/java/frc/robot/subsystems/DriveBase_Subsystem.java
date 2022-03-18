@@ -45,7 +45,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	driveController = RobotContainer.driverController;
 	CashwinsDifferentialDrive.setMaxOutput(0.4);
 	forewardRateLimiter = new SlewRateLimiter(1.2);
-	turnRateLimiter = new SlewRateLimiter(1);
+	turnRateLimiter = new SlewRateLimiter(1.4);
   }
 
   @Override
@@ -110,6 +110,9 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
 	public void drive(double speed, double pivot) {
 		CashwinsDifferentialDrive.arcadeDrive(speed, pivot);
+	}
+	public void driveStraight(double speed){
+		CashwinsDifferentialDrive.arcadeDrive(speed, 0);
 	}
 
 	public void stop() {

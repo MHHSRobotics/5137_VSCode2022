@@ -33,7 +33,7 @@ public class Shooter_Subsystem extends SubsystemBase {
     backSpinShooterMotor = new SparkMaxWrapper(Constants.backSpinShooterId, MotorType.kBrushless);
 
     driveController = RobotContainer.driverController;
-    shooterMotor.setIdleMode(IdleMode.kBrake);
+    shooterMotor.setIdleMode(IdleMode.kCoast);
   }
 
   @Override

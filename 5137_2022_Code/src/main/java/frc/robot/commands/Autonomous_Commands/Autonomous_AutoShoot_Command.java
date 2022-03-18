@@ -17,6 +17,7 @@ public class Autonomous_AutoShoot_Command extends CommandBase {
   /** Creates a new Autonomous_AutoShoot* _Command. */
 
   double m_time;
+  double shootTime;
 
   Timer m_timer; 
 
@@ -24,7 +25,10 @@ public class Autonomous_AutoShoot_Command extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_timer = new Timer();
     m_time = time;
+    shootTime = time-2;
     addRequirements(RobotContainer.shooter_Subsystem);
+    addRequirements(RobotContainer.horzConveyor_Subsystem);
+    addRequirements(RobotContainer.vertConveyor_Subsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -37,8 +41,12 @@ public class Autonomous_AutoShoot_Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, false, true) == true) {//ready to shoot {
+    if (m_timer.get() < shootTime){
+      RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, false, true);
+    }
+    else {
       RobotContainer.vertConveyor_Subsystem.forwardVertConveyorOn();
+      RobotContainer.horzConveyor_Subsystem.forwardHorzConveyorOn();
     }
   }
 
@@ -46,6 +54,8 @@ public class Autonomous_AutoShoot_Command extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     RobotContainer.shooter_Subsystem.stopShoot();
+    RobotContainer.vertConveyor_Subsystem.turnVertConveyorOff();
+    RobotContainer.horzConveyor_Subsystem.turnHorzConveyorOff();
   }
 
   // Returns true when the command should end.

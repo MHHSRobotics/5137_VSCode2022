@@ -6,25 +6,25 @@ package frc.robot.commands.Autonomous_Commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
-
-import edu.wpi.first.wpilibj2.command.CommandBase;
-
-public class Autonomous_AutoIntake_Command extends CommandBase {
-  /** Creates a new Autonomous_AutoShoot* _Command. */
+public class Autonomous_AutoIntakeDrive_Command extends CommandBase {
+  /** Creates a new Autonomous_AutoIntakeDrive_Command. */
 
   double m_time;
+  double m_speed;
+  double m_pivot;
 
   Timer m_timer; 
-
-  public Autonomous_AutoIntake_Command(double time) {
+  public Autonomous_AutoIntakeDrive_Command(double time, double speed, double pivot) {
     // Use addRequirements() here to declare subsystem dependencies.
     m_timer = new Timer();
     m_time = time;
+    m_speed = speed;
+    m_pivot = pivot;
+
     addRequirements(RobotContainer.intake_Subsystem);
+    addRequirements(RobotContainer.horzConveyor_Subsystem);
     addRequirements(RobotContainer.driveBase_Subsystem);
   }
 
@@ -38,12 +38,16 @@ public class Autonomous_AutoIntake_Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    RobotContainer.driveBase_Subsystem.drive(m_speed, m_pivot);
     RobotContainer.intake_Subsystem.intakeBallsIn();
+    RobotContainer.horzConveyor_Subsystem.forwardHorzConveyorOn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotContainer.driveBase_Subsystem.stop();
+    RobotContainer.horzConveyor_Subsystem.turnHorzConveyorOff();
     RobotContainer.intake_Subsystem.endIntake();
   }
 

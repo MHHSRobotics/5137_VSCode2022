@@ -7,6 +7,7 @@ package frc.robot.CommandGroups;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.commands.Autonomous_Commands.Autonomous_AutoShoot_Command;
 import frc.robot.commands.Autonomous_Commands.Autonomous_AutoDrive_Command;
+import frc.robot.commands.Autonomous_Commands.Autonomous_AutoIntakeDrive_Command;
 import frc.robot.commands.Autonomous_Commands.Autonomous_AutoIntake_Command;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
@@ -18,9 +19,10 @@ public class Drive_Shoot_CommandGroup extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new Autonomous_AutoDrive_Command(4.0, 0.2, 0.0),
-      new Autonomous_AutoShoot_Command(5),
-      new Autonomous_AutoIntake_Command(2)
+      new Autonomous_AutoDrive_Command(4.0, 0.7, 0.0),
+      new Autonomous_AutoIntake_Command(1),
+      new Autonomous_AutoIntakeDrive_Command(2.0, 0.7, 0.0),
+      new Autonomous_AutoShoot_Command(5)
     );
   }
 }
