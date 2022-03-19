@@ -46,7 +46,7 @@ public class Robot extends TimedRobot {
 
   private RobotContainer m_robotContainer;
   public static UsbCamera driverCam;
-  public static UsbCamera converyorCam; 
+  //public static UsbCamera converyorCam; 
   private Joystick xboxController;
 
   //ColorSensorV3 colorSensor;

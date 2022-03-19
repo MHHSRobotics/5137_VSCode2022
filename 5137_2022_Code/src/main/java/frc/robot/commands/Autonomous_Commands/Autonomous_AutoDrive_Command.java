@@ -41,13 +41,12 @@ public class Autonomous_AutoDrive_Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.driveBase_Subsystem.drive(m_speed, m_pivot);
+    RobotContainer.driveBase_Subsystem.driveStraight(m_speed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.driveBase_Subsystem.stop();
   }
 
   // Returns true when the command should end.

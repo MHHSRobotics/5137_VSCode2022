@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.motorcontrol.MotorController;
@@ -44,8 +45,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	createDifferentialDrive(m_leftDrive, m_rightDrive);
 	driveController = RobotContainer.driverController;
 	CashwinsDifferentialDrive.setMaxOutput(0.4);
-	forewardRateLimiter = new SlewRateLimiter(1.2);
-	turnRateLimiter = new SlewRateLimiter(1.4);
+	forewardRateLimiter = new SlewRateLimiter(3);
+	//turnRateLimiter = new SlewRateLimiter(3.5);
   }
 
   @Override
@@ -69,7 +70,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	{
 		m_leftDrive = new MotorControllerGroup(leftBack, leftFront);
 		m_rightDrive = new MotorControllerGroup(rightBack, rightFront);
-		m_rightDrive.setInverted(true);
+		m_leftDrive.setInverted(true);
 	}
 
 	public void createDifferentialDrive(MotorControllerGroup leftDrive, MotorControllerGroup rightDrive) 
@@ -78,7 +79,9 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new ArcadeDrive_Command());
+		if (RobotState.isTeleop()){
+			setDefaultCommand(new ArcadeDrive_Command());
+		}
 	}
 
   public double adjustJoystickValue(double joystick, double deadZone) {
@@ -97,10 +100,18 @@ public class DriveBase_Subsystem extends SubsystemBase {
   public void rampArcadeDrive(Joystick driverController) {
 	double driveValue = driverController.getRawAxis(Constants.LYStickAxisPort);
     double turnValue = driverController.getRawAxis(Constants.RXStickAxisPort);
+	boolean shootForward = driverController.getRawButton(Constants.rightTriggerButton);
 
 	double rateLimitedDriveValue = forewardRateLimiter.calculate(driveValue);
-	double rateLimitedTurnValue = turnRateLimiter.calculate(turnValue);
-    CashwinsDifferentialDrive.curvatureDrive(-rateLimitedDriveValue, -rateLimitedTurnValue, Constants.isQuickTurn);
+	//double rateLimitedTurnValue = turnRateLimiter.calculate(turnValue);
+	if (RobotState.isTeleop()){
+		if (shootForward){
+			CashwinsDifferentialDrive.curvatureDrive(-rateLimitedDriveValue, turnValue, Constants.isQuickTurn);
+		}
+		else{
+			CashwinsDifferentialDrive.curvatureDrive(rateLimitedDriveValue, turnValue, Constants.isQuickTurn);
+		}
+	}
 	//System.out.println("Left side going at: " + m_leftDrive.get());
 	//System.out.println("Right side going at: " + m_rightDrive.get());
   }
@@ -109,7 +120,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	}
 
 	public void drive(double speed, double pivot) {
-		CashwinsDifferentialDrive.arcadeDrive(speed, pivot);
+		CashwinsDifferentialDrive.curvatureDrive(speed, pivot, false);
 	}
 	public void driveStraight(double speed){
 		CashwinsDifferentialDrive.arcadeDrive(speed, 0);
@@ -117,6 +128,10 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
 	public void stop() {
 		CashwinsDifferentialDrive.arcadeDrive(0, 0);
+	}
+
+	public void lockWheels() {
+		CashwinsDifferentialDrive.stopMotor();
 	}
 
 }

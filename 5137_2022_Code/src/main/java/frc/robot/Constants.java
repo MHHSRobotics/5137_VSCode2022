@@ -40,6 +40,7 @@ public final class Constants {
     public final static int BButtonPort = 2;
     public final static int XButtonPort = 3;
     public final static int YButtonPort = 4;
+    public final static int rightTriggerButton = 6;
 
     //D-Pad
     public static final int uDPadButtonValue = 0;
@@ -69,12 +70,13 @@ public final class Constants {
     public static final int shooterId = 3;
     public static final int backSpinShooterId = 7;
     
-    public static final double InitiationLineShooterPerc = 0.2;
+    public static final double InitiationLineShooterPerc = 0.15;
     public static final double BackTrenchShooterPerc = 0.3;
-    public static final double FrontTrenchShooterPerc = 0.35;
-    public static final double maxPercShooter = 0.20;
+    public static final double FrontTrenchShooterPerc = 0.25;
+    public static final double maxPercShooter = 0.25;
+    public static final double autonomousShooterPerc = 0.25;
 
-    public static final double veloError = 200;
+    public static final double veloError = 400;
     public static final double shooterAngle = 0;
     
     //Hnag

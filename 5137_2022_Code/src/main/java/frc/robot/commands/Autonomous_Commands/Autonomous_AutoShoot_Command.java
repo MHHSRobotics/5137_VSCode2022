@@ -25,7 +25,7 @@ public class Autonomous_AutoShoot_Command extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_timer = new Timer();
     m_time = time;
-    shootTime = time-2;
+    shootTime = time-3;
     addRequirements(RobotContainer.shooter_Subsystem);
     addRequirements(RobotContainer.horzConveyor_Subsystem);
     addRequirements(RobotContainer.vertConveyor_Subsystem);
@@ -46,7 +46,7 @@ public class Autonomous_AutoShoot_Command extends CommandBase {
     }
     else {
       RobotContainer.vertConveyor_Subsystem.forwardVertConveyorOn();
-      RobotContainer.horzConveyor_Subsystem.forwardHorzConveyorOn();
+      RobotContainer.horzConveyor_Subsystem.reverseHorzConveyorOn();
     }
   }
 

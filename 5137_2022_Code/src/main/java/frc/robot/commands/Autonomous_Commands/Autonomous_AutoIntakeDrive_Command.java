@@ -38,15 +38,14 @@ public class Autonomous_AutoIntakeDrive_Command extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.driveBase_Subsystem.drive(m_speed, m_pivot);
+    RobotContainer.driveBase_Subsystem.driveStraight(m_speed);
     RobotContainer.intake_Subsystem.intakeBallsIn();
-    RobotContainer.horzConveyor_Subsystem.forwardHorzConveyorOn();
+    RobotContainer.horzConveyor_Subsystem.reverseHorzConveyorOn();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.driveBase_Subsystem.stop();
     RobotContainer.horzConveyor_Subsystem.turnHorzConveyorOff();
     RobotContainer.intake_Subsystem.endIntake();
   }

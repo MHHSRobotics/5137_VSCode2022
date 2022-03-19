@@ -17,7 +17,7 @@ public class Shoot_Drive_CommandGroup extends SequentialCommandGroup{
   public Shoot_Drive_CommandGroup(){
     addCommands(
       new Autonomous_AutoShoot_Command(6),
-      new Autonomous_AutoDrive_Command(4.0, 0.7, 0.0)
+      new Autonomous_AutoDrive_Command(4.0, -0.7, 0.0)
       //new Autonomous_AutoIntake_Command(2)
       );
   }

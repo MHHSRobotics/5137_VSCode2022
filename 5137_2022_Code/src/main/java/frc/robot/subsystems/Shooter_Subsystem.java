@@ -10,6 +10,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -24,6 +25,7 @@ public class Shooter_Subsystem extends SubsystemBase {
 
   boolean horizontalTurnGood;
   boolean velocityRunningGood;
+  SlewRateLimiter forShooterLimiter;
   /** Creates a new Shooter_Subsystem. */
   public Shooter_Subsystem() {
     horizontalTurnGood = false;
@@ -33,7 +35,9 @@ public class Shooter_Subsystem extends SubsystemBase {
     backSpinShooterMotor = new SparkMaxWrapper(Constants.backSpinShooterId, MotorType.kBrushless);
 
     driveController = RobotContainer.driverController;
-    shooterMotor.setIdleMode(IdleMode.kCoast);
+    shooterMotor.setIdleMode(IdleMode.kBrake);
+    shooterMotor.setSmartCurrentLimit(40);
+    forShooterLimiter = new SlewRateLimiter(0.5);
   }
 
   @Override
@@ -74,18 +78,19 @@ public class Shooter_Subsystem extends SubsystemBase {
         controllerMAGVelo = Constants.maxPercShooter * driveController.getRawAxis(Constants.LTAxisPort);
     }
     else if (autonomous) {
-        controllerMAGVelo = Constants.InitiationLineShooterPerc;
+        controllerMAGVelo = Constants.autonomousShooterPerc;
     }
     else {
         controllerMAGVelo = 0;
     }
-
     //Return true if within a degree of error, or else don't
-    shooterMotor.set(controllerMAGVelo);
+    double limitedVelo = forShooterLimiter.calculate(controllerMAGVelo);
+    shooterMotor.set(limitedVelo);
 
-    backSpinShooterMotor.set(-controllerMAGVelo / 1.3);
+    backSpinShooterMotor.set(-controllerMAGVelo / 3);
     RelativeEncoder encoder = shooterMotor.getEncoder();
     double veloReading = encoder.getVelocity();
+
     if (((controllerMAGVelo * 5700) <= (veloReading + Constants.veloError)) && // 5700 is the max rpm
      ((controllerMAGVelo * 5700) >= (veloReading - Constants.veloError))) {
        return true; 
@@ -98,6 +103,10 @@ public class Shooter_Subsystem extends SubsystemBase {
   public void stopShoot(){
     shooterMotor.stopMotor();
     backSpinShooterMotor.stopMotor();
+  }
+
+  public void backupShooter(){
+    backSpinShooterMotor.set(Constants.InitiationLineShooterPerc);
   }
 }
 
