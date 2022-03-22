@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.RobotState;
@@ -39,6 +40,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	SlewRateLimiter forewardRateLimiter;
 	SlewRateLimiter turnRateLimiter;
 
+	ADXRS450_Gyro drive_gyro;
+
   /** Creates a new DriveBaseSubsystem. */
   public DriveBase_Subsystem() {
 	instantiateMotors();
@@ -47,6 +50,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	CashwinsDifferentialDrive.setMaxOutput(0.4);
 	forewardRateLimiter = new SlewRateLimiter(3);
 	//turnRateLimiter = new SlewRateLimiter(3.5);
+	drive_gyro = new ADXRS450_Gyro();
   }
 
   @Override
@@ -132,6 +136,10 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
 	public void lockWheels() {
 		CashwinsDifferentialDrive.stopMotor();
+	}
+
+	public double getPose() {
+	
 	}
 
 }

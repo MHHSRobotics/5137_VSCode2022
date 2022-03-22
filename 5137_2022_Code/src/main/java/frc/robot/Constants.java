@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.kinematics.DifferentialDriveKinematics;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.buttons.Trigger;
@@ -99,4 +100,11 @@ public final class Constants {
      //LED
     public static final int LEDPort = 9;
     public static final int LEDLength = 10;
+    public static final double kRamseteB = 0;
+    public static final double kRamseteZeta = 0;
+    public static final double ksVolts = 0;
+    public static final double kvVoltSecondsPerMeter = 0;
+    public static final double kaVoltSecondsSquaredPerMeter = 0;
+    public static final DifferentialDriveKinematics kDriveKinematics = null;
+    public static final double kPDriveVel = 0;
 }

@@ -24,6 +24,7 @@ import frc.robot.subsystems.HangSubsystem;
 
 //Commands
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import frc.robot.commands.Intake_Commands.OffIntake_Command;
 import frc.robot.commands.Intake_Commands.OnIntake_Command;
 import frc.robot.commands.Intake_Commands.ReversedOnIntake_Command;
@@ -50,10 +51,21 @@ import frc.robot.CommandGroups.Complex_CommandGroup;
 //Motors
 import edu.wpi.first.wpilibj.motorcontrol.Spark;
 
+import java.io.IOException;
+import java.nio.file.Path;
 //Misc.
 import java.sql.Driver;
 import java.util.function.BooleanSupplier;
+
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.controller.RamseteController;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.math.trajectory.Trajectory;
+import edu.wpi.first.math.trajectory.TrajectoryConfig;
+import edu.wpi.first.math.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Filesystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -267,8 +279,8 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   
-  public static Command getAutonomousCommand(String m_autoSelection) {
-
+  public static void getAutonomousCommand(String m_autoSelection) {
+    /*
     driveBack_Shoot_CommandGroup = new Drive_Shoot_CommandGroup();
     shoot_DriveBack_CommandGroup = new Shoot_Drive_CommandGroup();
     complex_CommandGroup = new Complex_CommandGroup();
@@ -282,7 +294,42 @@ public class RobotContainer {
         return complex_CommandGroup;
       default:
         return driveBack_Shoot_CommandGroup;
-      }
+    */
+    /*
+    TrajectoryConfig config =
+    new TrajectoryConfig(
+            Constants.kMaxSpeedMetersPerSecond,
+            Constants.kMaxAccelerationMetersPerSecondSquared)
+        // Add kinematics to ensure max speed is actually obeyed
+        .setKinematics(Constants.kDriveKinematics)
+        // Apply the voltage constraint
+        .addConstraint(autoVoltageConstraint);
+        */
+    
+    String trajectoryJSON = "Paths/Slalom.wpilib.json";    
+    Trajectory trajectory = new Trajectory();
+    try {
+      Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
+      trajectory = TrajectoryUtil.fromPathweaverJson(trajectoryPath);
+    } catch (IOException ex) {
+      DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
+    }
+    RamseteCommand ramseteCommand =
+        new RamseteCommand(
+            trajectoryJSON,
+            driveBase_Subsystem::getPose,
+            new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
+            new SimpleMotorFeedforward(
+                Constants.ksVolts,
+                Constants.kvVoltSecondsPerMeter,
+                Constants.kaVoltSecondsSquaredPerMeter),
+            Constants.kDriveKinematics,
+            driveBase_Subsystem::getWheelSpeeds,
+            new PIDController(Constants.kPDriveVel, 0, 0),
+            new PIDController(Constants.kPDriveVel, 0, 0),
+            // RamseteCommand passes volts to the callback
+            driveBase_Subsystem::tankDriveVolts,
+            m_robotDrive);
     }
   }
 
