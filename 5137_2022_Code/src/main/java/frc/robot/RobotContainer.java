@@ -35,6 +35,7 @@ import frc.robot.commands.Conveyor_Commands.StopHorzConveyor_Command;
 import frc.robot.commands.Conveyor_Commands.StopVertConveyor_Command;
 import frc.robot.commands.Drivebase_Commands.ArcadeDrive_Command;
 import frc.robot.commands.Shooter_Commands.ManShoot_Command;
+import frc.robot.commands.Shooter_Commands.backupManShoot_Command;
 import frc.robot.commands.Shooter_Commands.stopShoot_Command;
 import frc.robot.commands.Hang_Commands.extendHang_Command;
 import frc.robot.commands.Hang_Commands.pivotHang_Command;
@@ -75,6 +76,7 @@ public class RobotContainer {
   public static Trigger rightTrigger;
   public static Trigger LYAxis;
   public static Trigger RXAxis;
+  public static Trigger leftTrigger;
   
   //Buttons
   public static JoystickButton AButton;
@@ -140,6 +142,15 @@ public class RobotContainer {
       }
     };
 
+    BooleanSupplier booleanSupplyXBoxRT = () -> {
+      if (driverController.getRawAxis(Constants.LTAxisPort) < 0.1 && driverController.getRawAxis(Constants.RTAxisPort) > 0.1)
+      {
+        return true;
+      } else {
+        return false;
+      }
+    };
+
     BooleanSupplier booleanSupplyAssistantLT = () -> {
       if (assistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && driverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
         return true;
@@ -185,6 +196,9 @@ public class RobotContainer {
     rightTrigger.whenInactive(new StopHorzConveyor_Command());
     rightTrigger.whenInactive(new StopVertConveyor_Command());
 
+   // = new Trigger();
+    //rightTrigger.whileActiveContinuous(new backupManShoot_Command());
+    //rightTrigger.whenInactive(new stopShoot_Command());
     //DriverController Buttons
 
     //DriverController D-Pad

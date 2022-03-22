@@ -22,9 +22,9 @@ public class Complex_CommandGroup extends SequentialCommandGroup {
       new Autonomous_AutoIntake_Command(1),
       new Autonomous_AutoIntakeDrive_Command(0.55, -0.7, 0.0),
       new Autonomous_AutoShoot_Command(6),
-      new Autonomous_AutoIntakeDrive_Command(1.0, -0.7, 0.0),
+      new Autonomous_AutoIntakeDrive_Command(0.7, -0.7, 0.0),
       new Autonomous_AutoIntake_Command(1.0),
-      new Autonomous_AutoDrive_Command(1.0, 0.7, 0.0),
+      new Autonomous_AutoIntakeDrive_Command(1, 0.7, 0.0),
       new Autonomous_AutoShoot_Command(5.0)
     );
   }
