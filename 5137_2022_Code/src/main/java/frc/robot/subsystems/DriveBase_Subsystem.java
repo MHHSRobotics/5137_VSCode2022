@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
@@ -139,7 +140,15 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	}
 
 	public double getPose() {
-	
+		return drive_gyro.getAngle();
 	}
+
+	public ADXRS450_Gyro getGyro(){
+		return drive_gyro;
+	}
+
+	//public DifferentialDriveWheelSpeeds getWheelSpeeds(){
+	//	return new DifferentialDriveWheelSpeeds()
+	//}
 
 }
