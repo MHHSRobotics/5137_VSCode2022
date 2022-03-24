@@ -113,4 +113,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		CashwinsDifferentialDrive.arcadeDrive(0, 0);
 	}
 
+	public void tankDriveSet(double leftSpeed, double rightSpeed){
+		CashwinsDifferentialDrive.tankDrive(leftSpeed, rightSpeed);
+	}
+
 }

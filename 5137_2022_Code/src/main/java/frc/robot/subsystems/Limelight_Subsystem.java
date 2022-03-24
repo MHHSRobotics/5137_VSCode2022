@@ -13,6 +13,11 @@ public class Limelight_Subsystem extends SubsystemBase {
   /** Creates a new Limelight_Subsystem. */
   public Limelight_Subsystem() {
 
+}
+  
+
+  public void direct_limelight(){
+    
     float Kp = -0.1f;
     float min_command = 0.05f;
     
@@ -77,11 +82,12 @@ public class Limelight_Subsystem extends SubsystemBase {
         right_command-=steering_adjust;
 
         CashwinsDifferentialDrive.tankDriveSet(left_command,right_command); //fill in right values for speed and pivot
-}
+
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
+}
 }
