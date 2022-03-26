@@ -30,8 +30,8 @@ public final class Constants {
     public static final int RYStickAxisPort = 5;
 
     //Triggers
-    public static final int RTAxisPort = 2;
-    public static final int LTAxisPort = 3;
+    public static final int LTAxisPort = 2;
+    public static final int RTAxisPort = 3;
 
     //Buttons
     public final static int AButtonPort = 1;
@@ -60,13 +60,13 @@ public final class Constants {
     public static final double intakeSpeed = 0.4;
 
     //Conveyor
-    public static final int vertConveyorPort = 9;
-    public static final int horzConveyorPort = 13;
+    public static final int vertConveyorPort = 13;
+    public static final int horzConveyorPort = 9;
     public static final double conveyorSpeed = 0.4;
 
     //Shooter
-    public static final int shooterId = 3;
-    public static final int backSpinShooterId = 7;
+    public static final int shooterId = 7;
+    public static final int backSpinShooterId = 3;
     
     public static final double InitiationLineShooterPerc = 0.15;
     public static final double BackTrenchShooterPerc = 0.3;

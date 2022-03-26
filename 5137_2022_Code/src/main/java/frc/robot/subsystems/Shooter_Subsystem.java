@@ -40,7 +40,7 @@ public class Shooter_Subsystem extends SubsystemBase {
     shooterMotor.setSmartCurrentLimit(Constants.stallLimit, Constants.freeLimitNeo);
     backSpinShooterMotor.setSmartCurrentLimit(Constants.stallLimit, Constants.freeLimitNeo);
 
-    forShooterLimiter = new SlewRateLimiter(0.5);
+    forShooterLimiter = new SlewRateLimiter(0.5); //probably change this 
   }
 
   @Override
@@ -77,8 +77,8 @@ public class Shooter_Subsystem extends SubsystemBase {
     else if (driveController.getPOV() == Constants.dDPadButtonValue) {
         controllerMAGVelo = Constants.BackTrenchShooterPerc;
     }
-    else if (driveController.getRawAxis(Constants.LTAxisPort) > 0.1) { // Should be right trigger on driver controller
-        controllerMAGVelo = Constants.maxPercShooter * driveController.getRawAxis(Constants.LTAxisPort);
+    else if (driveController.getRawAxis(Constants.RTAxisPort) > 0.1) { // Should be right trigger on driver controller
+        controllerMAGVelo = Constants.maxPercShooter * driveController.getRawAxis(Constants.RTAxisPort);
     }
     else if (autonomous) {
         controllerMAGVelo = Constants.autonomousShooterPerc;
@@ -90,12 +90,12 @@ public class Shooter_Subsystem extends SubsystemBase {
     double limitedVelo = forShooterLimiter.calculate(controllerMAGVelo);
     shooterMotor.set(limitedVelo);
 
-    backSpinShooterMotor.set(-controllerMAGVelo / 3);
+    backSpinShooterMotor.set(controllerMAGVelo / 3);
     RelativeEncoder encoder = shooterMotor.getEncoder();
     double veloReading = encoder.getVelocity();
 
-    if (((controllerMAGVelo * 5700) <= (veloReading + Constants.veloError)) && // 5700 is the max rpm
-     ((controllerMAGVelo * 5700) >= (veloReading - Constants.veloError))) {
+    if (((controllerMAGVelo * 5676) <= (veloReading + Constants.veloError)) && // 5676 is the max rpm
+     ((controllerMAGVelo * 5676) >= (veloReading - Constants.veloError))) {
        return true; 
      } 
      else {

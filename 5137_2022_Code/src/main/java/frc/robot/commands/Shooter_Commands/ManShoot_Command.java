@@ -7,26 +7,36 @@ package frc.robot.commands.Shooter_Commands;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.RobotContainer;
+import edu.wpi.first.wpilibj.Timer;
 
 public class ManShoot_Command extends CommandBase {
   /** Creates a new ManShoot_Command. */
+  double m_Time;
+  Timer m_Timer;
   public ManShoot_Command() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.shooter_Subsystem);
+    m_Time = 2;
+    m_Timer = new Timer();
   }
 
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    m_Timer.reset();
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     //RobotContainer.driveBase_Subsystem.lockWheels();
     if (RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false) == true) {//ready to shoot {
-      RobotContainer.vertConveyor_Subsystem.forwardVertConveyorOn();
-      RobotContainer.horzConveyor_Subsystem.reverseHorzConveyorOn();
+      m_Timer.start();
+      if (m_Timer.get() > m_Time) {
+        RobotContainer.vertConveyor_Subsystem.forwardVertConveyorOn();
+        RobotContainer.horzConveyor_Subsystem.reverseHorzConveyorOn();
+      }
     }
   }
 
