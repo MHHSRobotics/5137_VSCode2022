@@ -100,11 +100,19 @@ public final class Constants {
      //LED
     public static final int LEDPort = 9;
     public static final int LEDLength = 10;
-    public static final double kRamseteB = 0;
-    public static final double kRamseteZeta = 0;
-    public static final double ksVolts = 0;
-    public static final double kvVoltSecondsPerMeter = 0;
-    public static final double kaVoltSecondsSquaredPerMeter = 0;
-    public static final DifferentialDriveKinematics kDriveKinematics = null;
-    public static final double kPDriveVel = 0;
+    
+
+    // Path Weaver
+    public static final double kRamseteB = 2;
+    public static final double kRamseteZeta = 0.7;
+    public static final double ksVolts = 1.59;
+    public static final double kvVoltSecondsPerMeter = 1.51;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.195;
+    public static final double kTrackwidthMeters = 0.65;
+    public static final DifferentialDriveKinematics kDriveKinematics =
+    new DifferentialDriveKinematics(kTrackwidthMeters);
+    public static final double kPDriveVel = 3.4;
+    public static final double DriveBaseWheelDiameterMeters = 0.152;
+    public static final int DriveBaseEncoderCPR = 4096;
+    public static final double EncoderDistancePerPulse = (Math.PI*DriveBaseWheelDiameterMeters) / (double) DriveBaseEncoderCPR;
 }

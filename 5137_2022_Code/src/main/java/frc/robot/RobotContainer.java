@@ -279,7 +279,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   
-  public static void getAutonomousCommand(String m_autoSelection) {
+  public static Command getAutonomousCommand(String m_autoSelection) {
     /*
     driveBack_Shoot_CommandGroup = new Drive_Shoot_CommandGroup();
     shoot_DriveBack_CommandGroup = new Shoot_Drive_CommandGroup();
@@ -306,7 +306,7 @@ public class RobotContainer {
         .addConstraint(autoVoltageConstraint);
         */
     
-    String trajectoryJSON = "Paths/Slalom.wpilib.json";    
+    String trajectoryJSON = "Paths/MoveStraight.wpilib.json";    
     Trajectory trajectory = new Trajectory();
     try {
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
@@ -316,7 +316,7 @@ public class RobotContainer {
     }
     RamseteCommand ramseteCommand =
         new RamseteCommand(
-            trajectoryJSON,
+            trajectory,
             driveBase_Subsystem::getPose,
             new RamseteController(Constants.kRamseteB, Constants.kRamseteZeta),
             new SimpleMotorFeedforward(
@@ -329,7 +329,15 @@ public class RobotContainer {
             new PIDController(Constants.kPDriveVel, 0, 0),
             // RamseteCommand passes volts to the callback
             driveBase_Subsystem::tankDriveVolts,
-            m_robotDrive);
+            driveBase_Subsystem);
+
+    // Reset odometry to the starting pose of the trajectory.
+    driveBase_Subsystem.resetOdometry(trajectory.getInitialPose());
+
+    System.out.println(trajectory.getTotalTimeSeconds());
+
+    // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> driveBase_Subsystem.tankDriveVolts(0, 0));
     }
   }
 

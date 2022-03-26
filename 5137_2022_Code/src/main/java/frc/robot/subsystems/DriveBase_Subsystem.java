@@ -3,13 +3,18 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -24,10 +29,10 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
   	DifferentialDrive CashwinsDifferentialDrive;
 
-	MotorController leftBack;
-	MotorController leftFront;
-	MotorController rightBack;
-	MotorController rightFront;
+	WPI_TalonFX leftBack;
+	WPI_TalonFX leftFront;
+	WPI_TalonFX rightBack;
+	WPI_TalonFX rightFront;
 
 	public MotorControllerGroup m_leftDrive;
 	public MotorControllerGroup m_rightDrive;
@@ -42,6 +47,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	SlewRateLimiter turnRateLimiter;
 
 	ADXRS450_Gyro drive_gyro;
+	private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(getRotation2d());
+
 
   /** Creates a new DriveBaseSubsystem. */
   public DriveBase_Subsystem() {
@@ -54,10 +61,15 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	drive_gyro = new ADXRS450_Gyro();
   }
 
-  @Override
+	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
 		rampArcadeDrive(driveController);
+		m_odometry.update(
+			getRotation2d(), -leftFront.getSelectedSensorPosition() 
+							* Constants.EncoderDistancePerPulse, 
+							rightFront.getSelectedSensorPosition() 
+							* Constants.EncoderDistancePerPulse);
 	}
 
 	public void instantiateMotors()
@@ -139,7 +151,25 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		CashwinsDifferentialDrive.stopMotor();
 	}
 
-	public double getPose() {
+	private Rotation2d getRotation2d() {
+		return Rotation2d.fromDegrees(getHeading());
+	}
+
+	public Pose2d getPose() {
+		return m_odometry.getPoseMeters();
+	}
+
+	private void resetEncoders() {
+		leftFront.setSelectedSensorPosition(0);
+		rightFront.setSelectedSensorPosition(0);
+	}
+
+	public void resetOdometry(Pose2d pose) {
+		resetEncoders();
+		m_odometry.resetPosition(pose, getRotation2d());
+	}
+
+	public double getHeading() {
 		return drive_gyro.getAngle();
 	}
 
@@ -147,8 +177,33 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		return drive_gyro;
 	}
 
-	//public DifferentialDriveWheelSpeeds getWheelSpeeds(){
-	//	return new DifferentialDriveWheelSpeeds()
-	//}
+	public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+		// Selected sensor velocity return meters per 100 ms so multiply by 10/10
+		return new DifferentialDriveWheelSpeeds(-leftFront.getSelectedSensorVelocity() * 10 * Constants.EncoderDistancePerPulse,   
+												rightFront.getSelectedSensorVelocity() * 10 * Constants.EncoderDistancePerPulse); 
+			
+	}
+
+	public void tankDriveVolts(double leftVolts, double rightVolts) {
+		var batteryVoltage = RobotController.getBatteryVoltage();
+    	if (Math.max(Math.abs(leftVolts), Math.abs(rightVolts)) > batteryVoltage) {
+      		//leftVolts *= batteryVoltage / 12.0;
+			  //rightVolts *= batteryVoltage / 12.0;
+			leftVolts = leftVolts/12;
+			rightVolts = rightVolts/12;
+		}
+		
+		//leftVolts = Math.abs(leftVolts);
+		//rightVolts = Math.abs(rightVolts);
+		
+
+		//leftVolts = leftVolts / Constants.scalingFactor;
+		//rightVolts = rightVolts / Constants.scalingFactor;
+		System.out.println("Tank drive volts: " + leftVolts + " : " + rightVolts 
+							+ " Battery: " + batteryVoltage);
+
+		m_leftDrive.setVoltage(leftVolts);
+		m_rightDrive.setVoltage(-rightVolts);
+	}
 
 }
