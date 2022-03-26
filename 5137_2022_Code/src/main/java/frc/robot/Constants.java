@@ -19,8 +19,6 @@ import edu.wpi.first.wpilibj.util.Color;
  */
 public final class Constants {
 
-    //MOTORS HAVE NOT BEEN SET TO PROPER VALUES
-
     //Controllers
     public static final int driverControllerPort = 0; //White Knight
     public static final int assisControllerPort = 1; //Black Jack
@@ -91,6 +89,11 @@ public final class Constants {
     public static final String driveBack_Shoot = "drive_Shoot";
     public static final String shoot_DriveBack = "shoot_Drive";
     public static final String complex = "complex"; //Change this later
+
+    //Current Limits 
+    public static final int stallLimit = 0;
+    public static final int freeLimitNeo = 5700/2;
+    public static final int freeLimitFalcon = (int) 0.4*6380;
 
     //Color Sensor
     public static final I2C.Port i2cPort = I2C.Port.kOnboard;

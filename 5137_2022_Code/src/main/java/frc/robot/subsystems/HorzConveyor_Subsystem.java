@@ -17,7 +17,9 @@ public class HorzConveyor_Subsystem extends SubsystemBase {
   SparkMaxWrapper horzConveyorMotor = new SparkMaxWrapper(Constants.horzConveyorPort, MotorType.kBrushless);
   //MotorController HorzConveyorMotor = new Spark(Constants.horzConveyorPort);
   /** Creates a new Conveyor. */
-  public HorzConveyor_Subsystem() {}
+  public HorzConveyor_Subsystem() {
+    horzConveyorMotor.setSmartCurrentLimit(Constants.stallLimit, Constants.freeLimitNeo);
+  }
 
   public void forwardHorzConveyorOn(){ //shooterConveyor is going in towards the shooter
     horzConveyorMotor.set(Constants.conveyorSpeed);

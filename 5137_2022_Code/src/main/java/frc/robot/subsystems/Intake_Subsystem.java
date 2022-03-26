@@ -33,8 +33,8 @@ public class Intake_Subsystem extends SubsystemBase {
     //SparkMaxWrapper intakeMotor = new SparkMaxWrapper(Constants.intakePort, MotorType.kBrushless);
 
     public Intake_Subsystem() {
-        //constructor 
-        //gives motor variable values 
+        //intakeMotor.configVoltageMeasurementFilter(filterWindowSamples)
+        intakeMotor.configPeakOutputForward(Constants.intakeSpeed);
     }
 
     

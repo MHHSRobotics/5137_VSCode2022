@@ -18,7 +18,9 @@ public class VertConveyor_Subsystem extends SubsystemBase {
   
   //MotorController VeryConveyorMotor = new Spark(Constants.vertConveyorPort);
   /** Creates a new Conveyor. */
-  public void VertConveyor() {}
+  public void VertConveyor() {
+    vertConveyorMotor.setSmartCurrentLimit(Constants.stallLimit, Constants.freeLimitNeo);
+  }
 
   public void forwardVertConveyorOn(){ //shooterConveyor is going in towards the shooter
     vertConveyorMotor.set(Constants.conveyorSpeed);
