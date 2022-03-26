@@ -32,8 +32,8 @@ public final class Constants {
     public static final int RYStickAxisPort = 5;
 
     //Triggers
-    public static final int RTAxisPort = 2;
-    public static final int LTAxisPort = 3;
+    public static final int LTAxisPort = 2;
+    public static final int RTAxisPort = 3;
 
     //Buttons
     public final static int AButtonPort = 1;

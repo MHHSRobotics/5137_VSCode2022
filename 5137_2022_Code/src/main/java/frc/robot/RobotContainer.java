@@ -134,7 +134,7 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     BooleanSupplier booleanSupplyXBoxLT = () -> {
-      if (driverController.getRawAxis(Constants.LTAxisPort) > 0.1 && driverController.getRawAxis(Constants.RTAxisPort) < 0.1)
+      if (driverController.getRawAxis(Constants.RTAxisPort) > 0.1 && driverController.getRawAxis(Constants.LTAxisPort) < 0.1)
       {
         return true;
       } else {
@@ -143,7 +143,7 @@ public class RobotContainer {
     };
 
     BooleanSupplier booleanSupplyXBoxRT = () -> {
-      if (driverController.getRawAxis(Constants.LTAxisPort) < 0.1 && driverController.getRawAxis(Constants.RTAxisPort) > 0.1)
+      if (driverController.getRawAxis(Constants.RTAxisPort) < 0.1 && driverController.getRawAxis(Constants.LTAxisPort) > 0.1)
       {
         return true;
       } else {
@@ -152,7 +152,7 @@ public class RobotContainer {
     };
 
     BooleanSupplier booleanSupplyAssistantLT = () -> {
-      if (assistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && driverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
+      if (assistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && driverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
         return true;
       } 
       else {
@@ -161,7 +161,7 @@ public class RobotContainer {
     };
 
     BooleanSupplier booleanSupplyAssistantRT = () -> {
-      if (assistantController.getRawAxis(Constants.RTAxisPort) > 0.1 && driverController.getRawAxis(Constants.LTAxisPort) < 0.1) {
+      if (assistantController.getRawAxis(Constants.LTAxisPort) > 0.1 && driverController.getRawAxis(Constants.RTAxisPort) < 0.1) {
         return true;
       } 
       else {
