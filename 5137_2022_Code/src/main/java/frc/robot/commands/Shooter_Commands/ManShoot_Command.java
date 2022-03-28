@@ -32,11 +32,11 @@ public class ManShoot_Command extends CommandBase {
   public void execute() {
     //RobotContainer.driveBase_Subsystem.lockWheels();
     if (RobotContainer.shooter_Subsystem.shoot(Constants.shooterAngle, false, true, false) == true) {//ready to shoot {
-      m_Timer.start();
-      if (m_Timer.get() > m_Time) {
+      //m_Timer.start();
+      //if (m_Timer.get() > m_Time) {
         RobotContainer.vertConveyor_Subsystem.forwardVertConveyorOn();
         RobotContainer.horzConveyor_Subsystem.reverseHorzConveyorOn();
-      }
+     // }
     }
   }
 
