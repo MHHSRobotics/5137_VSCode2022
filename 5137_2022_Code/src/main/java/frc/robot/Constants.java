@@ -63,8 +63,8 @@ public final class Constants {
     public static final double intakeSpeed = 0.4;
 
     //Conveyor
-    public static final int vertConveyorPort = 9;
-    public static final int horzConveyorPort = 13;
+    public static final int vertConveyorPort = 13;
+    public static final int horzConveyorPort = 9;
     public static final double conveyorSpeed = 0.4;
 
     //Shooter
@@ -113,6 +113,6 @@ public final class Constants {
     new DifferentialDriveKinematics(kTrackwidthMeters);
     public static final double kPDriveVel = 3.4;
     public static final double DriveBaseWheelDiameterMeters = 0.152;
-    public static final int DriveBaseEncoderCPR = 4096;
+    public static final int DriveBaseEncoderCPR = 2048;
     public static final double EncoderDistancePerPulse = (Math.PI*DriveBaseWheelDiameterMeters) / (double) DriveBaseEncoderCPR;
 }

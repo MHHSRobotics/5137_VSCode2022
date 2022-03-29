@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
@@ -12,6 +13,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.math.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.PS4Controller;
 import edu.wpi.first.wpilibj.RobotController;
@@ -47,7 +49,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	SlewRateLimiter turnRateLimiter;
 
 	ADXRS450_Gyro drive_gyro;
-	private final DifferentialDriveOdometry m_odometry = new DifferentialDriveOdometry(getRotation2d());
+	private final DifferentialDriveOdometry m_odometry;
+	Encoder leftEncoder;
 
 
   /** Creates a new DriveBaseSubsystem. */
@@ -59,6 +62,9 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	forewardRateLimiter = new SlewRateLimiter(3);
 	//turnRateLimiter = new SlewRateLimiter(3.5);
 	drive_gyro = new ADXRS450_Gyro();
+	m_odometry = new DifferentialDriveOdometry(getRotation2d());
+	leftFront.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+	rightFront.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
   }
 
 	@Override
@@ -170,7 +176,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	}
 
 	public double getHeading() {
-		return drive_gyro.getAngle();
+		return drive_gyro.getRotation2d().getDegrees();
 	}
 
 	public ADXRS450_Gyro getGyro(){
