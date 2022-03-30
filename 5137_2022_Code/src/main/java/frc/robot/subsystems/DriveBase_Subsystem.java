@@ -3,6 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
@@ -22,10 +24,10 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
   	DifferentialDrive CashwinsDifferentialDrive;
 
-	MotorController leftBack;
-	MotorController leftFront;
-	MotorController rightBack;
-	MotorController rightFront;
+	WPI_TalonFX leftBack;
+	WPI_TalonFX leftFront;
+	WPI_TalonFX rightBack;
+	WPI_TalonFX rightFront;
 
 	public MotorControllerGroup m_leftDrive;
 	public MotorControllerGroup m_rightDrive;
@@ -63,6 +65,13 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		rightFront = new WPI_TalonFX(Constants.rightFrontCAN);
 
 		createMotorControllerGroup(leftBack, leftFront, rightBack, rightFront);
+	}
+
+	public void setDefaultSetting(){
+		leftBack.setNeutralMode(NeutralMode.Coast);
+		leftFront.setNeutralMode(NeutralMode.Coast);
+		rightBack.setNeutralMode(NeutralMode.Coast);
+		rightFront.setNeutralMode(NeutralMode.Coast);
 	}
 
 	public void createMotorControllerGroup(MotorController leftBack, MotorController leftFront, 
