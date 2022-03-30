@@ -3,6 +3,8 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 
@@ -65,10 +67,18 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
 
 		createMotorControllerGroup(leftBack, leftFront, rightBack, rightFront);
+		setDefaultSetting();
 
 		TalonFXConfiguration config;
 		config.peakCurrentLimit(Constants.currentLimitDriveBase);    //T-T - Sahana and Ki
 
+	}
+
+	public void setDefaultSetting(){
+		leftBack.setNeutralMode(NeutralMode.Coast);
+		leftFront.setNeutralMode(NeutralMode.Coast);
+		rightBack.setNeutralMode(NeutralMode.Coast);
+		rightFront.setNeutralMode(NeutralMode.Coast);
 	}
 
 	public void createMotorControllerGroup(MotorController leftBack, MotorController leftFront, 
