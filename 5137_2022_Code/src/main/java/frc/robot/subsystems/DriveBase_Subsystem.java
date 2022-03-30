@@ -3,10 +3,11 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
 import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Joystick;
@@ -65,20 +66,15 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		rightBack = new WPI_TalonFX(Constants.rightBackCAN);
 		rightFront = new WPI_TalonFX(Constants.rightFrontCAN);
 
-
 		createMotorControllerGroup(leftBack, leftFront, rightBack, rightFront);
-		setDefaultSetting();
 
-		TalonFXConfiguration config;
-		config.peakCurrentLimit(Constants.currentLimitDriveBase);    //T-T - Sahana and Ki
+		StatorCurrentLimitConfiguration config = new StatorCurrentLimitConfiguration();
+		leftBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
+		leftFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
+		rightBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
+		rightFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
 
-	}
-
-	public void setDefaultSetting(){
-		leftBack.setNeutralMode(NeutralMode.Coast);
-		leftFront.setNeutralMode(NeutralMode.Coast);
-		rightBack.setNeutralMode(NeutralMode.Coast);
-		rightFront.setNeutralMode(NeutralMode.Coast);
+		//leftBack.configPeakCurrentLimit(30);    T-T - Sahana and Ki
 	}
 
 	public void createMotorControllerGroup(MotorController leftBack, MotorController leftFront, 
