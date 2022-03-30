@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Joystick;
@@ -65,6 +66,9 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		rightFront = new WPI_TalonFX(Constants.rightFrontCAN);
 
 		createMotorControllerGroup(leftBack, leftFront, rightBack, rightFront);
+
+		//leftBack.configPeakCurrentLimit(30);    T-T - Sahana and Ki
+
 	}
 
 	public void setDefaultSetting(){
