@@ -62,6 +62,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	forewardRateLimiter = new SlewRateLimiter(3);
 	//turnRateLimiter = new SlewRateLimiter(3.5);
 	drive_gyro = new ADXRS450_Gyro();
+	drive_gyro.calibrate();
 	m_odometry = new DifferentialDriveOdometry(getRotation2d());
 	leftFront.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
 	rightFront.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
@@ -74,8 +75,12 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		m_odometry.update(
 			getRotation2d(), -leftFront.getSelectedSensorPosition() 
 							* Constants.EncoderDistancePerPulse, 
-							rightFront.getSelectedSensorPosition() 
+							-rightFront.getSelectedSensorPosition() 
 							* Constants.EncoderDistancePerPulse);
+		System.out.println("Left at " + -leftFront.getSelectedSensorPosition() 
+		* Constants.EncoderDistancePerPulse);
+		System.out.println("Right at " + -rightFront.getSelectedSensorPosition() 
+		* Constants.EncoderDistancePerPulse);
 	}
 
 	public void instantiateMotors()
@@ -186,7 +191,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	public DifferentialDriveWheelSpeeds getWheelSpeeds() {
 		// Selected sensor velocity return meters per 100 ms so multiply by 10/10
 		return new DifferentialDriveWheelSpeeds(-leftFront.getSelectedSensorVelocity() * 10 * Constants.EncoderDistancePerPulse,   
-												rightFront.getSelectedSensorVelocity() * 10 * Constants.EncoderDistancePerPulse); 
+												-rightFront.getSelectedSensorVelocity() * 10 * Constants.EncoderDistancePerPulse); 
 			
 	}
 
@@ -208,7 +213,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		System.out.println("Tank drive volts: " + leftVolts + " : " + rightVolts 
 							+ " Battery: " + batteryVoltage);
 
-		m_leftDrive.setVoltage(leftVolts);
+		m_leftDrive.setVoltage(-leftVolts);
 		m_rightDrive.setVoltage(-rightVolts);
 	}
 

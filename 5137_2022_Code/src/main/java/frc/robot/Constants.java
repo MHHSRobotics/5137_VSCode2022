@@ -105,13 +105,13 @@ public final class Constants {
     // Path Weaver
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
-    public static final double ksVolts = 1.59;
-    public static final double kvVoltSecondsPerMeter = 1.51;
+    public static final double ksVolts = 1.8;
+    public static final double kvVoltSecondsPerMeter = 1.2;
     public static final double kaVoltSecondsSquaredPerMeter = 0.195;
     public static final double kTrackwidthMeters = 0.65;
     public static final DifferentialDriveKinematics kDriveKinematics =
     new DifferentialDriveKinematics(kTrackwidthMeters);
-    public static final double kPDriveVel = 3.4;
+    public static final double kPDriveVel = 1;
     public static final double DriveBaseWheelDiameterMeters = 0.152;
     public static final int DriveBaseEncoderCPR = 2048;
     public static final double EncoderDistancePerPulse = (Math.PI*DriveBaseWheelDiameterMeters) / (double) DriveBaseEncoderCPR;

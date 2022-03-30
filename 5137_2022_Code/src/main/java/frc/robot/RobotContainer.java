@@ -305,7 +305,6 @@ public class RobotContainer {
         // Apply the voltage constraint
         .addConstraint(autoVoltageConstraint);
         */
-    
     String trajectoryJSON = "Paths/MoveStraight.wpilib.json";    
     Trajectory trajectory = new Trajectory();
     try {
@@ -314,6 +313,9 @@ public class RobotContainer {
     } catch (IOException ex) {
       DriverStation.reportError("Unable to open trajectory: " + trajectoryJSON, ex.getStackTrace());
     }
+
+    driveBase_Subsystem.resetOdometry(trajectory.getInitialPose());
+
     RamseteCommand ramseteCommand =
         new RamseteCommand(
             trajectory,
