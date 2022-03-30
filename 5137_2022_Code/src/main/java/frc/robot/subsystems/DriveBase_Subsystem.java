@@ -63,9 +63,11 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		rightBack = new WPI_TalonFX(Constants.rightBackCAN);
 		rightFront = new WPI_TalonFX(Constants.rightFrontCAN);
 
+
 		createMotorControllerGroup(leftBack, leftFront, rightBack, rightFront);
 
-		//leftBack.configPeakCurrentLimit(30);    T-T - Sahana and Ki
+		TalonFXConfiguration config;
+		config.peakCurrentLimit(Constants.currentLimitDriveBase);    //T-T - Sahana and Ki
 
 	}
 
