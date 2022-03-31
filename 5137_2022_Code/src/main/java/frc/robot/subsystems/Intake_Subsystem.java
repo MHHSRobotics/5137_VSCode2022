@@ -34,7 +34,7 @@ public class Intake_Subsystem extends SubsystemBase {
 
     public Intake_Subsystem() {
         //intakeMotor.configVoltageMeasurementFilter(filterWindowSamples)
-        intakeMotor.configPeakOutputForward(Constants.intakeSpeed);
+        intakeMotor.configPeakOutputForward(0.4);
     }
 
     

@@ -90,7 +90,7 @@ public class Shooter_Subsystem extends SubsystemBase {
     double limitedVelo = forShooterLimiter.calculate(controllerMAGVelo);
     shooterMotor.set(limitedVelo);
 
-    backSpinShooterMotor.set(controllerMAGVelo / 3);
+    backSpinShooterMotor.set(controllerMAGVelo / 2);
     RelativeEncoder encoder = shooterMotor.getEncoder();
     double veloReading = encoder.getVelocity();
 
