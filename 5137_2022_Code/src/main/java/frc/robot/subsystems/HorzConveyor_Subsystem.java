@@ -18,7 +18,7 @@ public class HorzConveyor_Subsystem extends SubsystemBase {
   //MotorController HorzConveyorMotor = new Spark(Constants.horzConveyorPort);
   /** Creates a new Conveyor. */
   public HorzConveyor_Subsystem() {
-    horzConveyorMotor.setSmartCurrentLimit(Constants.stallLimit, Constants.freeLimitNeo);
+    horzConveyorMotor.setSmartCurrentLimit(Constants.currentLimitConveyor);
   }
 
   public void forwardHorzConveyorOn(){ //shooterConveyor is going in towards the shooter

@@ -4,6 +4,10 @@
 
 package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
+import com.ctre.phoenix.motorcontrol.StatorCurrentLimitConfiguration;
+import com.ctre.phoenix.motorcontrol.can.BaseMotorController;
+import com.ctre.phoenix.motorcontrol.can.TalonFX;
+import com.ctre.phoenix.motorcontrol.can.TalonFXConfiguration;
 
 import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj.Joystick;
@@ -22,10 +26,10 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
   	DifferentialDrive CashwinsDifferentialDrive;
 
-	MotorController leftBack;
-	MotorController leftFront;
-	MotorController rightBack;
-	MotorController rightFront;
+	WPI_TalonFX leftBack;
+	WPI_TalonFX leftFront;
+	WPI_TalonFX rightBack;
+	WPI_TalonFX rightFront;
 
 	public MotorControllerGroup m_leftDrive;
 	public MotorControllerGroup m_rightDrive;
@@ -63,6 +67,14 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		rightFront = new WPI_TalonFX(Constants.rightFrontCAN);
 
 		createMotorControllerGroup(leftBack, leftFront, rightBack, rightFront);
+
+		StatorCurrentLimitConfiguration config = new StatorCurrentLimitConfiguration();
+		leftBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
+		leftFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
+		rightBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
+		rightFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
+
+		//leftBack.configPeakCurrentLimit(30);    T-T - Sahana and Ki
 	}
 
 	public void createMotorControllerGroup(MotorController leftBack, MotorController leftFront, 

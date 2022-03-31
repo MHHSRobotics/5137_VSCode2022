@@ -37,6 +37,7 @@ public class ManShoot_Command extends CommandBase {
         RobotContainer.vertConveyor_Subsystem.forwardVertConveyorOn();
         RobotContainer.horzConveyor_Subsystem.reverseHorzConveyorOn();
       //}
+     // }
     }
   }
 

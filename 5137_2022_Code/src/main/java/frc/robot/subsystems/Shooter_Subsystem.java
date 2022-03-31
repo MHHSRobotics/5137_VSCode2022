@@ -36,9 +36,10 @@ public class Shooter_Subsystem extends SubsystemBase {
 
     driveController = RobotContainer.driverController;
     shooterMotor.setIdleMode(IdleMode.kBrake);
-    shooterMotor.setSmartCurrentLimit(40);
-    shooterMotor.setSmartCurrentLimit(Constants.stallLimit, Constants.freeLimitNeo);
-    backSpinShooterMotor.setSmartCurrentLimit(Constants.stallLimit, Constants.freeLimitNeo);
+    shooterMotor.setSmartCurrentLimit(Constants.currentLimitShooter);
+    backSpinShooterMotor.setSmartCurrentLimit(Constants.currentLimitShooter);
+    //shooterMotor.setSmartCurrentLimit(Constants.stallLimit, Constants.freeLimitNeo);
+    //backSpinShooterMotor.setSmartCurrentLimit(Constants.stallLimit, Constants.freeLimitNeo);
 
     forShooterLimiter = new SlewRateLimiter(0.5); //probably change this 
   }
