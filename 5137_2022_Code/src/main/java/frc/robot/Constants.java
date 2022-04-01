@@ -78,11 +78,9 @@ public final class Constants {
     public static final double shooterAngle = 0;
     
     //Hnag
-    public static final int hangExtensionMotorPort = 8; // Might be switched
-    public static final int hangPivotMotorPort = 4; // Might be switched
+    public static final int rightExtensionPort = 8; // Might be switched
+    public static final int leftExtensionPort = 4; // Might be switched
 
-    public static final float pivotReverseLimit = (float) 0.25;
-    public static final float pivotForwardLimit = 0;
     public static final float extensionForwardLimit = 1000; //Change value to however many rotations is concidered the limit   
 
     //Auto-mousse

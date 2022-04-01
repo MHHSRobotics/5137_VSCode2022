@@ -6,16 +6,6 @@
           "open": true
         }
       },
-      "SparkMax[13]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SparkMax[3]": {
-        "header": {
-          "open": true
-        }
-      },
       "SparkMax[4]": {
         "header": {
           "open": true
@@ -26,17 +16,7 @@
           "open": true
         }
       },
-      "SparkMax[7]": {
-        "header": {
-          "open": true
-        }
-      },
       "SparkMax[8]": {
-        "header": {
-          "open": true
-        }
-      },
-      "SparkMax[9]": {
         "header": {
           "open": true
         }

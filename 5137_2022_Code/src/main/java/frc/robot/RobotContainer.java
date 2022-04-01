@@ -38,9 +38,7 @@ import frc.robot.commands.Shooter_Commands.ManShoot_Command;
 import frc.robot.commands.Shooter_Commands.backupManShoot_Command;
 import frc.robot.commands.Shooter_Commands.stopShoot_Command;
 import frc.robot.commands.Hang_Commands.extendHang_Command;
-import frc.robot.commands.Hang_Commands.pivotHang_Command;
 import frc.robot.commands.Hang_Commands.stopExtendHang_Command;
-import frc.robot.commands.Hang_Commands.stopPivotHang_Command;
 
 //CommandGroups
 import frc.robot.CommandGroups.Shoot_Drive_CommandGroup;
@@ -178,15 +176,6 @@ public class RobotContainer {
       }
     };
 
-    BooleanSupplier booleanSupplyAssistantRX = () -> {
-      if (Math.abs(assistantController.getRawAxis(Constants.RXStickAxisPort)) > 0.1 && Math.abs(assistantController.getRawAxis(Constants.LYStickAxisPort)) < Math.abs(assistantController.getRawAxis(Constants.RXStickAxisPort))) {
-          return true;
-      }
-      else {
-          return false;
-      }
-    };
-
     //Buton Bindings
 
     //DriverController Triggers
@@ -232,10 +221,6 @@ public class RobotContainer {
     ArTrigger.whileActiveContinuous(new RunHorzConveyorForward_Command());
     ArTrigger.whenInactive(new OffIntake_Command());
     ArTrigger.whenInactive(new StopHorzConveyor_Command()); 
-
-    RXAxis = new Trigger(booleanSupplyAssistantRX);
-    RXAxis.whileActiveContinuous(new pivotHang_Command());
-    RXAxis.whenInactive(new stopPivotHang_Command());
 
     LYAxis = new Trigger(booleanSupplyAssistantLY);
     LYAxis.whileActiveContinuous(new extendHang_Command());

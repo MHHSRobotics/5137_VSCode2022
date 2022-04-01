@@ -19,32 +19,24 @@ import frc.robot.simulation.SparkMaxWrapper;
 public class HangSubsystem extends SubsystemBase {
 
   public DigitalInput limitSwitchExtend;
-  public DigitalInput limitSwitchPivot;
 
   public boolean allowedExtend;
-  public boolean allowedPivot;
 
   Joystick assController;
-  public SparkMaxWrapper extensionMotor;
-  public SparkMaxWrapper pivotMotor; 
+  public SparkMaxWrapper leftExtensionMotor;
+  public SparkMaxWrapper rightExtensionMotor; 
 
   private SparkMaxLimitSwitch extforwardLimit;
   private SparkMaxLimitSwitch extreverseLimit;
 
-  private SparkMaxLimitSwitch pivforwardLimit;
-  private SparkMaxLimitSwitch pivreverseLimit;
-
   /** Creates a new HangSubsystem. */
   public HangSubsystem() {
-    extensionMotor = new SparkMaxWrapper(Constants.hangExtensionMotorPort, MotorType.kBrushless);
-    pivotMotor = new SparkMaxWrapper(Constants.hangPivotMotorPort, MotorType.kBrushless);
+    leftExtensionMotor = new SparkMaxWrapper(Constants.rightExtensionPort, MotorType.kBrushless);
+    rightExtensionMotor = new SparkMaxWrapper(Constants.leftExtensionPort, MotorType.kBrushless);
     assController = RobotContainer.assistantController;
 
     //extforwardLimit = extensionMotor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
     //extreverseLimit = extensionMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-
-    //pivforwardLimit = pivotMotor.getForwardLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
-    //pivreverseLimit = pivotMotor.getReverseLimitSwitch(SparkMaxLimitSwitch.Type.kNormallyOpen);
   }
 
   public void config(){
@@ -52,19 +44,13 @@ public class HangSubsystem extends SubsystemBase {
   }
 
   public void extendHang(Joystick xBoxController){
-    extensionMotor.set(xBoxController.getRawAxis(Constants.LYStickAxisPort)*(-1));
-  }
-
-  public void pivotHang(Joystick xBoxController){
-    pivotMotor.set(xBoxController.getRawAxis(Constants.RXStickAxisPort));
+    leftExtensionMotor.set(xBoxController.getRawAxis(Constants.LYStickAxisPort)*(-1));
+    rightExtensionMotor.set(xBoxController.getRawAxis(Constants.LYStickAxisPort)*(-1));
   }
 
   public void stopExtendHang(){
-    extensionMotor.stopMotor();
-  }
-
-  public void stopPivotHang(){
-    pivotMotor.stopMotor();
+    leftExtensionMotor.stopMotor();
+    rightExtensionMotor.stopMotor();
   }
 
   @Override
@@ -74,20 +60,12 @@ public class HangSubsystem extends SubsystemBase {
     if (extforwardLimit.isPressed() || extreverseLimit.isPressed()){
       stopExtendHang();
     }
-
-    if (pivforwardLimit.isPressed() || pivreverseLimit.isPressed()){
-      stopPivotHang();
-    }
     */
     
-    extensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    pivotMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    pivotMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+    leftExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    rightExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     
-    extensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.extensionForwardLimit);
-    pivotMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.pivotForwardLimit);
-    pivotMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.pivotReverseLimit);
-    
-    
+    leftExtensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.extensionForwardLimit);
+    rightExtensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.extensionForwardLimit);
   }
 }
