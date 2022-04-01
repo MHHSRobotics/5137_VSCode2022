@@ -31,10 +31,10 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
   	DifferentialDrive CashwinsDifferentialDrive;
 
-	WPI_TalonFX leftBack;
-	WPI_TalonFX leftFront;
-	WPI_TalonFX rightBack;
 	WPI_TalonFX rightFront;
+	WPI_TalonFX rightBack;
+	WPI_TalonFX leftFront;
+	WPI_TalonFX leftBack;
 
 	public MotorControllerGroup m_leftDrive;
 	public MotorControllerGroup m_rightDrive;
@@ -64,8 +64,9 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	drive_gyro = new ADXRS450_Gyro();
 	drive_gyro.calibrate();
 	m_odometry = new DifferentialDriveOdometry(getRotation2d());
-	leftFront.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
-	rightFront.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+	rightBack.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+	leftBack.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
+	resetEncoders();
   }
 
 	@Override
@@ -73,24 +74,24 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		// This method will be called once per scheduler run
 		rampArcadeDrive(driveController);
 		m_odometry.update(
-			getRotation2d(), -leftFront.getSelectedSensorPosition() 
+			getRotation2d(), -leftBack.getSelectedSensorPosition() 
 							* Constants.EncoderDistancePerPulse, 
-							-rightFront.getSelectedSensorPosition() 
+							 rightBack.getSelectedSensorPosition() 
 							* Constants.EncoderDistancePerPulse);
-		System.out.println("Left at " + -leftFront.getSelectedSensorPosition() 
+		System.out.println("Left at " + -leftBack.getSelectedSensorPosition() 
 		* Constants.EncoderDistancePerPulse);
-		System.out.println("Right at " + -rightFront.getSelectedSensorPosition() 
+		System.out.println("Right at " + rightBack.getSelectedSensorPosition() 
 		* Constants.EncoderDistancePerPulse);
 	}
 
 	public void instantiateMotors()
 	{
-		leftBack = new WPI_TalonFX(Constants.leftBackCAN);
-		leftFront = new WPI_TalonFX(Constants.leftFrontCAN);
-		rightBack = new WPI_TalonFX(Constants.rightBackCAN);
-		rightFront = new WPI_TalonFX(Constants.rightFrontCAN);
+		rightFront = new WPI_TalonFX(Constants.leftBackCAN);
+		rightBack = new WPI_TalonFX(Constants.leftFrontCAN);
+		leftFront = new WPI_TalonFX(Constants.rightBackCAN);
+		leftBack = new WPI_TalonFX(Constants.rightFrontCAN);
 
-		createMotorControllerGroup(leftBack, leftFront, rightBack, rightFront);
+		createMotorControllerGroup(rightFront, rightBack, leftFront, leftBack);
 	}
 
 	public void createMotorControllerGroup(MotorController leftBack, MotorController leftFront, 
@@ -171,8 +172,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	}
 
 	private void resetEncoders() {
-		leftFront.setSelectedSensorPosition(0);
-		rightFront.setSelectedSensorPosition(0);
+		rightBack.setSelectedSensorPosition(0);
+		leftBack.setSelectedSensorPosition(0);
 	}
 
 	public void resetOdometry(Pose2d pose) {
@@ -190,8 +191,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
 	public DifferentialDriveWheelSpeeds getWheelSpeeds() {
 		// Selected sensor velocity return meters per 100 ms so multiply by 10/10
-		return new DifferentialDriveWheelSpeeds(-leftFront.getSelectedSensorVelocity() * 10 * Constants.EncoderDistancePerPulse,   
-												-rightFront.getSelectedSensorVelocity() * 10 * Constants.EncoderDistancePerPulse); 
+		return new DifferentialDriveWheelSpeeds(-leftBack.getSelectedSensorVelocity() * 10 * Constants.EncoderDistancePerPulse,   
+												 rightBack.getSelectedSensorVelocity() * 10 * Constants.EncoderDistancePerPulse); 
 			
 	}
 
