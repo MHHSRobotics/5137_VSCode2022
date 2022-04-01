@@ -114,5 +114,6 @@ public final class Constants {
     public static final double kPDriveVel = 1;
     public static final double DriveBaseWheelDiameterMeters = 0.152;
     public static final int DriveBaseEncoderCPR = 2048;
-    public static final double EncoderDistancePerPulse = (Math.PI*DriveBaseWheelDiameterMeters) / ((double) DriveBaseEncoderCPR * 58);
+    public static final double EncoderDistancePerPulse = (Math.PI*DriveBaseWheelDiameterMeters) / ((double) DriveBaseEncoderCPR * 5.8);
+    public static final double scalingFactor = 1/58.0;
 }

@@ -46,6 +46,7 @@ import frc.robot.commands.Hang_Commands.stopPivotHang_Command;
 //CommandGroups
 import frc.robot.CommandGroups.Shoot_Drive_CommandGroup;
 import frc.robot.CommandGroups.Drive_Shoot_CommandGroup;
+import frc.robot.CommandGroups.Center4BallAuto_CommandGroup;
 import frc.robot.CommandGroups.Complex_CommandGroup;
 
 //Motors
@@ -305,7 +306,8 @@ public class RobotContainer {
         // Apply the voltage constraint
         .addConstraint(autoVoltageConstraint);
         */
-    String trajectoryJSON = "Paths/MoveStraight.wpilib.json";    
+        /*
+    String trajectoryJSON = "Paths/DriveCircle.wpilib.json";    
     Trajectory trajectory = new Trajectory();
     try {
       Path trajectoryPath = Filesystem.getDeployDirectory().toPath().resolve(trajectoryJSON);
@@ -338,8 +340,11 @@ public class RobotContainer {
 
     System.out.println(trajectory.getTotalTimeSeconds());
 
+    ramseteCommand.raceWith(new OnIntake_Command());
     // Run path following command, then stop at the end.
     return ramseteCommand.andThen(() -> driveBase_Subsystem.tankDriveVolts(0, 0));
+    */
+    return new Center4BallAuto_CommandGroup();
     }
   }
 

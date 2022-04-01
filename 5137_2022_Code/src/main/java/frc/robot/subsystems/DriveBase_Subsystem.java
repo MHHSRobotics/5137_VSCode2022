@@ -191,8 +191,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
 	public DifferentialDriveWheelSpeeds getWheelSpeeds() {
 		// Selected sensor velocity return meters per 100 ms so multiply by 10/10
-		return new DifferentialDriveWheelSpeeds(-leftBack.getSelectedSensorVelocity() * 10 * Constants.EncoderDistancePerPulse,   
-												 rightBack.getSelectedSensorVelocity() * 10 * Constants.EncoderDistancePerPulse); 
+		return new DifferentialDriveWheelSpeeds(-leftBack.getSelectedSensorVelocity() * Constants.EncoderDistancePerPulse,   
+												 rightBack.getSelectedSensorVelocity() * Constants.EncoderDistancePerPulse); 
 			
 	}
 
