@@ -165,7 +165,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	}
 
 	private Rotation2d getRotation2d() {
-		return Rotation2d.fromDegrees(getHeading());
+		return drive_gyro.getRotation2d();
 	}
 
 	public Pose2d getPose() {
@@ -216,8 +216,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		System.out.println("Tank drive volts: " + leftVolts + " : " + rightVolts 
 							+ " Battery: " + batteryVoltage);
 
-		m_leftDrive.setVoltage(-leftVolts);
-		m_rightDrive.setVoltage(-rightVolts);
+		m_leftDrive.setVoltage(leftVolts);
+		m_rightDrive.setVoltage(rightVolts);
 	}
 
 }

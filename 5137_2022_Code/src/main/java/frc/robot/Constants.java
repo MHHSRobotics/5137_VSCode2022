@@ -105,9 +105,9 @@ public final class Constants {
     // Path Weaver
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
-    public static final double ksVolts = 2;
-    public static final double kvVoltSecondsPerMeter = 1.5;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.33;
+    public static final double ksVolts = 1.8;
+    public static final double kvVoltSecondsPerMeter = 1.3;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.2;
     public static final double kTrackwidthMeters = 0.65;
     public static final DifferentialDriveKinematics kDriveKinematics =
     new DifferentialDriveKinematics(kTrackwidthMeters);
