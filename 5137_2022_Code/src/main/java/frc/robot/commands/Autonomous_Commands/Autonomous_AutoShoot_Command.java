@@ -25,7 +25,7 @@ public class Autonomous_AutoShoot_Command extends CommandBase {
     // Use addRequirements() here to declare subsystem dependencies.
     m_timer = new Timer();
     m_time = time;
-    shootTime = time-3;
+    shootTime = time-2;
     addRequirements(RobotContainer.shooter_Subsystem);
     addRequirements(RobotContainer.horzConveyor_Subsystem);
     addRequirements(RobotContainer.vertConveyor_Subsystem);

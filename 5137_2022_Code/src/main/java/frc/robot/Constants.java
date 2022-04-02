@@ -68,8 +68,8 @@ public final class Constants {
     public static final double conveyorSpeed = 0.4;
 
     //Shooter
-    public static final int shooterId = 3;
-    public static final int backSpinShooterId = 7;
+    public static final int shooterId = 7;
+    public static final int backSpinShooterId = 3;
     
     public static final double InitiationLineShooterPerc = 0.15;
     public static final double BackTrenchShooterPerc = 0.3;
@@ -105,9 +105,9 @@ public final class Constants {
     // Path Weaver
     public static final double kRamseteB = 2;
     public static final double kRamseteZeta = 0.7;
-    public static final double ksVolts = 1.8;
-    public static final double kvVoltSecondsPerMeter = 1.2;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.195;
+    public static final double ksVolts = 2;
+    public static final double kvVoltSecondsPerMeter = 1.5;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.33;
     public static final double kTrackwidthMeters = 0.65;
     public static final DifferentialDriveKinematics kDriveKinematics =
     new DifferentialDriveKinematics(kTrackwidthMeters);

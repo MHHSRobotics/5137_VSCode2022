@@ -35,9 +35,9 @@ public class Shooter_Subsystem extends SubsystemBase {
     backSpinShooterMotor = new SparkMaxWrapper(Constants.backSpinShooterId, MotorType.kBrushless);
 
     driveController = RobotContainer.driverController;
-    shooterMotor.setIdleMode(IdleMode.kBrake);
+    shooterMotor.setIdleMode(IdleMode.kCoast);
     shooterMotor.setSmartCurrentLimit(40);
-    forShooterLimiter = new SlewRateLimiter(0.5);
+    forShooterLimiter = new SlewRateLimiter(0.8);
   }
 
   @Override
@@ -87,7 +87,7 @@ public class Shooter_Subsystem extends SubsystemBase {
     double limitedVelo = forShooterLimiter.calculate(controllerMAGVelo);
     shooterMotor.set(limitedVelo);
 
-    backSpinShooterMotor.set(-controllerMAGVelo / 3);
+    backSpinShooterMotor.set(controllerMAGVelo / 2);
     RelativeEncoder encoder = shooterMotor.getEncoder();
     double veloReading = encoder.getVelocity();
 

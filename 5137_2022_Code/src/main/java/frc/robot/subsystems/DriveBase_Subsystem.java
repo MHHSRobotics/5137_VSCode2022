@@ -63,6 +63,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	//turnRateLimiter = new SlewRateLimiter(3.5);
 	drive_gyro = new ADXRS450_Gyro();
 	drive_gyro.calibrate();
+	drive_gyro.reset();
 	m_odometry = new DifferentialDriveOdometry(getRotation2d());
 	rightBack.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
 	leftBack.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
@@ -182,6 +183,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	}
 
 	public double getHeading() {
+		System.out.println(drive_gyro.getAngle());
 		return drive_gyro.getRotation2d().getDegrees();
 	}
 

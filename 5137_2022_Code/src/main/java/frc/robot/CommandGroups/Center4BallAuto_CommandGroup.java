@@ -39,17 +39,21 @@ public class Center4BallAuto_CommandGroup extends SequentialCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new Autonomous_AutoIntakeDrive_Command(1.5, -0.7, 0.0),
-      new Autonomous_AutoIntakeDrive_Command(1.5, 0.8, 0.0),
-      new Autonomous_AutoShoot_Command(4),
-      runPathWeaver("CenterToHumanPlayer"),
-      new Autonomous_AutoIntake_Command(2),
+      new Autonomous_AutoIntakeDrive_Command(1, 0.7, 0.0),
+      new Autonomous_AutoShoot_Command(5),
+      //new Autonomous_AutoIntakeDrive_Command(4, -0.99, -0.1),
+      runPathWeaver("CenterToPort"),
+      new Autonomous_AutoIntakeDrive_Command(4, 0.9, 0.0),
+      //runPathWeaver("CenterToHumanPlayer"),
+      //new Autonomous_AutoIntake_Command(2),
       //runPathWeaver("CenterDriveBack"),
-      new Autonomous_AutoShoot_Command(4)
+      new Autonomous_AutoShoot_Command(5)
     );
   }
 
   public RamseteCommand runPathWeaver(String file){
     Trajectory trajectory = getTrajectoryFromJSON(file);
+    driveBase_Subsystem.resetOdometry(trajectory.getInitialPose());
     RamseteCommand ramseteCommand =
         new RamseteCommand(
             trajectory,
@@ -66,6 +70,7 @@ public class Center4BallAuto_CommandGroup extends SequentialCommandGroup {
             // RamseteCommand passes volts to the callback
             driveBase_Subsystem::tankDriveVolts,
             driveBase_Subsystem);
+    driveBase_Subsystem.resetOdometry(trajectory.getInitialPose());
     //ramseteCommand.raceWith(new OnIntake_Command(), new RunHorzConveyorForward_Command());
     
     return ramseteCommand;
