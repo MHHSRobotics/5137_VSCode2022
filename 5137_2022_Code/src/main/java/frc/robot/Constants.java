@@ -81,7 +81,7 @@ public final class Constants {
     public static final int rightExtensionPort = 8; // Might be switched
     public static final int leftExtensionPort = 4; // Might be switched
 
-    public static final float extensionForwardLimit = 1000; //Change value to however many rotations is concidered the limit   
+    public static final float extensionForwardLimit = 320; //Change value to however many rotations is concidered the limit   
 
     //Auto-mousse
     public static final String driveBack_Shoot = "drive_Shoot";
