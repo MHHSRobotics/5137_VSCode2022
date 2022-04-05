@@ -89,11 +89,12 @@ public class Robot extends TimedRobot {
     m_led.start();
     */
     
-
+    if (Robot.isReal()) {
     driverCam = edu.wpi.first.cameraserver.CameraServer.startAutomaticCapture(0);
 
     driverCam.setResolution(240, 180);
     driverCam.setFPS(50);
+    }
 
     xboxController = RobotContainer.assistantController;
   }
