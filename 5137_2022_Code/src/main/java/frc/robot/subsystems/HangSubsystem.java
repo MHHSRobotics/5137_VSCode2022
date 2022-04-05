@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -27,13 +28,21 @@ public class HangSubsystem extends SubsystemBase {
   public SparkMaxWrapper leftExtensionMotor;
   public SparkMaxWrapper rightExtensionMotor; 
 
+  public RelativeEncoder leftEncoder;
+  public RelativeEncoder rightEncoder;
+
   private SparkMaxLimitSwitch extforwardLimit;
   private SparkMaxLimitSwitch extreverseLimit;
 
   /** Creates a new HangSubsystem. */
   public HangSubsystem() {
-    leftExtensionMotor = new SparkMaxWrapper(Constants.rightExtensionPort, MotorType.kBrushless);
-    rightExtensionMotor = new SparkMaxWrapper(Constants.leftExtensionPort, MotorType.kBrushless);
+    leftExtensionMotor = new SparkMaxWrapper(Constants.leftExtensionPort, MotorType.kBrushless);
+    rightExtensionMotor = new SparkMaxWrapper(Constants.rightExtensionPort, MotorType.kBrushless);
+    leftExtensionMotor.setInverted(true);
+    leftEncoder = leftExtensionMotor.getEncoder();
+    rightEncoder = rightExtensionMotor.getEncoder();
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
     leftExtensionMotor.setIdleMode(IdleMode.kBrake);
     rightExtensionMotor.setIdleMode(IdleMode.kBrake);
     assController = RobotContainer.assistantController;
@@ -51,6 +60,24 @@ public class HangSubsystem extends SubsystemBase {
     rightExtensionMotor.set(xBoxController.getRawAxis(Constants.LYStickAxisPort)*(-1));
   }
 
+  public void resetHang(){
+    //Emergency Hang Reset
+    while (leftEncoder.getPosition() > 0.1 || rightEncoder.getPosition() > 0.1){ //Runs while hang is not reset
+      if (-leftEncoder.getPosition() > 0.1){ //Checks left motor
+        leftExtensionMotor.set(-0.2);
+      } else {
+        leftExtensionMotor.stopMotor();
+      }
+      if (rightEncoder.getPosition() > 0.1){ //Checks right motor
+        rightExtensionMotor.set(-0.2);
+      } else {
+        rightExtensionMotor.stopMotor();
+      }
+    }
+    leftExtensionMotor.stopMotor();
+    rightExtensionMotor.stopMotor();
+  }
+
   public void stopExtendHang(){
     leftExtensionMotor.stopMotor();
     rightExtensionMotor.stopMotor();
@@ -64,11 +91,15 @@ public class HangSubsystem extends SubsystemBase {
       stopExtendHang();
     }
     */
-    
-    leftExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+
+    leftExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true); 
+    leftExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
     rightExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    
-    leftExtensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.extensionForwardLimit);
+    rightExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, true);
+
+    leftExtensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, 0);
+    leftExtensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.extensionForwardLimit);
+    rightExtensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, 0);
     rightExtensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.extensionForwardLimit);
   }
 }

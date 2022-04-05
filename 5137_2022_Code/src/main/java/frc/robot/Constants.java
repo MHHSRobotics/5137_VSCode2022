@@ -39,6 +39,7 @@ public final class Constants {
     public final static int XButtonPort = 3;
     public final static int YButtonPort = 4;
     public final static int rightTriggerButton = 6;
+    public final static int leftJoystickButtonPort = 9;
 
     //D-Pad
     public static final int uDPadButtonValue = 0;
