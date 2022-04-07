@@ -90,7 +90,7 @@ public class Robot extends TimedRobot {
     */
     
 
-    driverCam = edu.wpi.first.cameraserver.CameraServer.startAutomaticCapture(0);
+    driverCam = edu.wpi.first.cameraserver.CameraServer.startAutomaticCapture();
 
     driverCam.setResolution(240, 180);
     driverCam.setFPS(50);

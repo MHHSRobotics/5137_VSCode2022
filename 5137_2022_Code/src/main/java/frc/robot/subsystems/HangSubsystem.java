@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.SparkMaxLimitSwitch;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -30,10 +31,19 @@ public class HangSubsystem extends SubsystemBase {
   private SparkMaxLimitSwitch extforwardLimit;
   private SparkMaxLimitSwitch extreverseLimit;
 
+  public RelativeEncoder leftEncoder;
+  public RelativeEncoder rightEncoder;
+
+
   /** Creates a new HangSubsystem. */
   public HangSubsystem() {
     leftExtensionMotor = new SparkMaxWrapper(Constants.rightExtensionPort, MotorType.kBrushless);
     rightExtensionMotor = new SparkMaxWrapper(Constants.leftExtensionPort, MotorType.kBrushless);
+    leftExtensionMotor.setInverted(true);
+    leftEncoder = leftExtensionMotor.getEncoder();
+    rightEncoder = rightExtensionMotor.getEncoder();
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
     leftExtensionMotor.setIdleMode(IdleMode.kBrake);
     rightExtensionMotor.setIdleMode(IdleMode.kBrake);
     assController = RobotContainer.assistantController;
@@ -47,8 +57,9 @@ public class HangSubsystem extends SubsystemBase {
   }
 
   public void extendHang(Joystick xBoxController){
-    leftExtensionMotor.set(xBoxController.getRawAxis(Constants.LYStickAxisPort)*(-1));
-    rightExtensionMotor.set(xBoxController.getRawAxis(Constants.LYStickAxisPort)*(-1));
+    double hangSpeed = xBoxController.getRawAxis(Constants.LYStickAxisPort) * 0.4;
+    leftExtensionMotor.set(hangSpeed);
+    rightExtensionMotor.set(hangSpeed - hangSpeed * 0.06);
   }
 
   public void stopExtendHang(){
@@ -64,11 +75,34 @@ public class HangSubsystem extends SubsystemBase {
       stopExtendHang();
     }
     */
+    if (assController.getRawButton(6) == false){
+    //System.out.println("Left hang pos: " + -leftEncoder.getPosition());
+    //System.out.println("Right hang pos: " + -rightEncoder.getPosition());
+    if (-leftEncoder.getPosition() < 0){
+      //leftExtensionMotor.stopMotor();
+      System.out.println("Left Stopping");
+    }
+    if (-leftEncoder.getPosition() > 87){
+      //leftExtensionMotor.stopMotor();
+      System.out.println("Left Stopping");
+    }
+    if (-rightEncoder.getPosition() < 0){
+      //rightExtensionMotor.stopMotor();
+      System.out.println("Right Stopping");
+    }
+    if (-rightEncoder.getPosition() > 87){
+      //rightExtensionMotor.stopMotor();
+      System.out.println("Right Stopping");
+    }
+  }
     
-    leftExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
-    rightExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    leftExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, false);
+    rightExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, false);
+    //leftExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
+    //rightExtensionMotor.enableSoftLimit(CANSparkMax.SoftLimitDirection.kForward, true);
     
-    leftExtensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.extensionForwardLimit);
-    rightExtensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, Constants.extensionForwardLimit);
+    //leftExtensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.extensionReverseLimit);
+    //rightExtensionMotor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, Constants.extensionReverseLimit);
+    
   }
 }

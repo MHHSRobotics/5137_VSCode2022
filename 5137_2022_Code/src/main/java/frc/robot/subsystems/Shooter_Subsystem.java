@@ -68,30 +68,36 @@ public class Shooter_Subsystem extends SubsystemBase {
   public boolean setVelo(double angle, boolean manual, boolean autonomous) { //return when velocity is running optimally 
     
     double controllerMAGVelo;
-    
+    double backWheelSpeed;
     if (driveController.getPOV() == Constants.uDPadButtonValue) {
         controllerMAGVelo = Constants.InitiationLineShooterPerc;
+        backWheelSpeed = controllerMAGVelo/2;
     }
     else if (driveController.getPOV() == Constants.rDPadButtonValue) {
         controllerMAGVelo = Constants.FrontTrenchShooterPerc;
+        backWheelSpeed = 0.3;
     }
     else if (driveController.getPOV() == Constants.dDPadButtonValue) {
         controllerMAGVelo = Constants.BackTrenchShooterPerc;
+        backWheelSpeed = controllerMAGVelo/2;
     }
     else if (driveController.getRawAxis(Constants.RTAxisPort) > 0.1) { // Should be right trigger on driver controller
         controllerMAGVelo = Constants.maxPercShooter * driveController.getRawAxis(Constants.RTAxisPort);
+        backWheelSpeed = controllerMAGVelo/2.5;
     }
     else if (autonomous) {
         controllerMAGVelo = Constants.autonomousShooterPerc;
+        backWheelSpeed = controllerMAGVelo/2;
     }
     else {
         controllerMAGVelo = 0;
+        backWheelSpeed = controllerMAGVelo/2;
     }
     //Return true if within a degree of error, or else don't
     double limitedVelo = forShooterLimiter.calculate(controllerMAGVelo);
     shooterMotor.set(limitedVelo);
 
-    backSpinShooterMotor.set(controllerMAGVelo / 2);
+    backSpinShooterMotor.set(backWheelSpeed);
     RelativeEncoder encoder = shooterMotor.getEncoder();
     double veloReading = encoder.getVelocity();
 

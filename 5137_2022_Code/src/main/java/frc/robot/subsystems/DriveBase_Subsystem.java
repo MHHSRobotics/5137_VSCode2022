@@ -48,8 +48,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	instantiateMotors();
 	createDifferentialDrive(m_leftDrive, m_rightDrive);
 	driveController = RobotContainer.driverController;
-	CashwinsDifferentialDrive.setMaxOutput(0.4);
-	forewardRateLimiter = new SlewRateLimiter(5);
+	//CashwinsDifferentialDrive.setMaxOutput(0.5);
+	//forewardRateLimiter = new SlewRateLimiter(5);
 	//turnRateLimiter = new SlewRateLimiter(3.5);
   }
 
@@ -69,10 +69,10 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		createMotorControllerGroup(leftBack, leftFront, rightBack, rightFront);
 
 		StatorCurrentLimitConfiguration config = new StatorCurrentLimitConfiguration();
-		leftBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
-		leftFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
-		rightBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
-		rightFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
+		//leftBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
+		//leftFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
+		//rightBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
+		//rightFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
 
 		//leftBack.configPeakCurrentLimit(30);    T-T - Sahana and Ki
 	}
@@ -114,14 +114,14 @@ public class DriveBase_Subsystem extends SubsystemBase {
     double turnValue = driverController.getRawAxis(Constants.RXStickAxisPort);
 	boolean shootForward = driverController.getRawButton(Constants.rightTriggerButton);
 
-	double rateLimitedDriveValue = forewardRateLimiter.calculate(driveValue);
+	//double rateLimitedDriveValue = forewardRateLimiter.calculate(driveValue);
 	//double rateLimitedTurnValue = turnRateLimiter.calculate(turnValue);
 	if (RobotState.isTeleop()){
 		if (shootForward){
-			CashwinsDifferentialDrive.curvatureDrive(-rateLimitedDriveValue, turnValue, Constants.isQuickTurn);
+			CashwinsDifferentialDrive.curvatureDrive(-driveValue, turnValue, Constants.isQuickTurn);
 		}
 		else{
-			CashwinsDifferentialDrive.curvatureDrive(rateLimitedDriveValue, turnValue, Constants.isQuickTurn);
+			CashwinsDifferentialDrive.curvatureDrive(driveValue, turnValue, Constants.isQuickTurn);
 		}
 	}
 	//System.out.println("Left side going at: " + m_leftDrive.get());

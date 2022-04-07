@@ -70,7 +70,7 @@ public final class Constants {
     
     public static final double InitiationLineShooterPerc = 0.15;
     public static final double BackTrenchShooterPerc = 0.3;
-    public static final double FrontTrenchShooterPerc = 0.25;
+    public static final double FrontTrenchShooterPerc = 0.1;
     public static final double maxPercShooter = 0.25;
     public static final double autonomousShooterPerc = 0.25;
 
@@ -82,6 +82,7 @@ public final class Constants {
     public static final int leftExtensionPort = 4; // Might be switched
 
     public static final float extensionForwardLimit = 320; //Change value to however many rotations is concidered the limit   
+    public static final float extensionReverseLimit = 0;
 
     //Auto-mousse
     public static final String driveBack_Shoot = "drive_Shoot";
@@ -94,7 +95,7 @@ public final class Constants {
     public static final int freeLimitFalcon = (int) 0.4*6380;
     public static final int currentLimitConveyor = 25;
     public static final int currentLimitShooter = 40;
-    public static final int currentLimitDriveBase = 25;
+    public static final int currentLimitDriveBase = 40;
 
 
     //Color Sensor
