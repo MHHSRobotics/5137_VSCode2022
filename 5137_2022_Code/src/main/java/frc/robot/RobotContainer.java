@@ -39,6 +39,7 @@ import frc.robot.commands.Shooter_Commands.backupManShoot_Command;
 import frc.robot.commands.Shooter_Commands.stopShoot_Command;
 import frc.robot.commands.Hang_Commands.extendHang_Command;
 import frc.robot.commands.Hang_Commands.stopExtendHang_Command;
+import frc.robot.commands.Hang_Commands.resetHang;
 
 //CommandGroups
 import frc.robot.CommandGroups.Shoot_Drive_CommandGroup;
@@ -81,6 +82,7 @@ public class RobotContainer {
   public static JoystickButton BButton;
   public static JoystickButton XButton;
   public static JoystickButton YButton;
+  public static JoystickButton leftJoystickButton;
 
   //D-Pad
   public static POVButton uDPadButton;
@@ -225,8 +227,8 @@ public class RobotContainer {
     LYAxis = new Trigger(booleanSupplyAssistantLY);
     LYAxis.whileActiveContinuous(new extendHang_Command());
     LYAxis.whenInactive(new stopExtendHang_Command());
-
-    //AssistController Buttons
+  
+    //AssistController Button
     XButton = new JoystickButton(assistantController, Constants.XButtonPort);
     XButton.whileHeld(new RunHorzConveyorForward_Command());
     XButton.whenReleased(new StopHorzConveyor_Command());
@@ -243,7 +245,8 @@ public class RobotContainer {
     YButton.whileHeld(new RunVertConveyorForward_Command());
     YButton.whenReleased(new StopVertConveyor_Command());
 
-    
+    leftJoystickButton = new JoystickButton(assistantController, Constants.leftJoystickButtonPort);
+    leftJoystickButton.whileHeld(new resetHang());
   }
 
   /**

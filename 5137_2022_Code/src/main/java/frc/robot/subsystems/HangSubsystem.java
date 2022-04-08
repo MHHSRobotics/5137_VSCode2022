@@ -28,11 +28,12 @@ public class HangSubsystem extends SubsystemBase {
   public SparkMaxWrapper leftExtensionMotor;
   public SparkMaxWrapper rightExtensionMotor; 
 
+  public RelativeEncoder leftEncoder;
+  public RelativeEncoder rightEncoder;
+
   private SparkMaxLimitSwitch extforwardLimit;
   private SparkMaxLimitSwitch extreverseLimit;
 
-  public RelativeEncoder leftEncoder;
-  public RelativeEncoder rightEncoder;
 
 
   /** Creates a new HangSubsystem. */
@@ -57,10 +58,11 @@ public class HangSubsystem extends SubsystemBase {
   }
 
   public void extendHang(Joystick xBoxController){
-    double hangSpeed = xBoxController.getRawAxis(Constants.LYStickAxisPort) * 0.4;
+    double hangSpeed = xBoxController.getRawAxis(Constants.LYStickAxisPort) * 0.55;
     leftExtensionMotor.set(hangSpeed);
     rightExtensionMotor.set(hangSpeed - hangSpeed * 0.06);
   }
+
 
   public void stopExtendHang(){
     leftExtensionMotor.stopMotor();

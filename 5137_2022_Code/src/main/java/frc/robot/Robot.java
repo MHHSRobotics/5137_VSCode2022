@@ -94,9 +94,9 @@ public class Robot extends TimedRobot {
 
     driverCam.setResolution(240, 180);
     driverCam.setFPS(50);
+    }
 
-    xboxController = RobotContainer.assistantController;
-  }
+    //xboxController = RobotContainer.assistantController;
 
   private void partyMode() {
     // For every pixel
