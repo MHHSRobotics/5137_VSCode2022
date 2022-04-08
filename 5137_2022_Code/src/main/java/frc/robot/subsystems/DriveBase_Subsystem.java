@@ -40,8 +40,8 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	double actualDriveSpeed;
 	double previousDriveSpeed;
 
-	SlewRateLimiter forewardRateLimiter;
-	SlewRateLimiter turnRateLimiter;
+	//SlewRateLimiter forewardRateLimiter;
+	//SlewRateLimiter turnRateLimiter;
 
   /** Creates a new DriveBaseSubsystem. */
   public DriveBase_Subsystem() {
@@ -69,10 +69,10 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		createMotorControllerGroup(leftBack, leftFront, rightBack, rightFront);
 
 		StatorCurrentLimitConfiguration config = new StatorCurrentLimitConfiguration();
-		//leftBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
-		//leftFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
-		//rightBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
-		//rightFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.currentLimitDriveBase, 0));
+		//leftBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.thresholdLimitDriveBase, 1));
+		//leftFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.thresholdLimitDriveBase, 1));
+		//rightBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.thresholdLimitDriveBase, 1));
+		//rightFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.thresholdLimitDriveBase, 1));
 
 		//leftBack.configPeakCurrentLimit(30);    T-T - Sahana and Ki
 	}

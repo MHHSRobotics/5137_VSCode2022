@@ -96,8 +96,8 @@ public final class Constants {
     public static final int freeLimitFalcon = (int) 0.4*6380;
     public static final int currentLimitConveyor = 25;
     public static final int currentLimitShooter = 40;
-    public static final int currentLimitDriveBase = 40;
-
+    public static final int currentLimitDriveBase = 35;
+    public static final double thresholdLimitDriveBase = 40;
 
     //Color Sensor
     public static final I2C.Port i2cPort = I2C.Port.kOnboard;

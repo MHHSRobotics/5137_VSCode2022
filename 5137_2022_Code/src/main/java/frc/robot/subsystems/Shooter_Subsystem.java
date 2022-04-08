@@ -41,7 +41,7 @@ public class Shooter_Subsystem extends SubsystemBase {
     //shooterMotor.setSmartCurrentLimit(Constants.stallLimit, Constants.freeLimitNeo);
     //backSpinShooterMotor.setSmartCurrentLimit(Constants.stallLimit, Constants.freeLimitNeo);
 
-    forShooterLimiter = new SlewRateLimiter(0.5); //probably change this 
+    forShooterLimiter = new SlewRateLimiter(0.7); //probably change this 
   }
 
   @Override
