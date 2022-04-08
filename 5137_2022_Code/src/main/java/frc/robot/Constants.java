@@ -58,7 +58,7 @@ public final class Constants {
 
     //Intake
     public static final int intakePort = 16;
-    public static final double intakeSpeed = 0.4;
+    public static final double intakeSpeed = 0.3;
 
     //Conveyor
     public static final int vertConveyorPort = 13;
@@ -73,7 +73,7 @@ public final class Constants {
     public static final double BackTrenchShooterPerc = 0.3;
     public static final double FrontTrenchShooterPerc = 0.1;
     public static final double maxPercShooter = 0.25;
-    public static final double autonomousShooterPerc = 0.25;
+    public static final double autonomousShooterPerc = 0.22;
 
     public static final double veloError = 400;
     public static final double shooterAngle = 0;

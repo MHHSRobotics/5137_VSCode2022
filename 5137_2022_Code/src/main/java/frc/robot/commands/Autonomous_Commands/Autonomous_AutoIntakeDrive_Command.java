@@ -31,6 +31,7 @@ public class Autonomous_AutoIntakeDrive_Command extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    RobotContainer.driveBase_Subsystem.setMaxSpeed(0.4);
     m_timer.reset();
     m_timer.start();
   }
@@ -46,6 +47,7 @@ public class Autonomous_AutoIntakeDrive_Command extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    RobotContainer.driveBase_Subsystem.setMaxSpeed(0.45);
     RobotContainer.horzConveyor_Subsystem.turnHorzConveyorOff();
     RobotContainer.intake_Subsystem.endIntake();
   }

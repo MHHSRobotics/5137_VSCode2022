@@ -40,17 +40,17 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	double actualDriveSpeed;
 	double previousDriveSpeed;
 
-	//SlewRateLimiter forewardRateLimiter;
-	//SlewRateLimiter turnRateLimiter;
+	SlewRateLimiter forewardRateLimiter;
+	SlewRateLimiter turnRateLimiter;
 
   /** Creates a new DriveBaseSubsystem. */
   public DriveBase_Subsystem() {
 	instantiateMotors();
 	createDifferentialDrive(m_leftDrive, m_rightDrive);
 	driveController = RobotContainer.driverController;
-	CashwinsDifferentialDrive.setMaxOutput(0.4);
-	//forewardRateLimiter = new SlewRateLimiter(5);
-	//turnRateLimiter = new SlewRateLimiter(3.5);
+	CashwinsDifferentialDrive.setMaxOutput(0.45);
+	forewardRateLimiter = new SlewRateLimiter(3);
+	turnRateLimiter = new SlewRateLimiter(3.5);
   }
 
   @Override
@@ -66,9 +66,14 @@ public class DriveBase_Subsystem extends SubsystemBase {
 		rightBack = new WPI_TalonFX(Constants.rightBackCAN);
 		rightFront = new WPI_TalonFX(Constants.rightFrontCAN);
 
+		leftBack.configFactoryDefault();
+		leftFront.configFactoryDefault();
+		rightBack.configFactoryDefault();
+		rightFront.configFactoryDefault();
+
 		createMotorControllerGroup(leftBack, leftFront, rightBack, rightFront);
 
-		StatorCurrentLimitConfiguration config = new StatorCurrentLimitConfiguration();
+		//StatorCurrentLimitConfiguration config = new StatorCurrentLimitConfiguration();
 		//leftBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.thresholdLimitDriveBase, 1));
 		//leftFront.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.thresholdLimitDriveBase, 1));
 		//rightBack.configStatorCurrentLimit(new StatorCurrentLimitConfiguration(true, Constants.currentLimitDriveBase, Constants.thresholdLimitDriveBase, 1));
@@ -114,14 +119,14 @@ public class DriveBase_Subsystem extends SubsystemBase {
     double turnValue = driverController.getRawAxis(Constants.RXStickAxisPort);
 	boolean shootForward = driverController.getRawButton(Constants.rightTriggerButton);
 
-	//double rateLimitedDriveValue = forewardRateLimiter.calculate(driveValue);
-	//double rateLimitedTurnValue = turnRateLimiter.calculate(turnValue);
+	double rateLimitedDriveValue = forewardRateLimiter.calculate(driveValue);
+	double rateLimitedTurnValue = turnRateLimiter.calculate(turnValue);
 	if (RobotState.isTeleop()){
 		if (shootForward){
-			CashwinsDifferentialDrive.curvatureDrive(-driveValue, turnValue, Constants.isQuickTurn);
+			CashwinsDifferentialDrive.curvatureDrive(-rateLimitedDriveValue, rateLimitedTurnValue, Constants.isQuickTurn);
 		}
 		else{
-			CashwinsDifferentialDrive.curvatureDrive(driveValue, turnValue, Constants.isQuickTurn);
+			CashwinsDifferentialDrive.curvatureDrive(rateLimitedDriveValue, rateLimitedTurnValue, Constants.isQuickTurn);
 		}
 	}
 	//System.out.println("Left side going at: " + m_leftDrive.get());
@@ -144,6 +149,10 @@ public class DriveBase_Subsystem extends SubsystemBase {
 
 	public void lockWheels() {
 		CashwinsDifferentialDrive.stopMotor();
+	}
+
+	public void setMaxSpeed(double speed){
+		CashwinsDifferentialDrive.setMaxOutput(speed);
 	}
 
 }
