@@ -48,7 +48,7 @@ public class DriveBase_Subsystem extends SubsystemBase {
 	instantiateMotors();
 	createDifferentialDrive(m_leftDrive, m_rightDrive);
 	driveController = RobotContainer.driverController;
-	//CashwinsDifferentialDrive.setMaxOutput(0.5);
+	CashwinsDifferentialDrive.setMaxOutput(0.4);
 	//forewardRateLimiter = new SlewRateLimiter(5);
 	//turnRateLimiter = new SlewRateLimiter(3.5);
   }

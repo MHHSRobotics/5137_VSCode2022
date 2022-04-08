@@ -39,7 +39,6 @@ import frc.robot.commands.Shooter_Commands.backupManShoot_Command;
 import frc.robot.commands.Shooter_Commands.stopShoot_Command;
 import frc.robot.commands.Hang_Commands.extendHang_Command;
 import frc.robot.commands.Hang_Commands.stopExtendHang_Command;
-import frc.robot.commands.Hang_Commands.resetHang;
 
 //CommandGroups
 import frc.robot.CommandGroups.Shoot_Drive_CommandGroup;
@@ -244,9 +243,6 @@ public class RobotContainer {
     YButton = new JoystickButton(assistantController, Constants.YButtonPort);
     YButton.whileHeld(new RunVertConveyorForward_Command());
     YButton.whenReleased(new StopVertConveyor_Command());
-
-    leftJoystickButton = new JoystickButton(assistantController, Constants.leftJoystickButtonPort);
-    leftJoystickButton.whileHeld(new resetHang());
   }
 
   /**
